@@ -4,7 +4,7 @@ MakeYourDish propose des recettes de plats et de cocktails en fonction des ingr√
 
 ## Getting Started
 
-A COMPLETER
+A COMPLETER (test)
 
 ## Building / Testing
 
@@ -13,7 +13,8 @@ A COMPLETER
 ```
 
 ## Authors:
-* GIL AMARO Dylan
-* MARQUET Pierre
-* BIDAULT Romain
-* RIGAL Geoffrey
+
+- GIL AMARO Dylan
+- MARQUET Pierre
+- BIDAULT Romain
+- RIGAL Geoffrey
