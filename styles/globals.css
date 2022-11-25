@@ -1,3 +1,69 @@
+/*
+>= 1024px computer
+>= 768px tablet
+>= 640px Mobile
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --food-primary-color: #f68a8a;
+  --food-secondary-color: #ffdbdb;
+  --drink-primary-color: #fffcb5;
+  --drink-secondary-color: #d6f9f7;
+}
+
+/*********** Backgrounds ***********/
+.bg-food-primary {
+  background-color: var(--food-primary-color);
+}
+
+.bg-food-secondary {
+  background-color: var(--food-secondary-color);
+}
+
+.bg-drink-primary {
+  background-color: var(--drink-primary-color);
+}
+
+.bg-drink-secondary {
+  background-color: var(--drink-secondary-color);
+}
+
+/*********** Others ***********/
+h1,
+.primary-font {
+  font-family: "Major Mono Display", monospace;
+  -webkit-text-stroke: 2px;
+}
+
+.secondary-font {
+  font-family: "Inter", sans-serif;
+}
+
+.tertiary-font {
+  font-family: "Inria Sans", sans-serif;
+}
+
+.bg-color-full {
+  background: center / cover no-repeat url("/images/background/Separation.png"),
+    linear-gradient(
+      180deg,
+      var(--food-secondary-color) 0%,
+      var(--food-secondary-color) 50%,
+      var(--drink-secondary-color) 50%,
+      var(--drink-secondary-color) 100%
+    );
+}
+
+.bg-color-full-no-image {
+  background: linear-gradient(
+    180deg,
+    var(--food-secondary-color) 0%,
+    var(--food-secondary-color) 50%,
+    var(--drink-secondary-color) 50%,
+    var(--drink-secondary-color) 100%
+  );
+}
