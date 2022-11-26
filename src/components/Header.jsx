@@ -112,7 +112,7 @@ const Header = ({ pagetheme }) => {
           }}
           className={`${
             pagetheme === "food" ? "text-white" : "text-black"
-          } md:hidden text-4xl`}
+          } md:hidden cursor-pointer text-4xl`}
         />
       </div>
 
