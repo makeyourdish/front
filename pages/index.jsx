@@ -127,7 +127,7 @@ const HomePage = () => {
           <PoeleImg />
           <div className="flex flex-col md:flex-row z-30">
             <Link href="/recipes/make">
-              <a className={`${buttonStyle} mb-4  md:mb-0 md:mr-4`}>
+              <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
                 Génère ton plat
               </a>
             </Link>

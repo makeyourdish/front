@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { useContext, useState, useEffect } from "react"
 import AppContext from "../components/AppContext"
 import useWindowDimensions from "../components/services/useWindowDimantions"
@@ -48,18 +49,14 @@ const HeaderNavContent = (props) => {
 
 const HeaderNavMobile = ({ pagetheme, account, signOut }) => {
   return (
-    <nav
-      className={`${
-        pagetheme === "food" ? "bg-food-primary" : "bg-drink-primary"
-      } `}
-    >
+    <div>
       <HeaderNavContent
         pagetheme={pagetheme}
         signOut={signOut}
         account={account}
         otherclass="flex flex-col items-center justify-center"
       />
-    </nav>
+    </div>
   )
 }
 
@@ -67,6 +64,9 @@ const Header = ({ pagetheme }) => {
   const { session, signOut } = useContext(AppContext)
   const { width } = useWindowDimensions() // get window size
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
+  const logoUrl =
+    (pagetheme === "food" && "/logoFood.png") ||
+    (pagetheme === "drink" && "/logoDrink.png")
   const buttonStyle =
     "bg-white md:px-4 md:py-2 secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
 
@@ -87,7 +87,7 @@ const Header = ({ pagetheme }) => {
     <header
       className={`${pagetheme === "food" && "bg-food-primary"} ${
         pagetheme === "drink" && "bg-drink-primary"
-      } py-2 px-8 md:px-5 md:py-4 w-full rounded-b-3xl drop-shadow-md mb-2`}
+      } py-2 pl-3 pr-8 md:px-5 md:py-4 w-full rounded-b-3xl drop-shadow-md mb-2`}
     >
       <div className="flex items-center justify-between">
         <div
@@ -95,14 +95,18 @@ const Header = ({ pagetheme }) => {
             pagetheme === "food" ? "text-white" : "text-black"
           } flex items-center justify-center`}
         >
-          <p className="md:mr-5">LOGO</p>
-          <h1 className="hidden md:block text-3xl">Make Your Dish</h1>
+          <Link href="/">
+            <a className="flex items-center justify-center transition transform hover:scale-110 hover:opacity-50">
+              <Image src={logoUrl} alt="logo" width={50} height={50} />
+              <h1 className="hidden md:block text-3xl ml-4">Make Your Dish</h1>
+            </a>
+          </Link>
         </div>
         <HeaderNavContent
           pagetheme={pagetheme}
           signOut={signOut}
           account={account}
-          otherclass="hidden md:w-max md:flex  md:items-center md:justify-center"
+          otherclass="hidden md:w-max md:flex md:items-center md:justify-center"
         />
         <FiMenu
           onClick={() => {
