@@ -7,10 +7,7 @@ const Layout = (props) => {
 
   // Template for all pages
   return (
-    <div
-      {...otherProps}
-      className="bg-color-full-no-image min-h-screen min-w-screen h-screen flex flex-col relative"
-    >
+    <div {...otherProps}>
       <Head>
         <title>{props.page} - Make Your Dish</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -31,12 +28,19 @@ const Layout = (props) => {
         />
       </Head>
 
-      <Header headercolor={props.headercolor} />
+      <div
+        className={`${props.pagetheme === "food" && "bg-food-secondary"} 
+          ${
+            props.pagetheme === "drink" && "bg-drink-secondary"
+          } min-h-screen min-w-screen h-screen flex flex-col relative`}
+      >
+        <Header pagetheme={props.pagetheme} />
 
-      {/* If props.screensize={+true} on a page (like homepage) the height of the page will make the size of the window */}
-      <main className={`w-full ${props.screensize && "h-full"}`}>
-        {children}
-      </main>
+        {/* If props.screensize={+true} on a page (like homepage) the height of the page will make the size of the window */}
+        <main className={`w-full ${props.screensize && "h-full"}`}>
+          {children}
+        </main>
+      </div>
     </div>
   )
 }

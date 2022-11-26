@@ -32,7 +32,6 @@
   background-color: var(--drink-secondary-color);
 }
 
-/*********** Others ***********/
 h1,
 .primary-font {
   font-family: "Major Mono Display", monospace;
@@ -47,23 +46,4 @@ h1,
   font-family: "Inria Sans", sans-serif;
 }
 
-.bg-color-full {
-  background: center / cover no-repeat url("/images/background/Separation.png"),
-    linear-gradient(
-      180deg,
-      var(--food-secondary-color) 0%,
-      var(--food-secondary-color) 50%,
-      var(--drink-secondary-color) 50%,
-      var(--drink-secondary-color) 100%
-    );
-}
-
-.bg-color-full-no-image {
-  background: linear-gradient(
-    180deg,
-    var(--food-secondary-color) 0%,
-    var(--food-secondary-color) 50%,
-    var(--drink-secondary-color) 50%,
-    var(--drink-secondary-color) 100%
-  );
-}
+/*********** Others ***********/
