@@ -9,7 +9,7 @@ const Layout = (props) => {
   return (
     <div
       {...otherProps}
-      className="bg-color-full-no-image min-h-screen min-w-screen h-screen flex flex-col"
+      className="bg-color-full-no-image min-h-screen min-w-screen h-screen flex flex-col relative"
     >
       <Head>
         <title>{props.page} - Make Your Dish</title>
@@ -32,7 +32,11 @@ const Layout = (props) => {
       </Head>
 
       <Header headercolor={props.headercolor} />
-      <main className="w-full h-full">{children}</main>
+
+      {/* If props.screensize={+true} on a page (like homepage) the height of the page will make the size of the window */}
+      <main className={`w-full ${props.screensize && "h-full"}`}>
+        {children}
+      </main>
     </div>
   )
 }
