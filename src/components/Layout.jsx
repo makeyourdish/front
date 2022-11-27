@@ -32,12 +32,12 @@ const Layout = (props) => {
         className={`${props.pagetheme === "food" && "bg-food-secondary"} 
           ${
             props.pagetheme === "drink" && "bg-drink-secondary"
-          } min-h-screen min-w-screen h-screen flex flex-col relative`}
+          } min-h-screen min-w-screen flex flex-col`}
       >
         <Header pagetheme={props.pagetheme} />
 
         {/* If props.screensize={+true} on a page (like homepage) the height of the page will make the size of the window */}
-        <main className={`w-full ${props.screensize && "h-full"}`}>
+        <main className={`flex-1 ${props.screensize && "flex flex-col"}`}>
           {children}
         </main>
       </div>

@@ -87,7 +87,7 @@ const Header = ({ pagetheme }) => {
     <header
       className={`${pagetheme === "food" && "bg-food-primary"} ${
         pagetheme === "drink" && "bg-drink-primary"
-      } py-2 pl-3 pr-8 md:px-5 md:py-4 w-full rounded-b-3xl drop-shadow-md mb-2`}
+      } py-2 px-3 md:px-5 md:py-4 w-full rounded-b-3xl drop-shadow-md mb-2`}
     >
       <div className="flex items-center justify-between">
         <div
@@ -116,7 +116,7 @@ const Header = ({ pagetheme }) => {
           }}
           className={`${
             pagetheme === "food" ? "text-white" : "text-black"
-          } md:hidden cursor-pointer text-4xl`}
+          } md:hidden cursor-pointer text-4xl mr-2`}
         />
       </div>
 

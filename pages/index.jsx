@@ -122,46 +122,44 @@ const HomePage = () => {
 
   return (
     <Layout page="Accueil" pagetheme="food" screensize={+true}>
-      <div className="flex flex-col h-full">
-        <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
-          <PoeleImg />
-          <div className="flex flex-col md:flex-row z-30">
-            <Link href="/recipes/make">
-              <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
-                Génère ton plat
-              </a>
-            </Link>
-            <Link href="/recipes">
-              <a className={buttonStyle}>Notre cuisine</a>
-            </Link>
-          </div>
-          <div className="relative z-20">
-            <SpatuleImg />
-            <BourguignonImg />
-          </div>
+      <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
+        <PoeleImg />
+        <div className="flex flex-col md:flex-row z-30">
+          <Link href="/recipes/make">
+            <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
+              Génère ton plat
+            </a>
+          </Link>
+          <Link href="/recipes">
+            <a className={buttonStyle}>Notre cuisine</a>
+          </Link>
+        </div>
+        <div className="relative z-20">
+          <SpatuleImg />
+          <BourguignonImg />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center">
+        <Image src={bgImageTwoColors} alt="" />
+      </div>
+
+      <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-drink-secondary overflow-hidden relative py-2">
+        <CocktailImg />
+        <div className="flex flex-col md:flex-row z-30">
+          <Link href="/drinks/make">
+            <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
+              Génère ton cocktail
+            </a>
+          </Link>
+          <Link href="/drinks">
+            <a className={buttonStyle}>Nos cocktails</a>
+          </Link>
         </div>
 
-        <div className="flex items-center justify-center">
-          <Image src={bgImageTwoColors} alt="" />
-        </div>
-
-        <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-drink-secondary overflow-hidden relative py-2">
-          <CocktailImg />
-          <div className="flex flex-col md:flex-row z-30">
-            <Link href="/drinks/make">
-              <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
-                Génère ton cocktail
-              </a>
-            </Link>
-            <Link href="/drinks">
-              <a className={buttonStyle}>Nos cocktails</a>
-            </Link>
-          </div>
-
-          <FeuilleGImg />
-          <EllipseImg />
-          <FeuilleDImg />
-        </div>
+        <FeuilleGImg />
+        <EllipseImg />
+        <FeuilleDImg />
       </div>
     </Layout>
   )
