@@ -28,7 +28,7 @@ const HeaderNavContent = (props) => {
               className={`${buttonStyle} text-xs sm:text-xl px-3 mr-3 md:mr-0`}
             >
               <FaUserAlt className="mr-2" />
-              <p>{"props.account.userName"}</p>
+              <p>Se connecter</p>
             </a>
           </Link>
           <button onClick={props.signOut} className={`${buttonStyle} px-3`}>

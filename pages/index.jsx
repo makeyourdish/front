@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/Link"
 import Layout from "../src/components/Layout"
 import bgImageTwoColors from "/public/images/background/Separation.png"
 
