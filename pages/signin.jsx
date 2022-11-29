@@ -6,7 +6,8 @@ import AppContext from "../src/components/AppContext"
 import Layout from "../src/components/Layout"
 
 const Signin = () => {
-  const { signIn, signInError } = useContext(AppContext)
+  //const { signIn, signInError } = useContext(AppContext)
+  const { signIn } = useContext(AppContext)
 
   const handleFormSubmit = useCallback(
     async ({ email, password }) => {
