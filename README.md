@@ -1,15 +1,15 @@
 # Front MakeYourDish
 
-MakeYourDish propose des recettes de plats et de cocktails en fonction des ingrédients stipulé
+MakeYourDish offers recipes for dishes and cocktails based on the stipulated ingredients
 
 ## Getting Started
 
-A COMPLETER (test)
+Run ```npm i``` command after cloning this repository then run ```npm run dev``` for starting the development server
 
 ## Building / Testing
 
 ```
-A COMPLETER
+TODO
 ```
 
 ## Authors:
