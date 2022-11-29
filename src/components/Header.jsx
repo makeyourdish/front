@@ -23,12 +23,12 @@ const HeaderNavContent = (props) => {
 
       {props.account ? (
         <div className="flex items-center justify-center flex-wrap">
-          <Link href={`/accounts/${"props.account.id"}`}>
+          <Link href={`/accounts/${props.account.id}`}>
             <a
               className={`${buttonStyle} text-xs sm:text-xl px-3 mr-3 md:mr-0`}
             >
               <FaUserAlt className="mr-2" />
-              <p>{"props.account.userName"}</p>
+              <p>{props.account.userName}</p>
             </a>
           </Link>
           <button onClick={props.signOut} className={`${buttonStyle} px-3`}>
