@@ -9,7 +9,7 @@ import { RiLogoutBoxFill } from "react-icons/ri"
 
 const HeaderNavContent = (props) => {
   const buttonStyle =
-    "flex items-center mb-1 md:mb-0 md:ml-3 justify-center bg-white py-2 secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
+    "flex items-center mb-1 md:mb-0 md:ml-3 justify-center bg-white py-2 secondary-font rounded-2xl drop-shadow-md transition-all hover:scale-105 hover:bg-white/75"
 
   return (
     <nav className={`${props.otherclass} w-full`}>
@@ -68,7 +68,7 @@ const Header = ({ pagetheme }) => {
     (pagetheme === "food" && "/logoFood.png") ||
     (pagetheme === "drink" && "/logoDrink.png")
   const buttonStyle =
-    "bg-white md:px-4 md:py-2 secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
+    "bg-white md:px-4 md:py-2 secondary-font rounded-2xl drop-shadow-md transition-all hover:scale-105 hover:bg-white/75"
 
   let account = null
 
@@ -96,7 +96,7 @@ const Header = ({ pagetheme }) => {
           } flex items-center justify-center`}
         >
           <Link href="/">
-            <a className="flex items-center justify-center transition transform hover:scale-110 hover:opacity-50">
+            <a className="flex items-center justify-center transition-all hover:scale-105 hover:opacity-50">
               <Image src={logoUrl} alt="logo" width={50} height={50} />
               <h1 className="hidden md:block text-3xl ml-4">Make Your Dish</h1>
             </a>
