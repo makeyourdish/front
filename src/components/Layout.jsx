@@ -34,9 +34,10 @@ const Layout = (props) => {
             props.pagetheme === "drink" && "bg-drink-secondary"
           } min-h-screen min-w-screen flex flex-col`}
       >
-        <Header pagetheme={props.pagetheme} />
+        {/* If you want to hide the header then you can add hideheader={+true} on a page */}
+        {!props.hideheader && <Header pagetheme={props.pagetheme} />}
 
-        {/* If props.screensize={+true} on a page (like homepage) the height of the page will make the size of the window */}
+        {/* If screensize={+true} on a page (like homepage) the height of the page will make the size of the window */}
         <main className={`flex-1 ${props.screensize && "flex flex-col"}`}>
           {children}
         </main>
