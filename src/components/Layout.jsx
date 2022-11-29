@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import Head from "next/head"
 import Header from "./Header"
+import AdminHeader from "./AdminHeader"
 
 const Layout = (props) => {
   const { children, ...otherProps } = props
@@ -36,6 +37,9 @@ const Layout = (props) => {
       >
         {/* If you want to hide the header then you can add hideheader={+true} on a page */}
         {!props.hideheader && <Header pagetheme={props.pagetheme} />}
+
+        {/* Only used for administration pages */}
+        {props.diplayadminheader && <AdminHeader />}
 
         {/* If screensize={+true} on a page (like homepage) the height of the page will make the size of the window */}
         <main className={`flex-1 ${props.screensize && "flex flex-col"}`}>
