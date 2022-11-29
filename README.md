@@ -21,4 +21,6 @@ TODO
 
 ## link :
 
-The fronted part was built using Vercel you can [click here](https://makeyourdish.vercel.app/) to access to the website. ![logo is missing ???](https://makeyourdish.vercel.app/_next/image?url=%2FlogoFood.png&w=64&q=75)
+The fronted part was built using Vercel you can [click here](https://makeyourdish.vercel.app/) to access to the website.
+
+![logo is missing ???](https://makeyourdish.vercel.app/_next/image?url=%2FlogoFood.png&w=64&q=75)
