@@ -1,8 +1,8 @@
-import Layout from "../src/components/Layout"
+import Layout from "./Layout"
 
-const Recipes = () => {
+const ListItems = (pageTheme) => {
   return (
-    <Layout page="Recipes" pagetheme="food" screensize={+true}>
+    <Layout page="Recipes" pagetheme={pageTheme.pageTheme} screensize={+true}>
       <div className="my-20">
         <h1 className="text-4xl secondary-font mb-16 max-sm:text-center sm:pl-[25%]">
           Nos recettes
@@ -41,4 +41,4 @@ const Recipes = () => {
   )
 }
 
-export default Recipes
+export default ListItems
