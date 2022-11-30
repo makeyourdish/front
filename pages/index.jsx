@@ -131,7 +131,7 @@ const HomePage = () => {
             </a>
           </Link>
           <Link href="/recipes">
-            <a className={buttonStyle}>Notre cuisine</a>
+            <a className={buttonStyle}>Nos plats</a>
           </Link>
         </div>
         <div className="relative z-20">
