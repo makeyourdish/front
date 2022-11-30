@@ -23,7 +23,7 @@ const HeaderNavContent = (props) => {
 
       {props.account ? (
         <div className="flex items-center justify-center flex-wrap">
-          <Link href={`/accounts/${props.account.id}`}>
+          <Link href={`/accounts/${props.account.userId}`}>
             <a
               className={`${buttonStyle} text-xs sm:text-xl px-3 mr-3 md:mr-0`}
             >
@@ -73,7 +73,7 @@ const Header = ({ pagetheme }) => {
   let account = null
 
   if (session) {
-    account = JSON.parse(session)
+    account = JSON.parse(session).payload
   }
 
   useEffect(() => {

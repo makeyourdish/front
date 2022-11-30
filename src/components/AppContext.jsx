@@ -55,14 +55,14 @@ export const AppContextProvider = (props) => {
   }, [Page.administration, router, session])
 
   const signIn = useCallback(
-    async (mail, password) => {
+    async (email, password) => {
       try {
-        const { data } = await api.post("auth/connection", {
-          mail,
+        const { data } = await api.post("/sign-in", {
+          email,
           password,
         })
         setSignInError(null) // remove signin error message
-        localStorage.setItem("jwt", data)
+        localStorage.setItem("jwt", data.token)
         const {
           query: { redirect }, // get redirect param from url if exist
         } = router
@@ -73,7 +73,7 @@ export const AppContextProvider = (props) => {
           router.push("/")
         }
 
-        initSession(data) // run session with jwt
+        initSession(data.token) // run session with jwt
       } catch (err) {
         if (err.response.status === 404) {
           err.response.data = { error: "Email incorrect" }
@@ -86,9 +86,9 @@ export const AppContextProvider = (props) => {
   )
 
   const signUp = useCallback(
-    async (mail, password) => {
+    async (userName, email, password) => {
       try {
-        await api.post("auth/inscription", { mail, password })
+        await api.post("/sign-up", { userName, email, password })
         router.push("/signin")
         setSignUpError(null) // remove signup error message
       } catch (err) {
@@ -100,7 +100,6 @@ export const AppContextProvider = (props) => {
 
   const signOut = () => {
     localStorage.removeItem("jwt")
-    localStorage.setItem("cart", JSON.stringify([]))
     setSession(null)
     router.push("/signin")
   }

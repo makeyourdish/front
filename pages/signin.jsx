@@ -11,8 +11,6 @@ const Signin = () => {
 
   const handleFormSubmit = useCallback(
     async ({ email, password }) => {
-      alert(`${email} ${password}`)
-
       return signIn(email, password)
     },
     [signIn]
@@ -26,9 +24,9 @@ const Signin = () => {
       hideheader={+true}
     >
       <div className="flex flex-col justify-between items-center h-screen">
-        <div className="w-screen text-3xl text-center mt-24">
+        <div className="w-screen text-xl md:text-3xl text-center mt-10 md:mt-24">
           <h1>Make Your Dish</h1>
-          <h2 className="secondary-font">Connectez vous</h2>
+          <h2 className="secondary-font">Se connecter</h2>
         </div>
 
         <Formik
@@ -45,7 +43,7 @@ const Signin = () => {
           onSubmit={handleFormSubmit}
         >
           {({ errors, touched }) => (
-            <Form className="flex flex-col justify-center items-center w-1/2">
+            <Form className="flex flex-col justify-center items-center w-5/6 md:w-1/2 border border-green-500">
               <div className="mb-6 w-full">
                 <Field
                   className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-red-500"
@@ -76,7 +74,7 @@ const Signin = () => {
 
               <button
                 type="submit"
-                className=" bg-food-primary rounded-full tertiary-font text-white text-2xl py-3 px-12 shadow-lg transition-all hover:scale-105 hover:bg-red-300/75 focus:outline focus:outline-3 focus:outline-red-300"
+                className=" bg-food-primary rounded-full tertiary-font text-white text-xl md:text-2xl py-3 px-12 shadow-lg transition-all hover:scale-105 hover:bg-red-300/75 focus:outline focus:outline-3 focus:outline-red-300"
               >
                 Connectez-vous
               </button>
@@ -84,7 +82,7 @@ const Signin = () => {
           )}
         </Formik>
 
-        <div className="w-screen flex items-end pb-6 justify-center text-2xl text-center tertiary-font signin-flamme-background min-h-[280px]">
+        <div className="w-screen flex flex-col md:flex-row items-center md:items-end pb-6 justify-end md:justify-center text-xl md:text-2xl text-center tertiary-font signin-flamme-background border border-green-500 min-h-[250px] md:min-h-[280px]">
           <p className="mr-2">Vous n’avez pas de compte ?</p>
           <Link href="/signup">
             <a className="font-bold">Créer un compte</a>
