@@ -101,7 +101,7 @@ const AdminUserForm = ({ user, loading, error }) => {
     )
   }
 
-  if (!Object.keys(user).length) {
+  if (user && !Object.keys(user).length) {
     return (
       <div className="flex items-center justify-center mt-10 p-5 bg-yellow-200 rounded-lg mx-12">
         <p className="text-3xl font-bold flex items-center justify-center text-yellow-600">
