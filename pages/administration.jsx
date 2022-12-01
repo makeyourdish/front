@@ -22,7 +22,7 @@ const AdministrationPage = () => {
               onMouseLeave={() => {
                 setInfo(null)
               }}
-              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-110 hover:drop-shadow-xl   focus:outline-blue-500/75"
+              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-500/75"
             >
               <FaUserCircle className="text-lg sm:text-3xl mr-2" />
               Gestion des utilisateurs
@@ -39,7 +39,7 @@ const AdministrationPage = () => {
               onMouseLeave={() => {
                 setInfo(null)
               }}
-              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-110 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-500/75"
+              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-500/75"
             >
               <IoFastFood className="text-lg sm:text-3xl mr-2" />
               Gestion des ingrédients
@@ -56,7 +56,7 @@ const AdministrationPage = () => {
               onMouseLeave={() => {
                 setInfo(null)
               }}
-              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-110 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-500/75"
+              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-500/75"
             >
               <BiFoodMenu className="text-lg sm:text-3xl mr-2" />
               Gestion des recettes
@@ -73,7 +73,7 @@ const AdministrationPage = () => {
               onMouseLeave={() => {
                 setInfo(null)
               }}
-              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-110 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-500/75"
+              className="flex items-center justify-center border-2 rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-500/75"
             >
               <BiDrink className="text-lg sm:text-3xl mr-2" />
               Gestion des cocktails

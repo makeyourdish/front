@@ -15,7 +15,7 @@ const AdminHeader = () => {
   // }
 
   return (
-    <header className="bg-slate-800 flex items-center justify-between px-4 py-2">
+    <header className="bg-gray-800 flex items-center justify-between px-4 py-2">
       <Link href="/administration">
         <a className="flex items-center justify-center text-white transition-all hover:scale-105 hover:opacity-50">
           <Image src="/logoWhite.png" alt="logo" width={50} height={50} />
