@@ -31,11 +31,11 @@ const UsersAdministrationPage = () => {
 
   return (
     <Layout
-      page="Gestion des utilisateurs"
+      page="Administration / Liste des utilisateurs"
       hideheader={+true}
       diplayadminheader={+true}
     >
-      <h2 className="text-center text-2xl font-bold my-10">
+      <h2 className="text-center text-3xl underline font-bold my-10">
         Liste des utilisateurs
       </h2>
       <AdministrationUserList

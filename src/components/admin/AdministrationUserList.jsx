@@ -2,8 +2,10 @@ import Link from "next/link"
 import Swal from "sweetalert2"
 import { Oval } from "react-loader-spinner"
 import { FiAlertCircle, FiAlertTriangle } from "react-icons/fi"
-import { RiDeleteBin4Fill, RiEdit2Fill } from "react-icons/ri"
-// import api from "../services/api" // todo: edit this when exist
+import { RiAddCircleFill, RiDeleteBin4Fill } from "react-icons/ri"
+import { FaEdit } from "react-icons/fa"
+// import api from "../services/api"
+// todo: edit this when exist
 
 const showDeleteUserConfirm = (id, userName, users, setUsers) => {
   Swal.fire({
@@ -25,7 +27,8 @@ const showDeleteUserConfirm = (id, userName, users, setUsers) => {
 }
 
 const deleteUser = async (id, users, setUsers) => {
-  // await api.delete(`/users/${id}`) // todo: edit this when exist
+  // await api.delete(`/users/${id}`)
+  // todo: edit this when exist
   setTimeout(() => {
     setUsers(users.filter((user) => user.id !== id))
   }, 1000)
@@ -54,9 +57,7 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
     )
   }
 
-  // for test
-  error = false
-  // end test
+  error = false // todo: remove
 
   if (error) {
     return (
@@ -94,13 +95,15 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
         <tbody>
           {users.map((user, index) => (
             <tr key={user.id} className={index % 2 && "bg-slate-200"}>
-              <td className="border">{user.userName}</td>
-              <td className="border">{user.email}</td>
-              <td className="border">{user.isAdmin ? "Oui" : "Non"}</td>
-              <td className="border">
+              <td className="border w-2/5">{user.userName}</td>
+              <td className="border w-3/5">{user.email}</td>
+              <td className="border w-min px-8">
+                {user.isAdmin ? "Oui" : "Non"}
+              </td>
+              <td className="border w-min flex">
                 <Link href={`/administration/users/${user.id}/modify`} passHref>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded">
-                    <RiEdit2Fill />
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white p-3 rounded mr-1 transition-all focus:outline focus:outline-3 focus:outline-blue-700/50">
+                    <FaEdit />
                   </button>
                 </Link>
                 <button
@@ -112,7 +115,7 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
                       setUsers
                     )
                   }
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold p-3 rounded"
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold p-3 rounded transition-all focus:outline focus:outline-3 focus:outline-red-700/50"
                 >
                   <RiDeleteBin4Fill />
                 </button>
@@ -130,9 +133,11 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
         </tfoot>
       </table>
 
-      <button className="mx-auto text-lg flex items-center justify-center mt-10 p-5 bg-green-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-green-600/75">
-        Ajouter un utilisateur
-      </button>
+      <Link href={"/administration/users/add"} passHref>
+        <button className="mx-auto text-lg flex items-center justify-center mt-10 p-5 bg-green-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-green-600/75">
+          <RiAddCircleFill className="text-3xl mr-2" /> Ajouter un utilisateur
+        </button>
+      </Link>
     </div>
   )
 }

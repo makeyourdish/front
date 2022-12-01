@@ -46,4 +46,28 @@ h1,
   font-family: "Inria Sans", sans-serif;
 }
 
+/* animation */
+
+.error-field {
+  animation: errorEntrance 0.2s ease 0s 1 normal forwards;
+}
+
+@keyframes errorEntrance {
+  0% {
+    transform: translateX(100px);
+  }
+
+  33% {
+    transform: translateX(-80px);
+  }
+
+  66% {
+    transform: translateX(40px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
 /*********** Others ***********/
