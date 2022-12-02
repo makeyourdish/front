@@ -13,13 +13,13 @@ const HeaderNavContent = (props) => {
 
   return (
     <nav className={`${props.otherclass} w-full`}>
-      <h1
+      {/* <h1
         className={`${
           props.pagetheme === "food" ? "text-white" : "text-black"
         } text-center text-2xl sm:text-4xl mb-3 md:hidden`}
       >
         Make Your Dish
-      </h1>
+      </h1> */}
 
       {props.account ? (
         <div className="flex items-center justify-center flex-wrap">
@@ -102,6 +102,15 @@ const Header = ({ pagetheme }) => {
             </a>
           </Link>
         </div>
+
+        <h1
+          className={`${
+            pagetheme === "food" ? "text-white" : "text-black"
+          } text-center px-2 min-[440px]:text-2xl sm:text-4xl md:hidden`}
+        >
+          Make Your Dish
+        </h1>
+
         <HeaderNavContent
           pagetheme={pagetheme}
           signOut={signOut}
