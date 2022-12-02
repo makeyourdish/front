@@ -2,11 +2,11 @@ import Link from "next/link"
 import Swal from "sweetalert2"
 import { Oval } from "react-loader-spinner"
 import { FiAlertCircle, FiAlertTriangle } from "react-icons/fi"
-import { RiAddCircleFill, RiDeleteBin4Fill } from "react-icons/ri"
+import { RiDeleteBin4Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
-// import api from "../services/api"
-// todo: edit this when exist
+import api from "../services/api"
 
+//* -------------------- Delete user confirm dialog box --------------------
 const showDeleteUserConfirm = (id, userName, users, setUsers) => {
   Swal.fire({
     title: `Vous êtes sûr de vouloir supprimer l'utilisateur "${userName}" ?`,
@@ -26,13 +26,14 @@ const showDeleteUserConfirm = (id, userName, users, setUsers) => {
   })
 }
 
+//* -------------------- Delete user function --------------------
 const deleteUser = async (id, users, setUsers) => {
-  // await api.delete(`/users/${id}`)
-  // todo: edit this when exist
+  await api.delete(`/users/${id}`) // todo: edit this when database exist
   setTimeout(() => {
     setUsers(users.filter((user) => user.id !== id))
   }, 1000)
 }
+//* -------------------- End delete user --------------------
 
 const AdministrationUserList = ({ users, loading, error, setUsers }) => {
   if (loading) {
@@ -57,8 +58,6 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
     )
   }
 
-  error = false // todo: remove
-
   if (error) {
     return (
       <div className="flex items-center justify-center mt-10 p-5 bg-red-200 rounded-lg mx-12">
@@ -82,21 +81,21 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
   }
 
   return (
-    <div>
-      <table className="w-1/2 mx-auto text-center text-lg">
+    <div className="overflow-x-auto">
+      <table className="w-max sm:w-5/6 md:w-3/4 lg:w-2/3 mx-auto text-center text-lg whitespace-nowrap">
         <thead className="bg-gray-600 font-bold text-white">
           <tr>
-            <th className="border">Nom d'utilisateur</th>
-            <th className="border">Email</th>
-            <th className="border">Admin</th>
-            <th className="border">Actions</th>
+            <th className="border px-3">Nom d'utilisateur</th>
+            <th className="border px-3">Email</th>
+            <th className="border px-3">Admin</th>
+            <th className="border px-3">Actions</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
             <tr key={user.id} className={index % 2 && "bg-slate-200"}>
-              <td className="border w-2/5">{user.userName}</td>
-              <td className="border w-3/5">{user.email}</td>
+              <td className="border w-2/5 px-8">{user.userName}</td>
+              <td className="border w-3/5 px-8">{user.email}</td>
               <td className="border w-min px-8">
                 {user.isAdmin ? "Oui" : "Non"}
               </td>
@@ -132,12 +131,6 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
           </tr>
         </tfoot>
       </table>
-
-      <Link href={"/administration/users/add"} passHref>
-        <button className="mx-auto text-lg flex items-center justify-center mt-10 p-5 bg-green-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-green-600/75">
-          <RiAddCircleFill className="text-3xl mr-2" /> Ajouter un utilisateur
-        </button>
-      </Link>
     </div>
   )
 }

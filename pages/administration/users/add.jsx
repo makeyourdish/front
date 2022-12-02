@@ -8,7 +8,7 @@ const AddUserAdministrationPage = () => {
       hideheader={+true}
       diplayadminheader={+true}
     >
-      <h2 className="text-center text-3xl underline font-bold my-10">
+      <h2 className="text-center text-xl sm:text-2xl md:text-3xl underline font-bold my-5 md:my-10">
         Ajouter un utilisateur
       </h2>
       <AdminUserForm />
@@ -16,7 +16,7 @@ const AddUserAdministrationPage = () => {
   )
 }
 
-// AddUserAdministrationPage.private = true
-// AddUserAdministrationPage.administration = true
+// AddUserAdministrationPage.private = true // todo: edit this when signin exist
+// AddUserAdministrationPage.administration = true // todo: edit this when signin exist
 
 export default AddUserAdministrationPage

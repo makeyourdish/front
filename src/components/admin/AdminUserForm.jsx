@@ -59,6 +59,8 @@ const displayingErrorMessagesSchemaForModification = Yup.object().shape({
 const AdminUserForm = ({ user, loading, error }) => {
   const { router } = useContext(AppContext)
 
+  error = false // todo: remove this line when database exist
+
   const handleSubmit = useCallback(
     async ({ userName, email, password, isAdmin }) => {
       user
@@ -128,8 +130,8 @@ const AdminUserForm = ({ user, loading, error }) => {
       onSubmit={handleSubmit}
     >
       {({ errors, touched }) => (
-        <Form className="w-1/2 p-12 border mx-auto flex flex-col items-center justify-center rounded">
-          <div className="mb-6 w-full">
+        <Form className="w-5/6 md:w-4/5 lg:w-1/2 p-4 sm:p-8 md:p-12 border mx-auto flex flex-col items-center justify-center rounded">
+          <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all outline-none outline-offset-0 focus:outline-3 focus:outline-slate-600/75 ${
                 touched.userName && errors.userName && "border-red-600"
@@ -145,7 +147,7 @@ const AdminUserForm = ({ user, loading, error }) => {
             )}
           </div>
 
-          <div className="mb-6 w-full">
+          <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all outline-none outline-offset-0 focus:outline-3 focus:outline-slate-600/75 ${
                 touched.email && errors.email && "border-red-600"
@@ -161,7 +163,7 @@ const AdminUserForm = ({ user, loading, error }) => {
             )}
           </div>
 
-          <div className="mb-6 w-full">
+          <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all outline-none outline-offset-0 focus:outline-3 focus:outline-slate-600/75 ${
                 touched.password && errors.password && "border-red-600"
@@ -178,9 +180,9 @@ const AdminUserForm = ({ user, loading, error }) => {
             )}
           </div>
 
-          <label className="mb-5 select-none cursor-pointer text-xl flex items-center justify-center">
+          <label className="select-none cursor-pointer sm:text-xl flex items-center justify-center">
             <Field
-              className="mr-2 cursor-pointer h-5 w-5"
+              className="mr-2 cursor-pointer h-4 w-4 sm:h-5 sm:w-5"
               type="checkbox"
               name="isAdmin"
             />
@@ -190,16 +192,17 @@ const AdminUserForm = ({ user, loading, error }) => {
           {user ? (
             <button
               type="submit"
-              className="text-lg flex items-center justify-center mt-10 p-5 bg-blue-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-600/75"
+              className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-blue-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-600/75"
             >
-              <FaEdit className="text-3xl mr-2" /> Modifier l'utilisateur
+              <FaEdit className="text-xl md:text-3xl mr-2" /> Modifier
+              l'utilisateur
             </button>
           ) : (
             <button
               type="submit"
-              className="text-lg flex items-center justify-center mt-10 p-5 bg-green-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-green-600/75"
+              className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-green-600/75"
             >
-              <RiAddCircleFill className="text-3xl mr-2" /> Ajouter
+              <RiAddCircleFill className="text-xl md:text-3xl mr-2" /> Ajouter
               l'utilisateur
             </button>
           )}
