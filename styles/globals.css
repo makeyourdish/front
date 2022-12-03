@@ -9,11 +9,14 @@
 @tailwind utilities;
 
 :root {
-  --food-primary-color: #f68a8a;
-  --food-secondary-color: #ffdbdb;
-  --drink-primary-color: #fffcb5;
-  --drink-secondary-color: #d6f9f7;
+  --food-primary-color: rgb(246, 138, 138);
+  --food-primary-color-translucent: rgb(246, 138, 138, 0.3);
+  --food-secondary-color: rgb(255, 219, 219);
+  --drink-primary-color: rgb(255, 252, 181);
+  --drink-primary-color-translucent: rgb(255, 252, 181, 0.8);
+  --drink-secondary-color: rgb(214, 249, 247);
 }
+
 
 /*********** Backgrounds ***********/
 .bg-food-primary {
@@ -30,6 +33,14 @@
 
 .bg-drink-secondary {
   background-color: var(--drink-secondary-color);
+}
+
+.bg-food-primary-translucent{
+  background-color: var(--food-primary-color-translucent);
+}
+
+.bg-drink-primary-translucent{
+  background-color: var(--drink-primary-color-translucent);
 }
 
 h1,
