@@ -1,10 +1,11 @@
 import Link from "next/link"
 import Swal from "sweetalert2"
-import { Oval } from "react-loader-spinner"
-import { FiAlertCircle, FiAlertTriangle } from "react-icons/fi"
 import { RiDeleteBin4Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
 import api from "../services/api"
+import AdminLoader from "./infos/AdminLoader"
+import AdminResponseError from "./infos/AdminResponseError"
+import AdminResponseNotFound from "./infos/AdminResponseNotFound"
 
 //* -------------------- Delete user confirm dialog box --------------------
 const showDeleteUserConfirm = (id, userName, users, setUsers) => {
@@ -37,47 +38,15 @@ const deleteUser = async (id, users, setUsers) => {
 
 const AdministrationUserList = ({ users, loading, error, setUsers }) => {
   if (loading) {
-    const loaderSize = 60
-    const loaderColor = "slateblue"
-    const loaderStrokeWidth = 5
-
-    return (
-      <div className="flex items-center justify-center">
-        <Oval
-          height={loaderSize}
-          width={loaderSize}
-          color={loaderColor}
-          secondaryColor={loaderColor}
-          strokeWidth={loaderStrokeWidth}
-          strokeWidthSecondary={loaderStrokeWidth}
-        />
-        <p className="font-bold text-xl ml-3">
-          Chargement de la liste des utilisateurs... ⌛
-        </p>
-      </div>
-    )
+    return <AdminLoader />
   }
 
   if (error) {
-    return (
-      <div className="flex items-center justify-center mt-10 p-5 bg-red-200 rounded-lg mx-12">
-        <p className="text-3xl font-bold flex items-center justify-center text-red-600">
-          <FiAlertTriangle className="text-5xl mr-3" />
-          {error}
-        </p>
-      </div>
-    )
+    return <AdminResponseError error={error} />
   }
 
   if (!users.length) {
-    return (
-      <div className="flex items-center justify-center mt-10 p-5 bg-yellow-200 rounded-lg mx-12">
-        <p className="text-3xl font-bold flex items-center justify-center text-yellow-600">
-          <FiAlertCircle className="text-5xl mr-3" />
-          Aucun utilisateur trouvé
-        </p>
-      </div>
-    )
+    return <AdminResponseNotFound message={"Aucun utilisateur trouvé"} />
   }
 
   return (

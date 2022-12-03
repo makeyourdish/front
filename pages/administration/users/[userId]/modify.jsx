@@ -9,12 +9,7 @@ const ModifyUserAdministrationPage = () => {
     query: { userId },
   } = useRouter()
 
-  const [user, setUser] = useState({
-    id: 1,
-    userName: "Sokou",
-    email: "sdsdqs@sdds.fr",
-    isAdmin: true,
-  })
+  const [user, setUser] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(true)
 
