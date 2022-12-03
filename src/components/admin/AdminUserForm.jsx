@@ -1,12 +1,13 @@
 import { useCallback, useContext } from "react"
 import { Form, Formik, Field } from "formik"
 import * as Yup from "yup"
-import { Oval } from "react-loader-spinner"
 import { RiAddCircleFill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
 import AppContext from "../AppContext"
 import api from "../services/api"
-import { FiAlertCircle, FiAlertTriangle } from "react-icons/fi"
+import AdminLoader from "./infos/AdminLoader"
+import AdminResponseError from "./infos/AdminResponseError"
+import AdminResponseNotFound from "./infos/AdminResponseNotFound"
 
 //* -------------------- Validation schema for creation  --------------------
 const displayingErrorMessagesSchemaForCreation = Yup.object().shape({
@@ -77,41 +78,15 @@ const AdminUserForm = ({ user, loading, error }) => {
   )
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center">
-        <Oval
-          height={60}
-          width={60}
-          color={"slateblue"}
-          secondaryColor={"slateblue"}
-          strokeWidth={5}
-          strokeWidthSecondary={5}
-        />
-        <p className="font-bold text-xl ml-3">Chargement du formulaire... ⌛</p>
-      </div>
-    )
+    return <AdminLoader />
   }
 
   if (error) {
-    return (
-      <div className="flex items-center justify-center mt-10 p-5 bg-red-200 rounded-lg mx-12">
-        <p className="text-3xl font-bold flex items-center justify-center text-red-600">
-          <FiAlertTriangle className="text-5xl mr-3" />
-          {error}
-        </p>
-      </div>
-    )
+    return <AdminResponseError error={error} />
   }
 
   if (user && !Object.keys(user).length) {
-    return (
-      <div className="flex items-center justify-center mt-10 p-5 bg-yellow-200 rounded-lg mx-12">
-        <p className="text-3xl font-bold flex items-center justify-center text-yellow-600">
-          <FiAlertCircle className="text-5xl mr-3" />
-          Utilisateur non trouvé
-        </p>
-      </div>
-    )
+    return <AdminResponseNotFound message={"Utilisateur non trouvé"} />
   }
 
   return (
