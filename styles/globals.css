@@ -46,4 +46,22 @@ h1,
   font-family: "Inria Sans", sans-serif;
 }
 
+/*********** Outline ***********/
+
+.outline-food-primary {
+  outline-color: var(--food-primary-color);
+}
+
+.outline-food-secondary {
+  outline-color: var(--food-secondary-color);
+}
+
+.outline-drink-primary {
+  outline-color: var(--drink-primary-color);
+}
+
+.outline-drink-secondary {
+  outline-color: var(--drink-secondary-color);
+}
+
 /*********** Others ***********/

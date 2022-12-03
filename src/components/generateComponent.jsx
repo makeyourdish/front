@@ -1,13 +1,17 @@
 import Layout from "./Layout"
-import Image from "next/image"
+import { useState } from "react"
+import { RxCrossCircled } from "react-icons/rx"
+import { FiSearch } from "react-icons/fi"
 
 const Generate = ({ pageTheme }) => {
   const categoryIngredientsCss = "secondary-font text-2xl"
   const spanCss = undefined
-  const ingredientsSelected = []
+  const [ingredientsSelected, setIngredientsSelected] = useState([])
 
   const addInIngredientsSelected = (value) => {
-    ingredientsSelected.push(value)
+    if (!ingredientsSelected.includes(value)) {
+      setIngredientsSelected((oldArray) => [...oldArray, value])
+    }
   }
 
   return (
@@ -126,7 +130,7 @@ const Generate = ({ pageTheme }) => {
           <span className="mb-24 flex flex-row items-center">
             <input
               type="text"
-              className={`focus:outline-[var(--${pageTheme}-primary-color)] rounded-lg p-3 w-[300px] shadow-md`}
+              className={`focus:outline focus:outline-[3px] outline-${pageTheme}-primary duration-150 transition-all rounded-lg p-3 w-[300px] shadow-md`}
             ></input>
             <button
               onClick={(element) =>
@@ -134,27 +138,31 @@ const Generate = ({ pageTheme }) => {
               }
               className="relative right-8"
             >
-              <Image
-                src="/images/generate/search.png"
-                width={26}
-                height={26}
-                alt="loupe"
-              ></Image>
+              <FiSearch className="text-2xl" />
             </button>
           </span>
           <span>
-            {ingredientsSelected.map((element) => {
-              return <p className={categoryIngredientsCss}>{element}</p>
+            {ingredientsSelected.map((element, index) => {
+              return (
+                <span className="flex flex-row justify-between w-[90%]">
+                  <p className="secondary-font text-xl m-4">{element}</p>
+                  <button
+                    onClick={() =>
+                      setIngredientsSelected(
+                        ingredientsSelected.filter(
+                          (element, id) => id !== index
+                        )
+                      )
+                    }
+                    className="text-red-500"
+                  >
+                    <RxCrossCircled />
+                  </button>
+                </span>
+              )
             })}
           </span>
-          <button
-            onClick={(element) =>
-              addInIngredientsSelected(element.target.value)
-            }
-            className="Btn"
-            value=""
-            className="secondary-font p-6 bg-drink-primary rounded-lg shadow-lg"
-          >
+          <button className="secondary-font p-6 bg-drink-primary rounded-lg shadow-lg">
             VALIDER
           </button>
         </div>
