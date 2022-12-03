@@ -23,7 +23,7 @@ const UsersAdministrationPage = () => {
 
   useEffect(() => {
     api
-      .get("administration/users") // todo: edit this when database exist
+      .get("/users") // todo: edit this when database exist
       .then((response) => setUsers(response.data))
       .catch((err) => {
         setError(err.message)
