@@ -2,6 +2,8 @@ module.exports = {
   root: true,
   extends: [
     "eslint:recommended",
+    "next/babel",
+    "next/core-web-vitals",
     "prettier",
     "next",
     "plugin:react/recommended",
