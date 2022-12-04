@@ -16,7 +16,7 @@ const AddUserAdministrationPage = () => {
   )
 }
 
-// AddUserAdministrationPage.private = true
-// AddUserAdministrationPage.administration = true
+// AddUserAdministrationPage.private = true // todo: edit this when exist
+// AddUserAdministrationPage.administration = true // todo: edit this when exist
 
 export default AddUserAdministrationPage
