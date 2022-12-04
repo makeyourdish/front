@@ -2,19 +2,14 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import api from "../../../../src/components/services/api"
 import Layout from "../../../../src/components/Layout"
-import AdminUserForm from "../../../../src/components/admin/AdminUserForm"
+import AdministrationUserForm from "../../../../src/components/admin/AdministrationUserForm"
 
 const ModifyUserAdministrationPage = () => {
   const {
     query: { userId },
   } = useRouter()
 
-  const [user, setUser] = useState({
-    // id: 1,
-    // userName: "Sokou",
-    // email: "sdsdqs@sdds.fr",
-    // isAdmin: true,
-  })
+  const [user, setUser] = useState({}) // todo: remove this when database exist
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(true)
 
@@ -36,17 +31,17 @@ const ModifyUserAdministrationPage = () => {
       hideheader={+true}
       diplayadminheader={+true}
     >
-      <h2 className="text-center text-3xl underline font-bold my-10">
+      <h2 className="text-center text-xl sm:text-2xl md:text-3xl underline font-bold my-5 md:my-10">
         {Object.keys(user).length
           ? `Modifier l'utilisateur "${user.userName}"`
           : "Modifier un utilisateur"}
       </h2>
-      <AdminUserForm user={user} loading={loading} error={error} />
+      <AdministrationUserForm user={user} loading={loading} error={error} />
     </Layout>
   )
 }
 
-// ModifyUserAdministrationPage.private = true
-// ModifyUserAdministrationPage.administration = true
+// ModifyUserAdministrationPage.private = true // todo: edit this when signin exist
+// ModifyUserAdministrationPage.administration = true // todo: edit this when signin exist
 
 export default ModifyUserAdministrationPage
