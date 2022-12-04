@@ -13,7 +13,6 @@ const HeaderNavContent = (props) => {
 
   return (
     <nav className={`${props.otherclass} w-full`}>
-   
       {props.account ? (
         <div className="flex items-center justify-center flex-wrap">
           <Link href={`/accounts/${props.account.id}`}>

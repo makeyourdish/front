@@ -1,8 +1,8 @@
-/*
->= 1024px computer
->= 768px tablet
->= 640px Mobile
-*/
+/* ***************************
+* >= 1024px computer
+* >= 768px tablet
+* >= 640px Mobile
+* ****************************/
 
 @tailwind base;
 @tailwind components;
@@ -46,7 +46,7 @@ h1,
   font-family: "Inria Sans", sans-serif;
 }
 
-/* animation */
+/*********** animation ***********/
 
 .error-field {
   animation: errorEntrance 0.2s ease 0s 1 normal forwards;

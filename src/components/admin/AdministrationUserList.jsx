@@ -30,6 +30,7 @@ const showDeleteUserConfirm = (id, userName, users, setUsers) => {
 //* -------------------- Delete user function --------------------
 const deleteUser = async (id, users, setUsers) => {
   await api.delete(`/users/${id}`) // todo: edit this when database exist
+  //  router.push("/administration/users", undefined, { shallow: true }) https://nextjs.org/docs/routing/shallow-routing // todo: test this when database exist
   setTimeout(() => {
     setUsers(users.filter((user) => user.id !== id))
   }, 1000)
@@ -38,7 +39,7 @@ const deleteUser = async (id, users, setUsers) => {
 
 const AdministrationUserList = ({ users, loading, error, setUsers }) => {
   if (loading) {
-    return <AdminLoader />
+    return <AdminLoader message="Chargement de la liste des utilisateurs" />
   }
 
   if (error) {
@@ -46,7 +47,7 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
   }
 
   if (!users.length) {
-    return <AdminResponseNotFound message={"Aucun utilisateur trouvé"} />
+    return <AdminResponseNotFound message="Aucun utilisateur trouvé" />
   }
 
   return (
@@ -70,7 +71,7 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
               </td>
               <td className="border w-min flex">
                 <Link href={`/administration/users/${user.id}/modify`} passHref>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white p-3 rounded mr-1 transition-all focus:outline focus:outline-3 focus:outline-blue-700/50">
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white p-3 rounded mr-1 transition-all duration-75 focus:outline focus:outline-4 focus:outline-blue-700/50">
                     <FaEdit />
                   </button>
                 </Link>
@@ -83,7 +84,7 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
                       setUsers
                     )
                   }
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold p-3 rounded transition-all focus:outline focus:outline-3 focus:outline-red-700/50"
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold p-3 rounded transition-all duration-75 focus:outline focus:outline-4 focus:outline-red-700/50"
                 >
                   <RiDeleteBin4Fill />
                 </button>

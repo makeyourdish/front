@@ -2,14 +2,14 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import api from "../../../../src/components/services/api"
 import Layout from "../../../../src/components/Layout"
-import AdminUserForm from "../../../../src/components/admin/AdminUserForm"
+import AdministrationUserForm from "../../../../src/components/admin/AdministrationUserForm"
 
 const ModifyUserAdministrationPage = () => {
   const {
     query: { userId },
   } = useRouter()
 
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({}) // todo: remove this when database exist
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(true)
 
@@ -36,7 +36,7 @@ const ModifyUserAdministrationPage = () => {
           ? `Modifier l'utilisateur "${user.userName}"`
           : "Modifier un utilisateur"}
       </h2>
-      <AdminUserForm user={user} loading={loading} error={error} />
+      <AdministrationUserForm user={user} loading={loading} error={error} />
     </Layout>
   )
 }

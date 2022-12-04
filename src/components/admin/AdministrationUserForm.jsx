@@ -1,9 +1,9 @@
-import { useCallback, useContext } from "react"
+import { useRouter } from "next/router"
+import { useCallback } from "react"
 import { Form, Formik, Field } from "formik"
 import * as Yup from "yup"
 import { RiAddCircleFill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
-import AppContext from "../AppContext"
 import api from "../services/api"
 import AdminLoader from "./infos/AdminLoader"
 import AdminResponseError from "./infos/AdminResponseError"
@@ -58,8 +58,7 @@ const displayingErrorMessagesSchemaForModification = Yup.object().shape({
 //* -------------------------- End validation schema --------------------------
 
 const AdminUserForm = ({ user, loading, error }) => {
-  const { router } = useContext(AppContext)
-
+  const router = useRouter()
   error = false // todo: remove this line when database exist
 
   const handleSubmit = useCallback(
@@ -78,7 +77,7 @@ const AdminUserForm = ({ user, loading, error }) => {
   )
 
   if (loading) {
-    return <AdminLoader />
+    return <AdminLoader message="Chargement du formulaire" />
   }
 
   if (error) {
@@ -86,7 +85,7 @@ const AdminUserForm = ({ user, loading, error }) => {
   }
 
   if (user && !Object.keys(user).length) {
-    return <AdminResponseNotFound message={"Utilisateur non trouvé"} />
+    return <AdminResponseNotFound message="Utilisateur non trouvé" />
   }
 
   return (
@@ -108,7 +107,7 @@ const AdminUserForm = ({ user, loading, error }) => {
         <Form className="w-5/6 md:w-4/5 lg:w-1/2 p-4 sm:p-8 md:p-12 border mx-auto flex flex-col items-center justify-center rounded">
           <div className="mb-3 sm:mb-6 w-full">
             <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all outline-none outline-offset-0 focus:outline-3 focus:outline-slate-600/75 ${
+              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
                 touched.userName && errors.userName && "border-red-600"
               }`}
               label="Pseudo"
@@ -124,7 +123,7 @@ const AdminUserForm = ({ user, loading, error }) => {
 
           <div className="mb-3 sm:mb-6 w-full">
             <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all outline-none outline-offset-0 focus:outline-3 focus:outline-slate-600/75 ${
+              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
                 touched.email && errors.email && "border-red-600"
               }`}
               label="Email"
@@ -140,7 +139,7 @@ const AdminUserForm = ({ user, loading, error }) => {
 
           <div className="mb-3 sm:mb-6 w-full">
             <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all outline-none outline-offset-0 focus:outline-3 focus:outline-slate-600/75 ${
+              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
                 touched.password && errors.password && "border-red-600"
               }`}
               label="Mot de passe"
@@ -167,7 +166,7 @@ const AdminUserForm = ({ user, loading, error }) => {
           {user ? (
             <button
               type="submit"
-              className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-blue-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-blue-600/75"
+              className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
             >
               <FaEdit className="text-xl md:text-3xl mr-2" /> Modifier
               l'utilisateur
@@ -175,7 +174,7 @@ const AdminUserForm = ({ user, loading, error }) => {
           ) : (
             <button
               type="submit"
-              className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-3 focus:outline-green-600/75"
+              className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75"
             >
               <RiAddCircleFill className="text-xl md:text-3xl mr-2" /> Ajouter
               l'utilisateur

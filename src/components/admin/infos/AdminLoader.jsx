@@ -1,6 +1,6 @@
 import { Oval } from "react-loader-spinner"
 
-const AdminLoader = ({ size, color, strokeWidth }) => {
+const AdminLoader = ({ size, color, strokeWidth, message }) => {
   const loaderSize = size ? size : 60
   const loaderColor = color ? color : "slateblue"
   const loaderStrokeWidth = strokeWidth ? strokeWidth : 5
@@ -15,9 +15,7 @@ const AdminLoader = ({ size, color, strokeWidth }) => {
         strokeWidth={loaderStrokeWidth}
         strokeWidthSecondary={loaderStrokeWidth}
       />
-      <p className="font-bold text-xl ml-3">
-        Chargement de la liste des ingrédients... ⌛
-      </p>
+      <p className="font-bold text-xl ml-3">{message}... ⌛</p>
     </div>
   )
 }

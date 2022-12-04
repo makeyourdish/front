@@ -1,5 +1,5 @@
 import Layout from "../../../src/components/Layout"
-import AdminUserForm from "../../../src/components/admin/AdminUserForm"
+import AdministrationUserForm from "../../../src/components/admin/AdministrationUserForm"
 
 const AddUserAdministrationPage = () => {
   return (
@@ -11,7 +11,7 @@ const AddUserAdministrationPage = () => {
       <h2 className="text-center text-xl sm:text-2xl md:text-3xl underline font-bold my-5 md:my-10">
         Ajouter un utilisateur
       </h2>
-      <AdminUserForm />
+      <AdministrationUserForm />
     </Layout>
   )
 }
