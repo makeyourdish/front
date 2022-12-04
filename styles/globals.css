@@ -17,6 +17,18 @@
   --drink-secondary-color: rgb(214, 249, 247);
 }
 
+/*********** Scroller ***********/
+
+.scroller::-webkit-scrollbar {
+  height: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.scroller-thumb::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
 
 /*********** Backgrounds ***********/
 .bg-food-primary {
@@ -35,11 +47,11 @@
   background-color: var(--drink-secondary-color);
 }
 
-.bg-food-primary-translucent{
+.bg-food-primary-translucent {
   background-color: var(--food-primary-color-translucent);
 }
 
-.bg-drink-primary-translucent{
+.bg-drink-primary-translucent {
   background-color: var(--drink-primary-color-translucent);
 }
 

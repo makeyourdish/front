@@ -1,10 +1,13 @@
 import {useState} from "react"
 import {RxCrossCircled} from "react-icons/rx"
 import {FiSearch} from "react-icons/fi"
+import {BsArrowUpCircle} from "react-icons/bs"
 import Layout from "./Layout"
 
 function Generate({pageTheme}) {
-  const categoryIngredientsCss = "secondary-font text-2xl m-12"
+  const categoryIngredientsCss =
+    "secondary-font text-2xl sm:m-12 max-sm:my-12 max-sm:text-center"
+  const buttonIngredients = `w-[200px] bg-${pageTheme}-primary-translucent sm:m-6 max-sm:mx-2 max-sm:mb-6 rounded-lg py-2 px-4 buttonIngredients text-lg`
   const [ingredientsSelected, setIngredientsSelected] = useState([])
 
   const addInIngredientsSelected = (value) => {
@@ -13,11 +16,11 @@ function Generate({pageTheme}) {
     }
   }
   const callIngredients = () => (
-    <ul className="flex flex-row flex-wrap justify-left">
+    <ul className="flex flex-row sm:flex-wrap justify-left max-sm:overflow-x-scroll scroller-thumb scroller">
       <li>
         <button
           onClick={(element) => addInIngredientsSelected(element.target.value)}
-          className={`w-[200px] text-center bg-${pageTheme}-primary-translucent m-6 rounded-lg py-2 px-4 buttonIngredients text-lg`}
+          className={buttonIngredients}
           value="Courgette"
         >
           Courgette
@@ -26,7 +29,7 @@ function Generate({pageTheme}) {
       <li>
         <button
           onClick={(element) => addInIngredientsSelected(element.target.value)}
-          className={`w-[200px] text-center bg-${pageTheme}-primary-translucent m-6 rounded-lg py-2 px-4 buttonIngredients text-lg`}
+          className={buttonIngredients}
           value="Poireau"
         >
           Poireau
@@ -35,7 +38,7 @@ function Generate({pageTheme}) {
       <li>
         <button
           onClick={(element) => addInIngredientsSelected(element.target.value)}
-          className={`w-[200px] text-center bg-${pageTheme}-primary-translucent m-6 rounded-lg py-2 px-4 buttonIngredients text-lg`}
+          className={buttonIngredients}
           value="Courge"
         >
           Courge
@@ -44,7 +47,7 @@ function Generate({pageTheme}) {
       <li>
         <button
           onClick={(element) => addInIngredientsSelected(element.target.value)}
-          className={`w-[200px] text-center bg-${pageTheme}-primary-translucent m-6 rounded-lg py-2 px-4 buttonIngredients text-lg`}
+          className={buttonIngredients}
           value="Carotte"
         >
           Carotte
@@ -53,7 +56,7 @@ function Generate({pageTheme}) {
       <li>
         <button
           onClick={(element) => addInIngredientsSelected(element.target.value)}
-          className={`w-[200px] text-center bg-${pageTheme}-primary-translucent m-6 rounded-lg py-2 px-4 buttonIngredients text-lg`}
+          className={buttonIngredients}
           value="Poivron"
         >
           Poivron
@@ -62,7 +65,7 @@ function Generate({pageTheme}) {
       <li>
         <button
           onClick={(element) => addInIngredientsSelected(element.target.value)}
-          className={`w-[200px] text-center bg-${pageTheme}-primary-translucent m-6 rounded-lg py-2 px-4 buttonIngredients text-lg`}
+          className={buttonIngredients}
           value="Champignon"
         >
           Champignon
@@ -71,7 +74,7 @@ function Generate({pageTheme}) {
       <li>
         <button
           onClick={(element) => addInIngredientsSelected(element.target.value)}
-          className={`w-[200px] text-center bg-${pageTheme}-primary-translucent m-6 rounded-lg py-2 px-4 buttonIngredients text-lg`}
+          className={buttonIngredients}
           value="Pomme de terre"
         >
           Pomme de terre
@@ -82,8 +85,11 @@ function Generate({pageTheme}) {
 
   return (
     <Layout page="Recipes" pagetheme={pageTheme} screensize={+true}>
-      <div className="w-[80%] my-20 max-sm:ml-12 sm:mx-auto flex flex-row justify-between">
-        <div className="w-[70%] justify-between flex flex-col">
+      <h1 className="text-2xl mt-16 secondary-font sm:ml-36 max-sm:text-center">
+        Qu’y a-t-il dans votre cuisine ?
+      </h1>
+      <div className="flex justify-between sm:w-[80%] sm:my-20 sm:ml-12 sm:mx-auto sm:flex-row max-sm:p-12 max-sm:flex-col-reverse">
+        <div className="sm:w-[70%] justify-between flex flex-col max-sm:mb-16">
           <span>
             <p className={categoryIngredientsCss}>Légumes :</p>
             {callIngredients()}
@@ -104,25 +110,28 @@ function Generate({pageTheme}) {
             <ul />
           </span>
         </div>
-        <div className="flex flex-col justify-start fixed right-80">
-          <span>
-            <p className="text-center mb-6">Avez vous d'autres ingrédients ?</p>
+        <div className="flex flex-col justify-start sm:fixed sm:right-80">
+          <span className="max-sm:mb-8">
+            <p className="text-center mb-6 font-bold secondary-font">
+              Avez vous d'autres ingrédients ?
+            </p>
             <span className="flex flex-row items-center">
               <input
                 type="text"
-                className={`focus:outline focus:outline-[3px] outline-${pageTheme}-primary duration-150 transition-all rounded-lg p-3 w-[300px] shadow-md relative`}
+                placeholder="Entrez vos produits..."
+                className={`focus:outline focus:outline-[3px] outline-${pageTheme}-primary duration-150 transition-all rounded-lg p-3 sm:w-[300px] max-sm:w-full shadow-md relative`}
               />
-              <button className="absolute right-2">
+              <button className="absolute sm:right-2 max-sm:right-14">
                 <FiSearch className="text-2xl" />
               </button>
             </span>
           </span>
           <button
-            className={`secondary-font p-6 my-8 bg-${pageTheme}-primary rounded-lg shadow-lg`}
+            className={`max-sm:hidden secondary-font p-6 my-8 bg-${pageTheme}-primary rounded-lg shadow-lg`}
           >
             VALIDER
           </button>
-          <span>
+          <span className="max-sm:hidden">
             {ingredientsSelected.map((element, index) => (
               <span className="flex flex-row justify-between w-[90%]">
                 <p className="secondary-font text-xl m-4">{element}</p>
@@ -141,6 +150,11 @@ function Generate({pageTheme}) {
           </span>
         </div>
       </div>
+      <button
+        className={`sm:hidden w-full p-4 secondary-font rounded-t-full bg-${pageTheme}-primary fixed bottom-0`}
+      >
+        Valider
+      </button>
     </Layout>
   )
 }
