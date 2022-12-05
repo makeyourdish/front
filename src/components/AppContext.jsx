@@ -75,11 +75,15 @@ export const AppContextProvider = (props) => {
 
         initSession(data.token) // run session with jwt
       } catch (err) {
-        if (err.response.status === 404) {
-          err.response.data = { error: "Email incorrect" }
+        if (err.message === "Network Error") {
+          setSignInError(
+            "Contactez l'administrateur du site (Pierre MARQUET 06.69.69.69.69 ❤️) "
+          )
+
+          return
         }
 
-        setSignInError(err.response.data.error)
+        setSignInError(err.response.data)
       }
     },
     [initSession, router]
@@ -92,7 +96,15 @@ export const AppContextProvider = (props) => {
         router.push("/signin")
         setSignUpError(null) // remove signup error message
       } catch (err) {
-        setSignUpError(err.response.data.error) // remove signup error message
+        if (err.message === "Network Error") {
+          setSignUpError(
+            "Contactez l'administrateur du site (Romain BIDAULT 06.34.50.34.50 ❤️) "
+          )
+
+          return
+        }
+
+        setSignUpError(err.response.data) // remove signup error message
       }
     },
     [router]

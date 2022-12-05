@@ -5,9 +5,13 @@ import * as Yup from "yup"
 import AppContext from "../src/components/AppContext"
 import Layout from "../src/components/Layout"
 
+const displayErrorSchema = Yup.object({
+  email: Yup.string().email("Adresse mail invalide").required("Requis"),
+  password: Yup.string().required("Requis"),
+})
+
 const Signin = () => {
-  //const { signIn, signInError } = useContext(AppContext)
-  const { signIn } = useContext(AppContext)
+  const { signIn, signInError } = useContext(AppContext)
 
   const handleFormSubmit = useCallback(
     async ({ email, password }) => {
@@ -29,30 +33,31 @@ const Signin = () => {
           <h2 className="secondary-font">Se connecter</h2>
         </div>
 
+        {signInError && (
+          <p className="error-field text-red-700 text-xl font-bold">
+            {signInError}
+          </p>
+        )}
+
         <Formik
           initialValues={{
             email: "",
             password: "",
           }}
-          validationSchema={Yup.object({
-            email: Yup.string()
-              .email("Invalid email address")
-              .required("Required"),
-            password: Yup.string().required("Required"),
-          })}
+          validationSchema={displayErrorSchema}
           onSubmit={handleFormSubmit}
         >
           {({ errors, touched }) => (
-            <Form className="flex flex-col justify-center items-center w-5/6 md:w-1/2 border border-green-500">
+            <Form className="flex flex-col justify-center items-center w-5/6 md:w-1/2">
               <div className="mb-6 w-full">
                 <Field
                   className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-red-500"
                   name="email"
                   type="email"
-                  placeholder="✉ Enter your Email"
+                  placeholder="✉ Entrer votre email"
                 ></Field>
                 {touched.email && errors.email && (
-                  <div className="errorField mt-1 text-red-600 text-center">
+                  <div className="error-field mt-1 text-red-600 text-center">
                     {errors.email}
                   </div>
                 )}
@@ -63,10 +68,10 @@ const Signin = () => {
                   className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-red-500"
                   name="password"
                   type="password"
-                  placeholder="🔒 Enter your Password"
+                  placeholder="🔒 Entrer votre mot de passe"
                 ></Field>
                 {touched.password && errors.password && (
-                  <div className="errorField mt-1 text-red-600 text-center">
+                  <div className="error-field mt-1 text-red-600 text-center">
                     {errors.password}
                   </div>
                 )}
@@ -82,7 +87,7 @@ const Signin = () => {
           )}
         </Formik>
 
-        <div className="w-screen flex flex-col md:flex-row items-center md:items-end pb-6 justify-end md:justify-center text-xl md:text-2xl text-center tertiary-font signin-flamme-background border border-green-500 min-h-[250px] md:min-h-[280px]">
+        <div className="w-screen flex flex-col md:flex-row items-center md:items-end pb-6 justify-end md:justify-center text-xl md:text-2xl text-center tertiary-font signin-flamme-background min-h-[250px] md:min-h-[280px]">
           <p className="mr-2">Vous n’avez pas de compte ?</p>
           <Link href="/signup">
             <a className="font-bold">Créer un compte</a>
