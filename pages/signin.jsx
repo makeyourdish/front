@@ -29,7 +29,11 @@ const Signin = () => {
     >
       <div className="flex flex-col justify-between items-center h-screen">
         <div className="w-screen text-xl md:text-3xl text-center mt-10 md:mt-24">
-          <h1>Make Your Dish</h1>
+          <Link href="/">
+            <a>
+              <h1>Make Your Dish</h1>
+            </a>
+          </Link>
           <h2 className="secondary-font">Se connecter</h2>
         </div>
 

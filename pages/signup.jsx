@@ -51,7 +51,11 @@ const Signup = () => {
     >
       <div className="flex flex-col justify-between items-center h-screen overflow-hidden">
         <div className="w-screen text-3xl text-center mt-24">
-          <h1>Make Your Dish</h1>
+          <Link href="/">
+            <a>
+              <h1>Make Your Dish</h1>
+            </a>
+          </Link>
           <h2 className="secondary-font">S'inscrire</h2>
         </div>
 
