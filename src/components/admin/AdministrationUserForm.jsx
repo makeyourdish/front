@@ -59,7 +59,6 @@ const displayingErrorMessagesSchemaForModification = Yup.object().shape({
 
 const AdminUserForm = ({ user, loading, error }) => {
   const router = useRouter()
-  error = false // todo: remove this line when database exist
 
   const handleSubmit = useCallback(
     async ({ userName, email, password, isAdmin }) => {

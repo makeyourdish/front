@@ -34,7 +34,7 @@ const AdminIngredientrForm = ({ ingredient, loading, error }) => {
   ])
   const [cotegoriesLoading, setCategoriesLoading] = useState(true)
   const [cotegoriesError, setCategoriesError] = useState(null)
-  const [url, setUrl] = useState("" || ingredient.imageUrl)
+  const [url, setUrl] = useState(ingredient ? ingredient.imageUrl : "")
 
   useEffect(() => {
     api
