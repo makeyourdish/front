@@ -9,7 +9,13 @@ const ModifyIngredientAdministrationPage = () => {
     query: { ingredientId },
   } = useRouter()
 
-  const [ingredient, setIngredient] = useState({})
+  const [ingredient, setIngredient] = useState({
+    id: 1,
+    name: "Cuisse de poulet",
+    imageUrl:
+      "https://www.alimentarium.org/sites/default/files/media/image/2016-10/AL001-02%20tomate_0.jpg",
+    categoryIngredientsId: 3,
+  })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(true)
 
