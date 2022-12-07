@@ -16,7 +16,6 @@ const AddUserAdministrationPage = () => {
   )
 }
 
-// AddUserAdministrationPage.private = true
 // AddUserAdministrationPage.private = true // todo: edit this when signin exist
 // AddUserAdministrationPage.administration = true // todo: edit this when signin exist
 

@@ -8,7 +8,7 @@ import api from "../services/api"
 import AdminLoader from "./infos/AdminLoader"
 import AdminResponseError from "./infos/AdminResponseError"
 import AdminResponseNotFound from "./infos/AdminResponseNotFound"
-
+console.log("todo") // todo remove
 //* -------------------- Validation schema for creation  --------------------
 const displayingErrorMessagesSchemaForCreation = Yup.object().shape({
   userName: Yup.string().required("Le nom d'utilisateur est requis"),
