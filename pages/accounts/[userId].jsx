@@ -9,13 +9,15 @@ const AccountPage = () => {
   const { session } = useContext(AppContext)
   let account = null //the login user
 
-  if (session) {
-    account = JSON.parse(session).payload
-  }
-
   const {
     query: { userId },
   } = useRouter()
+
+  console.log(router)
+
+  if (session) {
+    account = JSON.parse(session).payload
+  }
 
   useEffect(() => {
     if (userId) {
@@ -25,8 +27,13 @@ const AccountPage = () => {
     }
   }, [userId])
 
+  if (!account) {
+    return <div>Yapas weshs</div>
+  }
+
   return (
     <Layout page={`Profil: ${userId}`} pagetheme="food" screensize={+true}>
+      {/* <AccountPageContent user={user} account={account} /> <- */}
       {user?.userId === account?.userId || account.userAdmin ? (
         <div>
           <ul>
@@ -50,5 +57,7 @@ const AccountPage = () => {
     </Layout>
   )
 }
+
+AccountPage.private = true
 
 export default AccountPage

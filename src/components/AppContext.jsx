@@ -68,7 +68,8 @@ export const AppContextProvider = (props) => {
         } = router
 
         if (redirect) {
-          router.push(decodeURIComponent(redirect))
+          //router.push(decodeURIComponent(redirect))
+          router.push("/")
         } else {
           router.push("/")
         }
