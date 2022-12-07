@@ -31,7 +31,7 @@ const showDeleteIngredientConfirm = (id, name, ingredients, setIngredients) => {
 //* -------------------- Delete ingredient function --------------------
 const deleteIngredient = async (id, ingredients, setIngredients) => {
   await api.delete(`/ingredients/${id}`) // todo: edit this when database exist
-  //  router.push("/?counter=10", undefined, { shallow: true }) // todo: test this when database exist
+  //  router.push("", undefined, { shallow: true }) // todo: test this when database exist
   setTimeout(() => {
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id))
   }, 1000)

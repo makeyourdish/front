@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Form, Formik, Field } from "formik"
 import * as Yup from "yup"
 import { RiAddCircleFill } from "react-icons/ri"
@@ -8,98 +9,91 @@ import api from "../services/api"
 import AdminLoader from "./infos/AdminLoader"
 import AdminResponseError from "./infos/AdminResponseError"
 import AdminResponseNotFound from "./infos/AdminResponseNotFound"
-console.log("todo") // todo remove
+
 //* -------------------- Validation schema for creation  --------------------
-const displayingErrorMessagesSchemaForCreation = Yup.object().shape({
-  userName: Yup.string().required("Le nom d'utilisateur est requis"),
-  email: Yup.string()
-    .email("Le mail est invalide")
-    .required("Le mail est requis"),
-  password: Yup.string()
-    .min(6, "Le mot de passe doit contenir minimum 6 caractères")
-    .max(50, "Le mot de passe doit contenir maximum 50 caractères")
-    .matches(
-      /^.*(?=.*[a-z]).*$/g,
-      "Le mot de passe doit contenir au moins 1 minuscule"
-    )
-    .matches(
-      /^.*(?=.*[A-Z]).*$/g,
-      "Le mot de passe doit contenir au moins 1 majuscule"
-    )
-    .matches(
-      /^.*(?=.*[0-9]).*$/g,
-      "Le mot de passe doit contenir au moins 1 chiffre"
-    )
-    .required("Le mot de passe est requis"),
+
+const displayingErrorMessagesSchema = Yup.object().shape({
+  name: Yup.string().required("Le nom de l'ingrédient est requis"),
+  imageUrl: Yup.string().required("Vous devez ajouter une image"),
+  categoryIngredientsId: Yup.string().required("Le champ est requis !"),
 })
 
-//* -------------------- Validation schema for modification  -------------------
-const displayingErrorMessagesSchemaForModification = Yup.object().shape({
-  userName: Yup.string().required("Le nom d'utilisateur est requis"),
-  email: Yup.string()
-    .email("Le mail est invalide")
-    .required("Le mail est requis"),
-  password: Yup.string()
-    .min(6, "Le mot de passe doit contenir minimum 6 caractères")
-    .max(50, "Le mot de passe doit contenir maximum 50 caractères")
-    .matches(
-      /^.*(?=.*[a-z]).*$/g,
-      "Le mot de passe doit contenir au moins 1 minuscule"
-    )
-    .matches(
-      /^.*(?=.*[A-Z]).*$/g,
-      "Le mot de passe doit contenir au moins 1 majuscule"
-    )
-    .matches(
-      /^.*(?=.*[0-9]).*$/g,
-      "Le mot de passe doit contenir au moins 1 chiffre"
-    ),
-})
 //* -------------------------- End validation schema --------------------------
 
-const AdminUserForm = ({ user, loading, error }) => {
+const AdminIngredientrForm = ({ ingredient, loading, error }) => {
   const router = useRouter()
+  const [categories, setCategories] = useState([
+    { id: 1, name: "Fruits" },
+    { id: 2, name: "Légumes" },
+    { id: 3, name: "Viandes" },
+    { id: 4, name: "Poissons" },
+    { id: 5, name: "Laitages" },
+    { id: 6, name: "Féculents" },
+    { id: 7, name: "Boissons non alcoolisées" },
+    { id: 8, name: "Boissons alcoolisées" },
+    { id: 10, name: "Autres" },
+  ])
+  const [cotegoriesLoading, setCategoriesLoading] = useState(true)
+  const [cotegoriesError, setCategoriesError] = useState(null)
+  const [url, setUrl] = useState(ingredient ? ingredient.imageUrl : "")
+
+  useEffect(() => {
+    api
+      .get("/category")
+      .then((response) => setCategories(response.data))
+      .catch((err) => {
+        setCategoriesError(err.message)
+      })
+
+      .then(() => setCategoriesLoading(false))
+  }, [])
 
   const handleSubmit = useCallback(
-    async ({ userName, email, password, isAdmin }) => {
-      user
-        ? await api.put(`/users/${user.id}`, {
-            userName,
-            email,
-            password,
-            isAdmin,
+    async ({ name, imageUrl, categoryIngredientsId }) => {
+      ingredient
+        ? await api.put(`/ingredients/${ingredient.id}`, {
+            name,
+            imageUrl,
+            categoryIngredientsId,
           })
-        : await api.post("/users", { userName, email, password, isAdmin })
-      router.push("/administration/users")
+        : await api.post("/ingredients", {
+            name,
+            imageUrl,
+            categoryIngredientsId,
+          })
+      router.push("/administration/ingredients")
     },
-    [router, user]
+    [router, ingredient]
   )
 
-  if (loading) {
+  if (loading || cotegoriesLoading) {
     return <AdminLoader message="Chargement du formulaire" />
   }
 
-  if (error) {
-    return <AdminResponseError error={error} />
+  if (error || cotegoriesError) {
+    return <AdminResponseError error={error || cotegoriesError} />
   }
 
-  if (user && !Object.keys(user).length) {
-    return <AdminResponseNotFound message="Utilisateur non trouvé" />
+  if (!categories.length) {
+    return (
+      <AdminResponseError error="Vous devez créer au moins une catégorie" />
+    )
+  }
+
+  if (ingredient && !Object.keys(ingredient).length) {
+    return <AdminResponseNotFound message="Ingrédient non trouvé" />
   }
 
   return (
     <Formik
       initialValues={{
-        userName: user ? user.userName : "",
-        email: user ? user.email : "",
-        password: "",
-        isAdmin: user ? user.isAdmin : false,
+        name: ingredient ? ingredient.name : "",
+        imageUrl: ingredient ? ingredient.imageUrl : "",
+        categoryIngredientsId: ingredient
+          ? ingredient.categoryIngredientsId
+          : categories[0].id,
       }}
-      validationSchema={
-        user
-          ? displayingErrorMessagesSchemaForModification
-          : displayingErrorMessagesSchemaForCreation
-      }
+      validationSchema={displayingErrorMessagesSchema}
       onSubmit={handleSubmit}
     >
       {({ errors, touched }) => (
@@ -107,15 +101,15 @@ const AdminUserForm = ({ user, loading, error }) => {
           <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                touched.userName && errors.userName && "border-red-600"
+                touched.name && errors.name && "border-red-600"
               }`}
-              label="Pseudo"
-              name="userName"
-              placeholder="Le pseudo de l'utilisateur"
+              label="Nom de l'ingrédient"
+              name="name"
+              placeholder="Le nom de l'ingrédient"
             />
-            {errors.userName && touched.userName && (
+            {errors.name && touched.name && (
               <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
-                {errors.userName}
+                {errors.name}
               </div>
             )}
           </div>
@@ -123,15 +117,24 @@ const AdminUserForm = ({ user, loading, error }) => {
           <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                touched.email && errors.email && "border-red-600"
+                touched.imageUrl && errors.imageUrl && "border-red-600"
               }`}
-              label="Email"
-              name="email"
-              placeholder="exemple@mail.com"
+              name="imageUrl"
+              placeholder="L'url de l'image"
+              onKeyUp={(e) => {
+                setUrl(e.target.value)
+              }}
             />
-            {errors.email && touched.email && (
+            {url && (
+              <img
+                src={url}
+                alt="Aucune image trouvée"
+                className="text-centers h-52 mt-1 mx-auto"
+              />
+            )}
+            {errors.imageUrl && touched.imageUrl && (
               <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
-                {errors.email}
+                {errors.imageUrl}
               </div>
             )}
           </div>
@@ -139,36 +142,37 @@ const AdminUserForm = ({ user, loading, error }) => {
           <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                touched.password && errors.password && "border-red-600"
-              }`}
-              label="Mot de passe"
-              type="password"
-              name="password"
-              placeholder="1 majuscule, 1 minuscule, 1 chiffre, 6 caractères minimum et 50 caractères maximum"
-            />
-            {errors.password && touched.password && (
+                touched.categoryIngredientsId &&
+                errors.categoryIngredientsId &&
+                "border-red-600"
+              } cursor-pointer`}
+              name="categoryIngredientsId"
+              as="select"
+            >
+              {categories.map((category) => (
+                <option
+                  key={category.id}
+                  value={category.id}
+                  name="categoryIngredientsId"
+                >
+                  {category.name}
+                </option>
+              ))}
+            </Field>
+            {errors.categoryIngredientsId && touched.categoryIngredientsId && (
               <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
-                {errors.password}
+                {errors.categoryIngredientsId}
               </div>
             )}
           </div>
 
-          <label className="select-none cursor-pointer sm:text-xl flex items-center justify-center">
-            <Field
-              className="mr-2 cursor-pointer h-4 w-4 sm:h-5 sm:w-5"
-              type="checkbox"
-              name="isAdmin"
-            />
-            Administrateur
-          </label>
-
-          {user ? (
+          {ingredient ? (
             <button
               type="submit"
               className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
             >
               <FaEdit className="text-xl md:text-3xl mr-2" /> Modifier
-              l'utilisateur
+              l'ingrédient
             </button>
           ) : (
             <button
@@ -176,7 +180,7 @@ const AdminUserForm = ({ user, loading, error }) => {
               className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75"
             >
               <RiAddCircleFill className="text-xl md:text-3xl mr-2" /> Ajouter
-              l'utilisateur
+              l'ingrédient
             </button>
           )}
         </Form>
@@ -185,4 +189,4 @@ const AdminUserForm = ({ user, loading, error }) => {
   )
 }
 
-export default AdminUserForm
+export default AdminIngredientrForm
