@@ -3,32 +3,59 @@ import { useContext, useEffect, useState } from "react"
 import AppContext from "../../src/components/AppContext"
 import Layout from "../../src/components/Layout"
 import api from "../../src/components/services/api"
+import { FiAlertTriangle } from "react-icons/fi"
 
 const AccountPage = () => {
   const [user, setUser] = useState(null) //the user to display
   const { session } = useContext(AppContext)
+  const [apiError, setApiError] = useState(null)
   let account = null //the login user
 
   const {
     query: { userId },
   } = useRouter()
 
-  console.log(router)
-
   if (session) {
     account = JSON.parse(session).payload
   }
 
+  console.log("userId", userId)
   useEffect(() => {
-    if (userId) {
-      api.get(`/accounts/${userId}`).then((response) => {
-        setUser(response.data)
-      })
+    if (account && !isNaN(userId)) {
+      api
+        .get(`/accounts/${userId}`)
+        .then((response) => {
+          setUser(response.data)
+        })
+        .catch((error) => {
+          console.log("error :>> ", error.response)
+          setApiError(error.response ? error.response.data : error.message)
+        })
     }
   }, [userId])
 
   if (!account) {
-    return <div>Yapas weshs</div>
+    return (
+      <Layout page={`Profil: ${userId}`} pagetheme="food" screensize={+true}>
+        <section>
+          <div className="w-full mb-7 py-2 flex items-center justify-center text-red-600 text-center font-bold text-2xl rounded">
+            <FiAlertTriangle className="text-5xl mr-3" /> Veuillez vous
+            connecter
+          </div>
+        </section>
+      </Layout>
+    )
+  }
+  if (apiError) {
+    return (
+      <Layout page={`Profil: ${userId}`} pagetheme="food" screensize={+true}>
+        <section>
+          <div className="w-full mb-7 py-2 flex items-center justify-center text-red-600 text-center font-bold text-2xl rounded">
+            <FiAlertTriangle className="text-5xl mr-3" /> {apiError}
+          </div>
+        </section>
+      </Layout>
+    )
   }
 
   return (
@@ -58,6 +85,6 @@ const AccountPage = () => {
   )
 }
 
-AccountPage.private = true
+//AccountPage.private = true
 
 export default AccountPage
