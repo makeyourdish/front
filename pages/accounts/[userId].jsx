@@ -5,6 +5,33 @@ import Layout from "../../src/components/Layout"
 import api from "../../src/components/services/api"
 import { FiAlertTriangle } from "react-icons/fi"
 import Link from "next/link"
+import Image from "next/image"
+
+const SpatuleImg = () => {
+  const src = "/images/background/Spatule.png"
+  const otherClass = "absolute bottom-52 right-12 lg:right-44"
+
+  return (
+    <>
+      <div className={`${otherClass} hidden md:block`}>
+        <Image src={src} width={200} height={200} alt="food" />
+      </div>
+    </>
+  )
+}
+
+const PoeleImg = () => {
+  const src = "/images/background/Poele.png"
+  const otherClass = "absolute bottom-32 left-12"
+
+  return (
+    <>
+      <div className={`${otherClass} hidden md:block`}>
+        <Image src={src} width={420} height={290} alt="food" />
+      </div>
+    </>
+  )
+}
 
 const AccountPage = () => {
   const [user, setUser] = useState(null) //the user to display
@@ -63,7 +90,7 @@ const AccountPage = () => {
 
   return (
     <Layout page={`Profil: ${userId}`} pagetheme="food" screensize={+true}>
-      <div className="flex flex-col justify-between items-center h-screen">
+      <div className="flex-grow flex flex-col justify-between items-center relative">
         {/* <AccountPageContent user={user} account={account} /> <- */}
         {user?.userId === account?.userId || account.userAdmin ? (
           <div>
@@ -71,7 +98,7 @@ const AccountPage = () => {
               <h2 className="secondary-font">Mes informations</h2>
             </div>
 
-            <div className="tertiary-font text-center text-lg">
+            <div className="tertiary-font text-center text-xl mb-12">
               <p className="mb-4">
                 Nom d'utilisateur: <b>{user.userName}</b>
               </p>
@@ -88,7 +115,6 @@ const AccountPage = () => {
                   Modifier mes informations
                 </a>
               </Link>
-              <br></br>
               <Link href="/recipes/make">
                 <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
                   Modifier mon mot de passe
@@ -100,6 +126,8 @@ const AccountPage = () => {
           <h2>Vous n'etes pas autorisé</h2>
         )}
         <div className="w-screen flex flex-col md:flex-row items-center md:items-end pb-6 justify-end md:justify-center text-xl md:text-2xl text-center tertiary-font signin-flamme-background min-h-[250px] md:min-h-[280px]"></div>
+        <SpatuleImg />
+        <PoeleImg />
       </div>
     </Layout>
   )

@@ -1,9 +1,36 @@
-import { Field, Form, Formik } from "formik"
+import Image from "next/image"
 import Link from "next/link"
+import { Field, Form, Formik } from "formik"
 import { useCallback, useContext } from "react"
 import * as Yup from "yup"
 import AppContext from "../src/components/AppContext"
 import Layout from "../src/components/Layout"
+
+const SpatuleImg = () => {
+  const src = "/images/background/Spatule.png"
+  const otherClass = "absolute top-12 right-12 lg:right-24"
+
+  return (
+    <>
+      <div className={`${otherClass} hidden md:block`}>
+        <Image src={src} width={200} height={200} alt="food" />
+      </div>
+    </>
+  )
+}
+
+const PoeleImg = () => {
+  const src = "/images/background/Poele.png"
+  const otherClass = "absolute bottom-32 left-12"
+
+  return (
+    <>
+      <div className={`${otherClass} hidden md:block`}>
+        <Image src={src} width={420} height={290} alt="food" />
+      </div>
+    </>
+  )
+}
 
 const displayErrorSchema = Yup.object({
   email: Yup.string().email("Adresse mail invalide").required("Requis"),
@@ -27,7 +54,7 @@ const Signin = () => {
       screensize={+true}
       hideheader={+true}
     >
-      <div className="flex flex-col justify-between items-center h-screen">
+      <div className="flex flex-col justify-between items-center h-screen relative">
         <div className="w-screen text-xl md:text-3xl text-center mt-10 md:mt-24">
           <Link href="/">
             <a>
@@ -98,6 +125,8 @@ const Signin = () => {
           </Link>
         </div>
       </div>
+      <SpatuleImg />
+      <PoeleImg />
     </Layout>
   )
 }
