@@ -10,13 +10,14 @@ import AdminLoader from "./infos/AdminLoader"
 import AdminResponseError from "./infos/AdminResponseError"
 import AdminResponseNotFound from "./infos/AdminResponseNotFound"
 
-//* --------------------------- Validation schema ---------------------------
+//* -------------------- Validation schema for creation  --------------------
 
 const displayingErrorMessagesSchema = Yup.object().shape({
   name: Yup.string().required("Le nom de l'ingrédient est requis"),
   imageUrl: Yup.string().required("Vous devez ajouter une image"),
   categoryIngredientsId: Yup.string().required("Le champ est requis !"),
 })
+
 //* -------------------------- End validation schema --------------------------
 
 const AdminIngredientrForm = ({ ingredient, loading, error }) => {
