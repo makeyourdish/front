@@ -62,7 +62,7 @@ const AdministrationingredientList = ({
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-max sm:w-5/6 md:w-3/4 lg:w-2/3 mx-auto text-center text-lg whitespace-nowrap">
+      <table className="w-max 2xl:w-4/5 mx-auto text-center text-lg whitespace-nowrap">
         <thead className="bg-gray-600 font-bold text-white">
           <tr>
             <th className="border px-3">Nom de l'ingrédient</th>
@@ -75,11 +75,11 @@ const AdministrationingredientList = ({
           {ingredients.map((ingredient, index) => (
             <tr key={ingredient.id} className={index % 2 && "bg-slate-200"}>
               <td className="border w-min px-8">{ingredient.name}</td>
-              <td className="border w-min px-8">
+              <td className="border w-min">
                 <img
                   src={ingredient.imageUrl}
                   alt="image de l'ingrédient"
-                  className="h-40 mx-auto"
+                  className="object-cover h-40 mx-auto"
                 />
               </td>
               <td className="border w-min px-8">{ingredient.category}</td>
