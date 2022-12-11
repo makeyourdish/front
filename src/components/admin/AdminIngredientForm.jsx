@@ -20,7 +20,7 @@ const displayingErrorMessagesSchema = Yup.object().shape({
 
 //* -------------------------- End validation schema --------------------------
 
-const AdminIngredientrForm = ({ ingredient, loading, error }) => {
+const AdminIngredientForm = ({ ingredient, loading, error }) => {
   const router = useRouter()
   const [categories, setCategories] = useState([
     { id: 1, name: "Fruits" },
@@ -189,4 +189,4 @@ const AdminIngredientrForm = ({ ingredient, loading, error }) => {
   )
 }
 
-export default AdminIngredientrForm
+export default AdminIngredientForm

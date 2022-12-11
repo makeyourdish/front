@@ -2,7 +2,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { FaUserCircle } from "react-icons/fa"
 import { IoFastFood } from "react-icons/io5"
-import { BiFoodMenu, BiDrink } from "react-icons/bi"
+import { BiFoodMenu } from "react-icons/bi"
 import Layout from "../src/components/Layout"
 
 const AdministrationPage = () => {
@@ -10,8 +10,8 @@ const AdministrationPage = () => {
 
   return (
     <Layout page="Administration" hideheader={+true} diplayadminheader={+true}>
-      <div className="flex flex-col items-center justify-center my-10 md:pb-10 md:border-b-2">
-        <div className="flex flex-col md:flex-row items-center justify-center w-5/6 sm:w-4/6 md:w-2/3 xl:w-1/2">
+      <div className="flex flex-col items-center justify-center my-10 md:pb-10 md:border-b-2 px-2 sm:px-10 md:px-24 xl:px-52 2xl:px-80">
+        <div className="flex flex-col md:flex-row items-center justify-center w-full">
           <Link href="/administration/users">
             <a
               onMouseEnter={() => {
@@ -22,7 +22,7 @@ const AdministrationPage = () => {
               onMouseLeave={() => {
                 setInfo(null)
               }}
-              className="flex items-center justify-center rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
+              className="flex items-center justify-center rounded-lg w-full py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
             >
               <FaUserCircle className="text-lg sm:text-3xl mr-2" />
               Gestion des utilisateurs
@@ -39,44 +39,29 @@ const AdministrationPage = () => {
               onMouseLeave={() => {
                 setInfo(null)
               }}
-              className="flex items-center justify-center rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
+              className="flex items-center justify-center rounded-lg w-full py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
             >
-              <IoFastFood className="text-lg sm:text-3xl mr-2" />
+              <BiFoodMenu className="text-lg sm:text-3xl mr-2" />
               Gestion des ingrédients
             </a>
           </Link>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center w-5/6 sm:w-4/6 md:w-2/3 xl:w-1/2">
+        <div className="flex flex-col md:flex-row items-center justify-center w-full">
           <Link href="/administration/receipes">
             <a
               onMouseEnter={() => {
-                setInfo("Ajouter, modifier, supprimer ou afficher les recettes")
-              }}
-              onMouseLeave={() => {
-                setInfo(null)
-              }}
-              className="flex items-center justify-center rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
-            >
-              <BiFoodMenu className="text-lg sm:text-3xl mr-2" />
-              Gestion des recettes
-            </a>
-          </Link>
-
-          <Link href="/administration/drinks">
-            <a
-              onMouseEnter={() => {
                 setInfo(
-                  "Ajouter, modifier, supprimer ou afficher les cocktails"
+                  "Ajouter, modifier, supprimer ou afficher les recettes et cocktails"
                 )
               }}
               onMouseLeave={() => {
                 setInfo(null)
               }}
-              className="flex items-center justify-center rounded-lg w-full md:w-1/2 py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
+              className="flex items-center justify-center rounded-lg w-full py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
             >
-              <BiDrink className="text-lg sm:text-3xl mr-2" />
-              Gestion des cocktails
+              <IoFastFood className="text-lg sm:text-3xl mr-2" />
+              Gestion des recettes et des cocktails
             </a>
           </Link>
         </div>
