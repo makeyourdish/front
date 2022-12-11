@@ -77,7 +77,7 @@ const AdministrationingredientList = ({
               <td className="border w-min px-8">{ingredient.name}</td>
               <td className="border w-min px-8">
                 <img
-                  src={ingredient.urlImage}
+                  src={ingredient.imageUrl}
                   alt="image de l'ingrédient"
                   className="h-40 mx-auto"
                 />

@@ -10,35 +10,35 @@ const IngredientsAdministrationPage = () => {
     {
       id: 1,
       name: "Tomate",
-      urlImage:
+      imageUrl:
         "https://www.alimentarium.org/sites/default/files/media/image/2016-10/AL001-02%20tomate_0.jpg",
       category: "Fruit",
     },
     {
       id: 2,
       name: "Carotte",
-      urlImage:
+      imageUrl:
         "https://www.alimentarium.org/sites/default/files/media/image/2016-10/AL012-02%20carotte_0.jpg",
       category: "Légume",
     },
     {
       id: 3,
       name: "Filet de poulet",
-      urlImage:
+      imageUrl:
         "https://www.maison-conquet.fr/1388-pdt_540/filet-de-poulet-francais-par-2.jpg",
       category: "Viande",
     },
     {
       id: 4,
       name: "Côte de porc",
-      urlImage:
+      imageUrl:
         "https://dynfiles.comme-a-la-boucherie.com/original-catalogue-produit-11-12-2013---11-20-19---714.jpg",
       category: "Viande",
     },
     {
       id: 5,
       name: "Pomme de terre",
-      urlImage:
+      imageUrl:
         "https://www.academiedugout.fr/images/16365/1200-auto/fotolia_55292183_subscription_xl-copy.jpg?poix=50&poiy=50",
       category: "Féculent",
     },
