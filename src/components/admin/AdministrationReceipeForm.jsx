@@ -21,15 +21,14 @@ const displayingErrorMessagesSchema = Yup.object().shape({
     .required("La description est requise")
     .max(500, "La description doit faire moins de 500 caractères"),
   imageUrl: Yup.string().required("Vous devez ajouter une image"),
-  preparationTimeHours: Yup.number()
-    .min(1, "Les heures doivent être supérieures à 0")
-    .required("Le temps de préparation est requis"),
-  preparationTimeMinutes: Yup.number()
-    .min(0, "Les minutes doivent être supérieures ou égales à 0")
-    .max(59, "Les minutes doivent être inférieures à 59")
-    .required("Le temps de préparation est requis"),
+  preparationTimeHours: Yup.string().required(
+    "Le temps de préparation est requis"
+  ),
+  preparationTimeMinutes: Yup.string().required(
+    "Le temps de préparation est requis"
+  ),
   priceRange: Yup.string().required("La tranche prix est requise"),
-  dificuty: Yup.string().required("La difficulté est requise"),
+  difficulty: Yup.string().required("La difficulté est requise"),
   typeReceipeId: Yup.string().required("Le champ est requis !"),
   step: Yup.string().required("Les étapes de préparation sont requises"),
   ingredients: Yup.string().required("Les ingrédients sont requis"),
@@ -47,7 +46,8 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
     { id: 4, name: "Cockctail non alcoolisé" },
     { id: 5, name: "Cockctail alcoolisé" },
   ])
-  const [typesLoading, setTypesLoading] = useState(true)
+  const [typesLoading, setTypesLoading] = useState(false)
+  // const [typesLoading, setTypesLoading] = useState(true)
   const [typesError, setTypesError] = useState(null)
 
   useEffect(() => {
@@ -70,7 +70,8 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
     { id: 4, name: "Tomates" },
     { id: 5, name: "Poires" },
   ])
-  const [ingredientsLoading, setIngredientsLoading] = useState(true)
+  const [ingredientsLoading, setIngredientsLoading] = useState(false)
+  // const [ingredientsLoading, setIngredientsLoading] = useState(true)
   const [ingredientsError, setIngredientsError] = useState(null)
 
   useEffect(() => {
@@ -87,16 +88,142 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
 
   const [url, setUrl] = useState(receipe ? receipe.imageUrl : "")
   const hours = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
-    60,
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "52",
+    "53",
+    "54",
+    "55",
+    "56",
+    "57",
+    "58",
+    "59",
   ]
   const minutes = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-    40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
-    59,
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "52",
+    "53",
+    "54",
+    "55",
+    "56",
+    "57",
+    "58",
+    "59",
+  ]
+  const priceRanges = [
+    { id: 1, priceRangeName: "Économique" },
+    { id: 2, priceRangeName: "Bon marché" },
+    { id: 3, priceRangeName: "Moyen" },
+    { id: 4, priceRangeName: "Coûteux" },
+    { id: 5, priceRangeName: "Très coûteux" },
+  ]
+  const difficulties = [
+    { id: 1, difficultyName: "Très facile" },
+    { id: 2, difficultyName: "Facile" },
+    { id: 3, difficultyName: "Moyen" },
+    { id: 4, difficultyName: "Difficile" },
+    { id: 5, difficultyName: "Très difficile" },
   ]
 
   const handleSubmit = useCallback(
@@ -121,6 +248,10 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
     return <AdminLoader message="Chargement du formulaire" />
   }
 
+  //! for testing only
+  error = false
+  //! end for testing only
+
   if (error || typesError || ingredientsError) {
     return <AdminResponseError error={error || typesError} />
   }
@@ -141,7 +272,6 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
     return <AdminResponseNotFound message="Recette ou cocktail non trouvé" />
   }
 
-  // todo: edit this !!!!
   return (
     <Formik
       initialValues={{
@@ -170,29 +300,161 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
             )}
           </div>
 
-          <div className="mb-3 sm:mb-6 w-full">
-            <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                touched.personNb && errors.personNb && "border-red-600"
-              }`}
-              as="number"
-              label="Le nombre de personnes"
-              name="personNb"
-              placeholder="Le nom de l'ingrédient"
-            />
-            {errors.personNb && touched.personNb && (
-              <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
-                {errors.personNb}
+          <div className="flex items-start justify-center w-full">
+            <div className="mb-3 mr-3 sm:mb-6 w-full">
+              <Field
+                className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                  touched.recipeTypeId &&
+                  errors.recipeTypeId &&
+                  "border-red-600"
+                } cursor-pointer`}
+                name="recipeTypeId"
+                as="select"
+              >
+                {types.map((type) => (
+                  <option key={type.id} value={type.id} name="TypesId">
+                    {type.name}
+                  </option>
+                ))}
+              </Field>
+              {errors.recipeTypeId && touched.recipeTypeId && (
+                <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
+                  {errors.recipeTypeId}
+                </div>
+              )}
+            </div>
+
+            <div className="mb-3 sm:mb-6 w-full">
+              <div className="flex items-center justify-center">
+                <Field
+                  className={`flex-1 text-right border-2 rounded-l py-1 px-2 transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                    touched.personNb && errors.personNb && "border-red-600"
+                  }`}
+                  type="number"
+                  label="Le nombre de personnes"
+                  name="personNb"
+                  placeholder="Pour combien de prs."
+                />
+                <span className="border-2 bg-gray-200 rounded-r py-1 px-2">
+                  personne(s)
+                </span>
               </div>
-            )}
+              {errors.personNb && touched.personNb && (
+                <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
+                  {errors.personNb}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="w-full flex items-start justify-center">
+            <div className=" mr-3 flex items-center justify-center mb-3 sm:mb-6 w-full">
+              <Field
+                className={`border-2 rounded-l py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                  touched.preparationTimeHours &&
+                  errors.preparationTimeHours &&
+                  "border-red-600"
+                } cursor-pointer`}
+                name="preparationTimeHours"
+                as="select"
+              >
+                {hours.map((hour, index) => (
+                  <option key={index} value={hour} name="preparationTimeHours">
+                    {hour}
+                  </option>
+                ))}
+              </Field>
+              <span className="bg-gray-200 py-[5.6px] px-2">H</span>
+              <Field
+                className={`border-2 rounded-r py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                  touched.preparationTimeMinutes &&
+                  errors.preparationTimeMinutes &&
+                  "border-red-600"
+                } cursor-pointer`}
+                name="preparationTimeMinutes"
+                as="select"
+              >
+                {minutes.map((minute, index) => (
+                  <option
+                    key={index}
+                    value={minute}
+                    name="preparationTimeMinutes"
+                  >
+                    {minute}
+                  </option>
+                ))}
+              </Field>
+              {errors.preparationTimeMinutes &&
+                touched.preparationTimeMinutes && (
+                  <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
+                    {errors.preparationTimeMinutes}
+                  </div>
+                )}
+              {errors.preparationTimeHours && touched.preparationTimeHours && (
+                <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
+                  {errors.preparationTimeHours}
+                </div>
+              )}
+            </div>
+
+            <div className="mb-3 mr-3 sm:mb-6 w-full">
+              <Field
+                className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                  touched.priceRange && errors.priceRange && "border-red-600"
+                } cursor-pointer`}
+                name="priceRange"
+                as="select"
+              >
+                {priceRanges.map((priceRange) => (
+                  <option
+                    key={priceRange.id}
+                    value={priceRange.id}
+                    name="TypesId"
+                  >
+                    {priceRange.priceRangeName}
+                  </option>
+                ))}
+              </Field>
+              {errors.priceRange && touched.priceRange && (
+                <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
+                  {errors.priceRange}
+                </div>
+              )}
+            </div>
+
+            <div className="mb-3 mr-3 sm:mb-6 w-full">
+              <Field
+                className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                  touched.difficulty && errors.difficulty && "border-red-600"
+                } cursor-pointer`}
+                name="difficulty"
+                as="select"
+              >
+                {difficulties.map((difficulty) => (
+                  <option
+                    key={difficulty.id}
+                    value={difficulty.id}
+                    name="difficulty"
+                  >
+                    {difficulty.difficultyName}
+                  </option>
+                ))}
+              </Field>
+              {errors.difficulty && touched.difficulty && (
+                <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
+                  {errors.difficulty}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="mb-3 sm:mb-6 w-full">
             <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+              className={`border-2 rounded py-1 px-2 w-full -mb-[6px] transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
                 touched.description && errors.description && "border-red-600"
               }`}
               as="textarea"
+              rows="8"
               label="La description de la recette ou du cocktail"
               name="description"
               placeholder="Le nom de l'ingrédient"
@@ -225,78 +487,6 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
             {errors.imageUrl && touched.imageUrl && (
               <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
                 {errors.imageUrl}
-              </div>
-            )}
-          </div>
-
-          <div className="mb-3 sm:mb-6 w-full">
-            <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                touched.preparationTimeHours &&
-                errors.preparationTimeHours &&
-                "border-red-600"
-              } cursor-pointer`}
-              name="preparationTimeHours"
-              as="select"
-            >
-              {hours.map((hour, index) => (
-                <option key={index} value={hour} name="preparationTimeHours">
-                  {hour}
-                </option>
-              ))}
-            </Field>
-            <span>H</span>
-            <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                touched.preparationTimeMinutes &&
-                errors.preparationTimeMinutes &&
-                "border-red-600"
-              } cursor-pointer`}
-              name="preparationTimeMinutes"
-              as="select"
-            >
-              {minutes.map((minute, index) => (
-                <option
-                  key={index}
-                  value={minute}
-                  name="preparationTimeMinutes"
-                >
-                  {minute}
-                </option>
-              ))}
-            </Field>
-            {errors.preparationTimeMinutes &&
-              touched.preparationTimeMinutes && (
-                <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
-                  {errors.preparationTimeMinutes}
-                </div>
-              )}
-            {errors.preparationTimeHours && touched.preparationTimeHours && (
-              <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
-                {errors.preparationTimeHours}
-              </div>
-            )}
-          </div>
-
-          {/* todo : priceRange, difficuty */}
-
-          <div className="mb-3 sm:mb-6 w-full">
-            <Field
-              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                touched.recipeTypeId && errors.recipeTypeId && "border-red-600"
-              } cursor-pointer`}
-              name="recipeTypeId"
-              as="select"
-            >
-              {types.map((type) => (
-                <option key={type.id} value={type.id} name="TypesId">
-                  {type.name}
-                </option>
-              ))}
-            </Field>
-            {errors.recipeTypeId && touched.recipeTypeId && (
-              <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
-                {errors.recipeTypeId}
               </div>
             )}
           </div>

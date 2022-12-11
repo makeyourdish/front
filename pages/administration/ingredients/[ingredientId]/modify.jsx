@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import api from "../../../../src/components/services/api"
 import Layout from "../../../../src/components/Layout"
-import AdminIngredientForm from "../../../../src/components/admin/AdminIngredientForm"
+import AdministrationIngredientForm from "../../../../src/components/admin/AdministrationIngredientForm"
 
 const ModifyIngredientAdministrationPage = () => {
   const {
@@ -42,7 +42,7 @@ const ModifyIngredientAdministrationPage = () => {
           ? `Modifier l'ingredient "${ingredient.name}"`
           : "Modifier un ingredient"}
       </h2>
-      <AdminIngredientForm
+      <AdministrationIngredientForm
         ingredient={ingredient}
         loading={loading}
         error={error}
