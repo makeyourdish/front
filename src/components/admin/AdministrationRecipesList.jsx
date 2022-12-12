@@ -8,8 +8,8 @@ import AdminLoader from "./infos/AdminLoader"
 import AdminResponseError from "./infos/AdminResponseError"
 import AdminResponseNotFound from "./infos/AdminResponseNotFound"
 
-//* -------------------- Delete receipe confirm dialog box --------------------
-const showDeleteReceipeConfirm = (id, name, receipes, setReceipes) => {
+//* -------------------- Delete recipe confirm dialog box --------------------
+const showDeleteRecipeConfirm = (id, name, recipes, setRecipes) => {
   Swal.fire({
     title: `Vous êtes sûr de vouloir supprimer l'ingrédient "${name}" ?`,
     text: "Cette action est définitive !",
@@ -23,27 +23,22 @@ const showDeleteReceipeConfirm = (id, name, receipes, setReceipes) => {
         title: `La recette ou le cocktail "${name}" à été supprimée`,
         icon: "success",
       })
-      deleteReceipe(id, receipes, setReceipes)
+      deleteRecipe(id, recipes, setRecipes)
     }
   })
 }
 
-//* -------------------- Delete receipe function --------------------
-const deleteReceipe = async (id, receipes, setReceipes) => {
-  await api.delete(`/receipes/${id}`) // todo: edit this when database exist
+//* -------------------- Delete recipe function --------------------
+const deleteRecipe = async (id, recipes, setRecipes) => {
+  await api.delete(`/recipes/${id}`) // todo: edit this when database exist
   //  router.push("", undefined, { shallow: true }) // todo: test this when database exist
   setTimeout(() => {
-    setReceipes(receipes.filter((receipe) => receipe.id !== id))
+    setRecipes(recipes.filter((recipe) => recipe.id !== id))
   }, 1000)
 }
-//* -------------------- End delete receipe --------------------
+//* -------------------- End delete recipe --------------------
 
-const AdministrationreceipeList = ({
-  receipes,
-  loading,
-  error,
-  setReceipes,
-}) => {
+const AdministrationrecipeList = ({ recipes, loading, error, setRecipes }) => {
   if (loading) {
     return <AdminLoader message="Chargement de la liste des ingrédients" />
   }
@@ -56,7 +51,7 @@ const AdministrationreceipeList = ({
     return <AdminResponseError error={error} />
   }
 
-  if (!receipes.length) {
+  if (!recipes.length) {
     return <AdminResponseNotFound message="Aucun ingrédient trouvé" />
   }
 
@@ -73,21 +68,21 @@ const AdministrationreceipeList = ({
           </tr>
         </thead>
         <tbody>
-          {receipes.map((receipe, index) => (
-            <tr key={receipe.id} className={index % 2 && "bg-slate-200"}>
-              <td className="border px-8">{receipe.name}</td>
+          {recipes.map((recipe, index) => (
+            <tr key={recipe.id} className={index % 2 && "bg-slate-200"}>
+              <td className="border px-8">{recipe.name}</td>
               <td className="border w-max">
                 <img
-                  src={receipe.imageUrl}
+                  src={recipe.imageUrl}
                   alt="image de la recette ou du cocktail"
                   className="object-cover h-40 mx-auto"
                 />
               </td>
-              <td className="border px-8">{receipe.preparationTime}</td>
-              <td className="border px-8">{receipe.recipeTypeId}</td>
+              <td className="border px-8">{recipe.preparationTime}</td>
+              <td className="border px-8">{recipe.recipeTypeId}</td>
               <td className="border">
                 <Link
-                  href={`/administration/receipes/${receipe.id}/modify`}
+                  href={`/administration/recipes/${recipe.id}/modify`}
                   passHref
                 >
                   <button className="bg-blue-500 hover:bg-blue-700 text-white p-3 rounded mr-1 transition-all duration-75 focus:outline focus:outline-4 focus:outline-blue-700/50">
@@ -96,11 +91,11 @@ const AdministrationreceipeList = ({
                 </Link>
                 <button
                   onClick={() =>
-                    showDeleteReceipeConfirm(
-                      receipe.id,
-                      receipe.receipeName,
-                      receipes,
-                      setReceipes
+                    showDeleteRecipeConfirm(
+                      recipe.id,
+                      recipe.recipeName,
+                      recipes,
+                      setRecipes
                     )
                   }
                   className="bg-red-500 hover:bg-red-700 text-white font-bold p-3 rounded transition-all duration-75 focus:outline focus:outline-4 focus:outline-red-700/50"
@@ -125,4 +120,4 @@ const AdministrationreceipeList = ({
   )
 }
 
-export default AdministrationreceipeList
+export default AdministrationrecipeList

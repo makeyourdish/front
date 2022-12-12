@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Form, Formik, Field } from "formik"
 import * as Yup from "yup"
 import { RiAddCircleFill } from "react-icons/ri"
-import { FaEdit } from "react-icons/fa"
+import { FaEdit, FaPlusSquare } from "react-icons/fa"
 import api from "../services/api"
 import AdminLoader from "./infos/AdminLoader"
 import AdminResponseError from "./infos/AdminResponseError"
@@ -29,16 +29,16 @@ const displayingErrorMessagesSchema = Yup.object().shape({
   ),
   priceRange: Yup.string().required("La tranche prix est requise"),
   difficulty: Yup.string().required("La difficulté est requise"),
-  typeReceipeId: Yup.string().required("Le champ est requis !"),
+  typeRecipeId: Yup.string().required("Le champ est requis !"),
   step: Yup.string().required("Les étapes de préparation sont requises"),
   ingredients: Yup.string().required("Les ingrédients sont requis"),
 })
 //* -------------------------- End validation schema --------------------------
 
-const AdminReceipeForm = ({ receipe, loading, error }) => {
+const AdminRecipeForm = ({ recipe, loading, error }) => {
   const router = useRouter()
 
-  //* -------------------------- Receipe types data --------------------------
+  //* -------------------------- Recipe types data --------------------------
   const [types, setTypes] = useState([
     { id: 1, name: "Entrée" },
     { id: 2, name: "Plat" },
@@ -60,7 +60,7 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
 
       .then(() => setTypesLoading(false))
   }, [])
-  //* -------------------------- End Receipe types data --------------------------
+  //* -------------------------- End Recipe types data --------------------------
 
   //* -------------------------- ingredients data --------------------------
   const [ingredients, setIngredients] = useState([
@@ -86,7 +86,7 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
   }, [])
   //* -------------------------- End ingredients data --------------------------
 
-  const [url, setUrl] = useState(receipe ? receipe.imageUrl : "")
+  const [url, setUrl] = useState(recipe ? recipe.imageUrl : "")
   const hours = [
     "00",
     "01",
@@ -225,23 +225,46 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
     { id: 4, difficultyName: "Difficile" },
     { id: 5, difficultyName: "Très difficile" },
   ]
+  // const [steps, setSteps] = useState(recipe ? recipe.steps : [])
+  const [recipeIngredients, setRecipeIngredients] = useState(
+    recipe ? recipe.ingredients : []
+  )
+  const quantityTypes = [
+    "pièce",
+    "g",
+    "kg",
+    "ml",
+    "cl",
+    "l",
+    "cuillère à soupe",
+    "cuillère à caffé",
+    "pincée",
+    "tasse",
+    "verre",
+    "brique",
+    "boîte",
+    "bocal",
+    "paquet",
+    "bouquet",
+    "bouteille",
+  ]
 
   const handleSubmit = useCallback(
     async ({ name, imageUrl, recipeTypeId }) => {
-      receipe
-        ? await api.put(`/receipes/${receipe.id}`, {
+      recipe
+        ? await api.put(`/recipes/${recipe.id}`, {
             name,
             imageUrl,
             recipeTypeId,
           })
-        : await api.post("/Receipes", {
+        : await api.post("/Recipes", {
             name,
             imageUrl,
             recipeTypeId,
           })
-      router.push("/administration/Receipes")
+      router.push("/administration/Recipes")
     },
-    [router, receipe]
+    [router, recipe]
   )
 
   if (loading || typesLoading || ingredientsLoading) {
@@ -268,16 +291,16 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
     )
   }
 
-  if (receipe && !Object.keys(receipe).length) {
+  if (recipe && !Object.keys(recipe).length) {
     return <AdminResponseNotFound message="Recette ou cocktail non trouvé" />
   }
 
   return (
     <Formik
       initialValues={{
-        name: receipe ? receipe.name : "",
-        imageUrl: receipe ? receipe.imageUrl : "",
-        recipeTypeId: receipe ? receipe.recipeTypeId : types[0].id,
+        name: recipe ? recipe.name : "",
+        imageUrl: recipe ? recipe.imageUrl : "",
+        recipeTypeId: recipe ? recipe.recipeTypeId : types[0].id,
       }}
       validationSchema={displayingErrorMessagesSchema}
       onSubmit={handleSubmit}
@@ -289,9 +312,8 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
                 touched.name && errors.name && "border-red-600"
               }`}
-              label="Nom de l'ingrédient"
               name="name"
-              placeholder="Le nom de l'ingrédient"
+              placeholder="Le nom de la recette"
             />
             {errors.name && touched.name && (
               <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
@@ -331,9 +353,8 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
                     touched.personNb && errors.personNb && "border-red-600"
                   }`}
                   type="number"
-                  label="Le nombre de personnes"
                   name="personNb"
-                  placeholder="Pour combien de prs."
+                  placeholder="Pour combien de personnes"
                 />
                 <span className="border-2 bg-gray-200 rounded-r py-1 px-2">
                   personne(s)
@@ -491,15 +512,140 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
             )}
           </div>
 
-          {/* todo : step, ingredients */}
+          {recipeIngredients.map((recipeIngredient, index) => (
+            <div key={index} className="flex items-start justify-center w-full">
+              <div className="mb-1 w-full">
+                <Field
+                  className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
+                  name={`${
+                    recipe ? recipeIngredient.idIngredient : index
+                  }.idIngredient`}
+                  as="select"
+                  onChange={(e) => {
+                    setRecipeIngredients(
+                      recipeIngredients.map((obj, indexObj) => {
+                        if (indexObj === index) {
+                          return {
+                            ...obj,
+                            idIngredient: parseInt(e.target.value),
+                          }
+                        }
 
-          {receipe ? (
+                        return obj
+                      })
+                    )
+                  }}
+                >
+                  {ingredients.map((ingredient) => (
+                    <option
+                      key={ingredient.id}
+                      value={ingredient.id}
+                      name={`${recipe ? ingredient.id : index}.idIngredient`}
+                      defaultValue={
+                        recipe &&
+                        ingredient.id === recipeIngredient.idIngredient
+                      }
+                    >
+                      {ingredient.name}
+                    </option>
+                  ))}
+                </Field>
+              </div>
+
+              <div className="mb-1 mx-1 w-full">
+                <Field
+                  className={`w-full flex-1 border-2 rounded py-1 px-2 transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
+                  type="number"
+                  min="1"
+                  name={`${
+                    recipe ? recipeIngredient.idIngredient : index
+                  }.quantity`}
+                  placeholder="Quelle quantité"
+                  value={recipeIngredient.quantity}
+                  onChange={(e) => {
+                    setRecipeIngredients(
+                      recipeIngredients.map((obj, indexObj) => {
+                        if (indexObj === index) {
+                          return {
+                            ...obj,
+                            quantity: parseInt(e.target.value),
+                          }
+                        }
+
+                        return obj
+                      })
+                    )
+                  }}
+                />
+              </div>
+
+              <div className="mb-1 w-full">
+                <Field
+                  className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
+                  name={`${
+                    recipe ? recipeIngredient.idIngredient : index
+                  }.idIngredient`}
+                  as="select"
+                  onChange={(e) => {
+                    setRecipeIngredients(
+                      recipeIngredients.map((obj, indexObj) => {
+                        if (indexObj === index) {
+                          return {
+                            ...obj,
+                            quantityType:
+                              e.target.value === "pièce"
+                                ? null
+                                : e.target.value,
+                          }
+                        }
+
+                        return obj
+                      })
+                    )
+                  }}
+                >
+                  {quantityTypes.map((quantityType, index) => (
+                    <option
+                      key={index}
+                      name={`${
+                        recipe ? recipeIngredient.idIngredient : index
+                      }.quantity`}
+                      value={quantityType}
+                    >
+                      {quantityType}
+                    </option>
+                  ))}
+                </Field>
+              </div>
+            </div>
+          ))}
+          <button
+            className="md:text-md flex items-center justify-center p-1 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
+            onClick={(e) => {
+              e.preventDefault()
+              setRecipeIngredients([
+                ...recipeIngredients,
+                {
+                  idIngredient: ingredients[0].id,
+                  quantity: 0.0,
+                  quantityType: null,
+                },
+              ])
+            }}
+          >
+            <FaPlusSquare className="text-lg md:text-2xl mr-2" /> Ajouter un
+            ingrédient
+          </button>
+
+          {/* todo : steps */}
+
+          {recipe ? (
             <button
               type="submit"
               className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
             >
-              <FaEdit className="text-xl md:text-3xl mr-2" /> Modifier
-              l'ingrédient
+              <FaEdit className="text-xl md:text-3xl mr-2" /> Modifier la
+              recette
             </button>
           ) : (
             <button
@@ -507,7 +653,7 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
               className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75"
             >
               <RiAddCircleFill className="text-xl md:text-3xl mr-2" /> Ajouter
-              l'ingrédient
+              la recette
             </button>
           )}
         </Form>
@@ -516,4 +662,4 @@ const AdminReceipeForm = ({ receipe, loading, error }) => {
   )
 }
 
-export default AdminReceipeForm
+export default AdminRecipeForm

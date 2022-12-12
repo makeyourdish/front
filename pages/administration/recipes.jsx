@@ -3,10 +3,10 @@ import { useEffect, useState } from "react"
 import { RiAddCircleFill } from "react-icons/ri"
 import api from "../../src/components/services/api"
 import Layout from "../../src/components/Layout"
-import AdministrationReceipesList from "../../src/components/admin/AdministrationReceipesList"
+import AdministrationRecipesList from "../../src/components/admin/AdministrationRecipesList"
 
-const ReceipesAdministrationPage = () => {
-  const [receipes, setReceipes] = useState([
+const RecipesAdministrationPage = () => {
+  const [recipes, setRecipes] = useState([
     {
       id: 1,
       name: "Oeufs mollets de ma grand-mère",
@@ -45,8 +45,8 @@ const ReceipesAdministrationPage = () => {
 
   useEffect(() => {
     api
-      .get("/receipes") // todo: edit this when database exist
-      .then((response) => setReceipes(response.data))
+      .get("/recipes") // todo: edit this when database exist
+      .then((response) => setRecipes(response.data))
       .catch((err) => {
         setError(err.message)
       })
@@ -62,13 +62,13 @@ const ReceipesAdministrationPage = () => {
       <h2 className="text-center text-xl sm:text-2xl md:text-3xl underline font-bold my-5 md:my-10">
         Liste des recettes et cocktails
       </h2>
-      <AdministrationReceipesList
-        receipes={receipes}
+      <AdministrationRecipesList
+        recipes={recipes}
         loading={loading}
         error={error}
-        setIngredients={setReceipes}
+        setIngredients={setRecipes}
       />
-      <Link href={"/administration/receipes/add"} passHref>
+      <Link href={"/administration/recipes/add"} passHref>
         <button className="mx-auto md:text-lg flex items-center justify-center my-5 md:my-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75">
           <RiAddCircleFill className="text-3xl mr-2" /> Ajouter une recette ou
           cocktail
@@ -78,7 +78,7 @@ const ReceipesAdministrationPage = () => {
   )
 }
 
-// ReceipesAdministrationPage.private = true // todo: edit this when signin exist
-// ReceipesAdministrationPage.administration = true // todo: edit this when signin exist
+// RecipesAdministrationPage.private = true // todo: edit this when signin exist
+// RecipesAdministrationPage.administration = true // todo: edit this when signin exist
 
-export default ReceipesAdministrationPage
+export default RecipesAdministrationPage
