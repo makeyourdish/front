@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import { Form, Formik, Field } from "formik"
 import * as Yup from "yup"
-import { RiAddCircleFill } from "react-icons/ri"
+import { RiAddCircleFill, RiDeleteBin4Fill } from "react-icons/ri"
 import { FaEdit, FaPlusSquare } from "react-icons/fa"
 import api from "../services/api"
 import AdminLoader from "./infos/AdminLoader"
@@ -22,18 +22,237 @@ const displayingErrorMessagesSchema = Yup.object().shape({
     .max(500, "La description doit faire moins de 500 caractères"),
   imageUrl: Yup.string().required("Vous devez ajouter une image"),
   preparationTimeHours: Yup.string().required(
-    "Le temps de préparation est requis"
+    "Le temps de préparation (heure) est requis"
   ),
   preparationTimeMinutes: Yup.string().required(
-    "Le temps de préparation est requis"
+    "Le temps de préparation (minutes) est requis"
   ),
   priceRange: Yup.string().required("La tranche prix est requise"),
   difficulty: Yup.string().required("La difficulté est requise"),
-  typeRecipeId: Yup.string().required("Le champ est requis !"),
+  recipeTypeId: Yup.string().required("Le champ est requis !"),
   step: Yup.string().required("Les étapes de préparation sont requises"),
   ingredients: Yup.string().required("Les ingrédients sont requis"),
 })
-//* -------------------------- End validation schema --------------------------
+
+//* -------------------- RecipeIngredientsForms component  --------------------
+const RecipeIngredientsForms = ({
+  recipe,
+  ingredients,
+  recipeIngredients,
+  setRecipeIngredients,
+}) => {
+  const quantityTypes = [
+    "pièce",
+    "g",
+    "kg",
+    "ml",
+    "cl",
+    "l",
+    "cuillère à soupe",
+    "cuillère à caffé",
+    "pincée",
+    "tasse",
+    "verre",
+    "brique",
+    "boîte",
+    "bocal",
+    "paquet",
+    "bouquet",
+    "bouteille",
+  ]
+
+  return (
+    <fieldset className="w-full border-2 rounded p-3 mb-3">
+      <legend className="px-2 py-1 text-center md:text-left md:px-3 md:py-2 bg-gray-200 rounded">
+        Ingrédients de la recette
+      </legend>
+      {recipeIngredients.map((recipeIngredient, index) => (
+        <div
+          key={index}
+          className="flex flex-col md:flex-row items-center mb-1 justify-center w-full"
+        >
+          <div className="w-full">
+            <Field
+              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
+              name={`${index}.ingredientId`}
+              as="select"
+              value={recipeIngredient.ingredientId || ingredients[0].id}
+              onChange={(e) => {
+                setRecipeIngredients(
+                  recipeIngredients.map((obj, indexObj) => {
+                    if (indexObj === index) {
+                      return {
+                        ...obj,
+                        ingredientId: parseInt(e.target.value),
+                      }
+                    }
+
+                    return obj
+                  })
+                )
+              }}
+            >
+              {ingredients.map((ingredient) => (
+                <option key={ingredient.id} value={ingredient.id}>
+                  {ingredient.name}
+                </option>
+              ))}
+            </Field>
+          </div>
+
+          <div className="w-full flex items-start justify-center">
+            <div className="mr-1 md:mx-1 w-full">
+              <Field
+                className={`w-full border-2 rounded py-1 px-2 transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
+                type="number"
+                min="0"
+                name={`${
+                  recipe ? recipeIngredient.ingredientId : index
+                }.quantity`}
+                placeholder="Quelle quantité"
+                value={recipeIngredient.quantity}
+                onChange={(e) => {
+                  setRecipeIngredients(
+                    recipeIngredients.map((obj, indexObj) => {
+                      if (indexObj === index) {
+                        return {
+                          ...obj,
+                          quantity: parseInt(e.target.value),
+                        }
+                      }
+
+                      return obj
+                    })
+                  )
+                }}
+              />
+            </div>
+
+            <div className="w-full">
+              <Field
+                className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
+                name={`${index}.quantityType`}
+                as="select"
+                value={recipeIngredient.quantityType || "pièce"}
+                onChange={(e) => {
+                  setRecipeIngredients(
+                    recipeIngredients.map((obj, indexObj) => {
+                      if (indexObj === index) {
+                        return {
+                          ...obj,
+                          quantityType:
+                            e.target.value === "pièce" ? null : e.target.value,
+                        }
+                      }
+
+                      return obj
+                    })
+                  )
+                }}
+              >
+                {quantityTypes.map((quantityType, index) => (
+                  <option key={index} value={quantityType}>
+                    {quantityType}
+                  </option>
+                ))}
+              </Field>
+            </div>
+          </div>
+          <button
+            className="flex items-end justify-center w-full md:w-auto md:ml-1 bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded transition-all duration-75 focus:outline focus:outline-4 focus:outline-red-700/50"
+            onClick={(e) => {
+              e.preventDefault()
+              setRecipeIngredients(
+                recipeIngredients.filter((obj, indexObj) => indexObj !== index)
+              )
+            }}
+          >
+            <RiDeleteBin4Fill className="hidden md:block mr-3 md:mr-0" />
+            <p className="md:hidden">Supprimer</p>
+          </button>
+        </div>
+      ))}
+
+      <button
+        className="mx-auto md:text-md flex items-center justify-center p-2 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
+        onClick={(e) => {
+          e.preventDefault()
+          setRecipeIngredients([
+            ...recipeIngredients,
+            {
+              ingredientId: ingredients[0].id,
+              quantity: 0.1,
+              quantityType: null,
+            },
+          ])
+        }}
+      >
+        <FaPlusSquare className="text-lg md:text-2xl mr-2" /> Ajouter un
+        ingrédient
+      </button>
+    </fieldset>
+  )
+}
+
+//* -------------------------- StepsForms component  --------------------------
+const StepsForms = ({ recipeSteps, setRecipeSteps }) => {
+  return (
+    <fieldset className="w-full border-2 rounded p-3">
+      <legend className="px-2 py-1 text-center md:text-left md:px-3 md:py-2 bg-gray-200 rounded">
+        Étapes de la recette
+      </legend>
+      {recipeSteps.map((step, index) => (
+        <div
+          key={index}
+          className="flex flex-col md:flex-row items-center mb-1 justify-center w-full"
+        >
+          <div className="w-full">
+            <Field
+              className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
+              name={`${index}.ingredientId`}
+              as="textarea"
+              value={step}
+              onChange={(e) => {
+                setRecipeSteps(
+                  recipeSteps.map((ell, indexEll) => {
+                    if (indexEll === index) {
+                      ell = e.target.value
+                    }
+
+                    return ell
+                  })
+                )
+              }}
+            />
+          </div>
+
+          <button
+            className="flex items-end justify-center w-full md:w-auto md:ml-1 bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded transition-all duration-75 focus:outline focus:outline-4 focus:outline-red-700/50"
+            onClick={(e) => {
+              e.preventDefault()
+              setRecipeSteps(
+                recipeSteps.filter((ell, indexEll) => indexEll !== index)
+              )
+            }}
+          >
+            <RiDeleteBin4Fill className="hidden md:block mr-3 md:mr-0" />
+            <p className="md:hidden">Supprimer</p>
+          </button>
+        </div>
+      ))}
+
+      <button
+        className="mx-auto md:text-md flex items-center justify-center p-2 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
+        onClick={(e) => {
+          e.preventDefault()
+          setRecipeSteps([...recipeSteps, ""])
+        }}
+      >
+        <FaPlusSquare className="text-lg md:text-2xl mr-2" /> Ajouter une étape
+      </button>
+    </fieldset>
+  )
+}
 
 const AdminRecipeForm = ({ recipe, loading, error }) => {
   const router = useRouter()
@@ -46,8 +265,7 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
     { id: 4, name: "Cockctail non alcoolisé" },
     { id: 5, name: "Cockctail alcoolisé" },
   ])
-  const [typesLoading, setTypesLoading] = useState(false)
-  // const [typesLoading, setTypesLoading] = useState(true)
+  const [typesLoading, setTypesLoading] = useState(true)
   const [typesError, setTypesError] = useState(null)
 
   useEffect(() => {
@@ -70,8 +288,7 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
     { id: 4, name: "Tomates" },
     { id: 5, name: "Poires" },
   ])
-  const [ingredientsLoading, setIngredientsLoading] = useState(false)
-  // const [ingredientsLoading, setIngredientsLoading] = useState(true)
+  const [ingredientsLoading, setIngredientsLoading] = useState(true)
   const [ingredientsError, setIngredientsError] = useState(null)
 
   useEffect(() => {
@@ -225,29 +442,12 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
     { id: 4, difficultyName: "Difficile" },
     { id: 5, difficultyName: "Très difficile" },
   ]
-  // const [steps, setSteps] = useState(recipe ? recipe.steps : [])
   const [recipeIngredients, setRecipeIngredients] = useState(
     recipe ? recipe.ingredients : []
   )
-  const quantityTypes = [
-    "pièce",
-    "g",
-    "kg",
-    "ml",
-    "cl",
-    "l",
-    "cuillère à soupe",
-    "cuillère à caffé",
-    "pincée",
-    "tasse",
-    "verre",
-    "brique",
-    "boîte",
-    "bocal",
-    "paquet",
-    "bouquet",
-    "bouteille",
-  ]
+  const [recipeSteps, setRecipeSteps] = useState(
+    recipe ? recipe.step.split(";") : []
+  )
 
   const handleSubmit = useCallback(
     async ({ name, imageUrl, recipeTypeId }) => {
@@ -299,7 +499,17 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
     <Formik
       initialValues={{
         name: recipe ? recipe.name : "",
+        personNb: recipe ? recipe.personNb : 1,
+        description: recipe ? recipe.description : "",
         imageUrl: recipe ? recipe.imageUrl : "",
+        preparationTimeHours: recipe
+          ? recipe.preparationTime.split("h")[0]
+          : "00",
+        preparationTimeMinutes: recipe
+          ? recipe.preparationTime.split("h")[1]
+          : "00",
+        priceRange: recipe ? recipe.priceRange : priceRanges[0].id,
+        difficulty: recipe ? recipe.difficulty : difficulties[0].id,
         recipeTypeId: recipe ? recipe.recipeTypeId : types[0].id,
       }}
       validationSchema={displayingErrorMessagesSchema}
@@ -322,7 +532,7 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
             )}
           </div>
 
-          <div className="flex items-start justify-center w-full">
+          <div className="flex flex-col md:flex-row items-start justify-center w-full">
             <div className="mb-3 mr-3 sm:mb-6 w-full">
               <Field
                 className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
@@ -334,7 +544,7 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
                 as="select"
               >
                 {types.map((type) => (
-                  <option key={type.id} value={type.id} name="TypesId">
+                  <option key={type.id} value={type.id}>
                     {type.name}
                   </option>
                 ))}
@@ -349,14 +559,14 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
             <div className="mb-3 sm:mb-6 w-full">
               <div className="flex items-center justify-center">
                 <Field
-                  className={`flex-1 text-right border-2 rounded-l py-1 px-2 transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                  className={`flex-1 md:text-right border-2 rounded md:rounded-r-none py-1 px-2 transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
                     touched.personNb && errors.personNb && "border-red-600"
                   }`}
                   type="number"
                   name="personNb"
                   placeholder="Pour combien de personnes"
                 />
-                <span className="border-2 bg-gray-200 rounded-r py-1 px-2">
+                <span className="hidden md:block border-2 bg-gray-200 rounded-r py-1 px-2">
                   personne(s)
                 </span>
               </div>
@@ -368,43 +578,49 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
             </div>
           </div>
 
-          <div className="w-full flex items-start justify-center">
-            <div className=" mr-3 flex items-center justify-center mb-3 sm:mb-6 w-full">
-              <Field
-                className={`border-2 rounded-l py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                  touched.preparationTimeHours &&
-                  errors.preparationTimeHours &&
-                  "border-red-600"
-                } cursor-pointer`}
-                name="preparationTimeHours"
-                as="select"
-              >
-                {hours.map((hour, index) => (
-                  <option key={index} value={hour} name="preparationTimeHours">
-                    {hour}
-                  </option>
-                ))}
-              </Field>
-              <span className="bg-gray-200 py-[5.6px] px-2">H</span>
-              <Field
-                className={`border-2 rounded-r py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
-                  touched.preparationTimeMinutes &&
-                  errors.preparationTimeMinutes &&
-                  "border-red-600"
-                } cursor-pointer`}
-                name="preparationTimeMinutes"
-                as="select"
-              >
-                {minutes.map((minute, index) => (
-                  <option
-                    key={index}
-                    value={minute}
-                    name="preparationTimeMinutes"
-                  >
-                    {minute}
-                  </option>
-                ))}
-              </Field>
+          <div className="w-full flex flex-col md:flex-row items-start justify-center">
+            <div className=" mr-3 mb-3 sm:mb-6 w-full">
+              <div className="flex items-center justify-center">
+                <Field
+                  className={`border-2 rounded-l py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                    touched.preparationTimeHours &&
+                    errors.preparationTimeHours &&
+                    "border-red-600"
+                  } cursor-pointer`}
+                  name="preparationTimeHours"
+                  as="select"
+                >
+                  {hours.map((hour, index) => (
+                    <option
+                      key={index}
+                      value={hour}
+                      name="preparationTimeHours"
+                    >
+                      {hour}
+                    </option>
+                  ))}
+                </Field>
+                <span className="bg-gray-200 py-[5.6px] px-2">H</span>
+                <Field
+                  className={`border-2 rounded-r py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
+                    touched.preparationTimeMinutes &&
+                    errors.preparationTimeMinutes &&
+                    "border-red-600"
+                  } cursor-pointer`}
+                  name="preparationTimeMinutes"
+                  as="select"
+                >
+                  {minutes.map((minute, index) => (
+                    <option
+                      key={index}
+                      value={minute}
+                      name="preparationTimeMinutes"
+                    >
+                      {minute}
+                    </option>
+                  ))}
+                </Field>
+              </div>
               {errors.preparationTimeMinutes &&
                 touched.preparationTimeMinutes && (
                   <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
@@ -476,9 +692,8 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
               }`}
               as="textarea"
               rows="8"
-              label="La description de la recette ou du cocktail"
               name="description"
-              placeholder="Le nom de l'ingrédient"
+              placeholder="La description de la recette ou du cocktail"
             />
             {errors.description && touched.description && (
               <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
@@ -512,132 +727,17 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
             )}
           </div>
 
-          {recipeIngredients.map((recipeIngredient, index) => (
-            <div key={index} className="flex items-start justify-center w-full">
-              <div className="mb-1 w-full">
-                <Field
-                  className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
-                  name={`${
-                    recipe ? recipeIngredient.idIngredient : index
-                  }.idIngredient`}
-                  as="select"
-                  onChange={(e) => {
-                    setRecipeIngredients(
-                      recipeIngredients.map((obj, indexObj) => {
-                        if (indexObj === index) {
-                          return {
-                            ...obj,
-                            idIngredient: parseInt(e.target.value),
-                          }
-                        }
+          <RecipeIngredientsForms
+            recipe={recipe}
+            ingredients={ingredients}
+            recipeIngredients={recipeIngredients}
+            setRecipeIngredients={setRecipeIngredients}
+          />
 
-                        return obj
-                      })
-                    )
-                  }}
-                >
-                  {ingredients.map((ingredient) => (
-                    <option
-                      key={ingredient.id}
-                      value={ingredient.id}
-                      name={`${recipe ? ingredient.id : index}.idIngredient`}
-                      defaultValue={
-                        recipe &&
-                        ingredient.id === recipeIngredient.idIngredient
-                      }
-                    >
-                      {ingredient.name}
-                    </option>
-                  ))}
-                </Field>
-              </div>
-
-              <div className="mb-1 mx-1 w-full">
-                <Field
-                  className={`w-full flex-1 border-2 rounded py-1 px-2 transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
-                  type="number"
-                  min="1"
-                  name={`${
-                    recipe ? recipeIngredient.idIngredient : index
-                  }.quantity`}
-                  placeholder="Quelle quantité"
-                  value={recipeIngredient.quantity}
-                  onChange={(e) => {
-                    setRecipeIngredients(
-                      recipeIngredients.map((obj, indexObj) => {
-                        if (indexObj === index) {
-                          return {
-                            ...obj,
-                            quantity: parseInt(e.target.value),
-                          }
-                        }
-
-                        return obj
-                      })
-                    )
-                  }}
-                />
-              </div>
-
-              <div className="mb-1 w-full">
-                <Field
-                  className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
-                  name={`${
-                    recipe ? recipeIngredient.idIngredient : index
-                  }.idIngredient`}
-                  as="select"
-                  onChange={(e) => {
-                    setRecipeIngredients(
-                      recipeIngredients.map((obj, indexObj) => {
-                        if (indexObj === index) {
-                          return {
-                            ...obj,
-                            quantityType:
-                              e.target.value === "pièce"
-                                ? null
-                                : e.target.value,
-                          }
-                        }
-
-                        return obj
-                      })
-                    )
-                  }}
-                >
-                  {quantityTypes.map((quantityType, index) => (
-                    <option
-                      key={index}
-                      name={`${
-                        recipe ? recipeIngredient.idIngredient : index
-                      }.quantity`}
-                      value={quantityType}
-                    >
-                      {quantityType}
-                    </option>
-                  ))}
-                </Field>
-              </div>
-            </div>
-          ))}
-          <button
-            className="md:text-md flex items-center justify-center p-1 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
-            onClick={(e) => {
-              e.preventDefault()
-              setRecipeIngredients([
-                ...recipeIngredients,
-                {
-                  idIngredient: ingredients[0].id,
-                  quantity: 0.0,
-                  quantityType: null,
-                },
-              ])
-            }}
-          >
-            <FaPlusSquare className="text-lg md:text-2xl mr-2" /> Ajouter un
-            ingrédient
-          </button>
-
-          {/* todo : steps */}
+          <StepsForms
+            recipeSteps={recipeSteps}
+            setRecipeSteps={setRecipeSteps}
+          />
 
           {recipe ? (
             <button
