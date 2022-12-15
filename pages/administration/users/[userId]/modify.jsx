@@ -9,17 +9,17 @@ const ModifyUserAdministrationPage = () => {
     query: { userId },
   } = useRouter()
 
-  const [user, setUser] = useState({}) // todo: remove this when database exist
+  const [user, setUser] = useState({})
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     if (userId && !isNaN(userId)) {
       api
-        .get(`/users/${userId}`) // todo: edit this when exist
+        .get(`/userGetOne/${userId}`)
         .then((response) => setUser(response.data))
         .catch((err) => {
-          setError(err.message)
+          setError(err)
         })
         .then(() => setLoading(false))
     }

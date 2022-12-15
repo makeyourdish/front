@@ -29,8 +29,7 @@ const showDeleteUserConfirm = (id, userName, users, setUsers) => {
 
 //* -------------------- Delete user function --------------------
 const deleteUser = async (id, users, setUsers) => {
-  await api.delete(`/users/${id}`) // todo: edit this when database exist
-  //  router.push("/administration/users", undefined, { shallow: true }) https://nextjs.org/docs/routing/shallow-routing // todo: test this when database exist
+  await api.delete(`/userDelete/${id}`)
   setTimeout(() => {
     setUsers(users.filter((user) => user.id !== id))
   }, 1000)

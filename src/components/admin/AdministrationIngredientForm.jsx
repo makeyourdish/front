@@ -33,6 +33,7 @@ const AdminIngredientForm = ({ ingredient, loading, error }) => {
     { id: 8, name: "Boissons alcoolisées" },
     { id: 10, name: "Autres" },
   ])
+
   const [cotegoriesLoading, setCategoriesLoading] = useState(true)
   const [cotegoriesError, setCategoriesError] = useState(null)
   const [url, setUrl] = useState(ingredient ? ingredient.imageUrl : "")

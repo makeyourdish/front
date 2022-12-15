@@ -63,13 +63,13 @@ const AdminUserForm = ({ user, loading, error }) => {
   const handleSubmit = useCallback(
     async ({ userName, email, password, isAdmin }) => {
       user
-        ? await api.put(`/users/${user.id}`, {
+        ? await api.put(`/userUpdate/${user.id}`, {
             userName,
             email,
             password,
             isAdmin,
           })
-        : await api.post("/users", { userName, email, password, isAdmin })
+        : await api.post("/sign-up", { userName, email, password, isAdmin })
       router.push("/administration/users")
     },
     [router, user]
