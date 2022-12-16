@@ -1,9 +1,9 @@
 import Generate from "../src/components/generateComponent"
-import { useRouter } from "next/Router"
+import {useRouter} from "next/router"
 
 const GeneratePage = () => {
   const router = useRouter()
-  const { drink, food } = router.query
+  const {drink, food} = router.query
 
   return drink === "" ? (
     <Generate pageTheme="drink" />

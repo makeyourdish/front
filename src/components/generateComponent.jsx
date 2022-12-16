@@ -1,23 +1,28 @@
 import {useState} from "react"
 import {RxCrossCircled} from "react-icons/rx"
 import Layout from "./Layout"
+import AutoCompleteComponent from "./Autocomplete"
 
-function Generate({pageTheme}) {
+const Generate = ({pageTheme}) => {
   const categoryIngredientsCss =
-    "secondary-font text-2xl m-12 max-sm:text-center"
-  const buttonIngredients = `sm:w-[200px] max-sm:whitespace-nowrap bg-${pageTheme}-primary-translucent sm:m-6 max-sm:mb-6 max-sm:mx-6 rounded-lg py-2 px-4 text-lg`
-  const [ingredientsSelected, setIngredientsSelected] = useState([])
+    "secondary-font text-xl m-12 max-sm:text-center"
+  const buttonIngredients = `shadow-lg sm:w-[200px] max-sm:whitespace-nowrap bg-${pageTheme}-primary-translucent sm:m-2 max-sm:mb-6 max-sm:mx-2 rounded-lg p-2 text-lg`
+  const [ingredientsSelected, setIngredientsSelected] = useState([
+    "aeazea",
+    "aeazea",
+    "aeazea",
+    "aeazea",
+    "aeazea",
+    "aeazea",
+    "aeazea",
+    "aeazea",
+  ])
 
-  const addInIngredientsSelected = (value) => {
-    if (!ingredientsSelected.includes(value)) {
-      setIngredientsSelected((oldArray) => [...oldArray, value])
-    }
-  }
-  const callIngredients = () => (
-    <ul className="flex flex-row sm:flex-wrap justify-left max-sm:overflow-x-scroll scroller-thumb scroller">
+  function callIngredients() {
+    return (<ul className="flex flex-row sm:flex-wrap justify-left max-sm:overflow-x-scroll scroller-thumb scroller tertiary-font">
       <li>
         <button
-          onClick={(element) => addInIngredientsSelected(element.target.value)}
+          onClick={(element) => addInIngredientsSelected(element.target.value, ingredientsSelected, setIngredientsSelected)}
           className={buttonIngredients}
           value="Courgette"
         >
@@ -26,7 +31,7 @@ function Generate({pageTheme}) {
       </li>
       <li>
         <button
-          onClick={(element) => addInIngredientsSelected(element.target.value)}
+          onClick={(element) => addInIngredientsSelected(element.target.value, ingredientsSelected, setIngredientsSelected)}
           className={buttonIngredients}
           value="Poireau"
         >
@@ -35,7 +40,7 @@ function Generate({pageTheme}) {
       </li>
       <li>
         <button
-          onClick={(element) => addInIngredientsSelected(element.target.value)}
+          onClick={(element) => addInIngredientsSelected(element.target.value, ingredientsSelected, setIngredientsSelected)}
           className={buttonIngredients}
           value="Courge"
         >
@@ -44,7 +49,7 @@ function Generate({pageTheme}) {
       </li>
       <li>
         <button
-          onClick={(element) => addInIngredientsSelected(element.target.value)}
+          onClick={(element) => addInIngredientsSelected(element.target.value, ingredientsSelected, setIngredientsSelected)}
           className={buttonIngredients}
           value="Carotte"
         >
@@ -53,7 +58,7 @@ function Generate({pageTheme}) {
       </li>
       <li>
         <button
-          onClick={(element) => addInIngredientsSelected(element.target.value)}
+          onClick={(element) => addInIngredientsSelected(element.target.value, ingredientsSelected, setIngredientsSelected)}
           className={buttonIngredients}
           value="Poivron"
         >
@@ -62,7 +67,7 @@ function Generate({pageTheme}) {
       </li>
       <li>
         <button
-          onClick={(element) => addInIngredientsSelected(element.target.value)}
+          onClick={(element) => addInIngredientsSelected(element.target.value, ingredientsSelected, setIngredientsSelected)}
           className={buttonIngredients}
           value="Champignon"
         >
@@ -71,22 +76,28 @@ function Generate({pageTheme}) {
       </li>
       <li>
         <button
-          onClick={(element) => addInIngredientsSelected(element.target.value)}
+          onClick={(element) => addInIngredientsSelected(element.target.value, ingredientsSelected, setIngredientsSelected)}
           className={buttonIngredients}
           value="Pomme de terre"
         >
           Pomme de terre
         </button>
       </li>
-    </ul>
-  )
+    </ul>)
+  }
+
+  function addInIngredientsSelected(value) {
+    if (!ingredientsSelected.includes(value)) {
+      setIngredientsSelected((oldArray) => [...oldArray, value])
+    }
+  }
 
   return (
     <Layout page="Recipes" pagetheme={pageTheme} screensize={+true}>
       <h1 className="text-2xl mt-16 secondary-font sm:ml-36 max-sm:text-center">
         Qu’y a-t-il dans votre cuisine ?
       </h1>
-      <div className="sm:pr-[40vh] sm:my-20 sm:ml-12 sm:mx-auto max-sm:flex max-sm:flex-col-reverse max-sm:justify-between max-sm:px-12 max-sm:py- ">
+      <div className="sm:pr-[50vh] sm:my-16 sm:ml-12 sm:mx-auto max-sm:flex max-sm:flex-col-reverse max-sm:justify-between max-sm:px-12">
         <div className="justify-between flex flex-col max-sm:mb-16">
           <span>
             <p className={categoryIngredientsCss}>Légumes :</p>
@@ -109,28 +120,26 @@ function Generate({pageTheme}) {
           </span>
         </div>
       </div>
-      <div className="sm:fixed sm:top-[20vh] sm:right-[5vh] w-[30vh] max-sm:w-[80%] max-sm:mx-auto max-sm:mb-20">
+      <div className="sm:fixed sm:top-[27vh] sm:right-[7vh] w-[40vh] max-sm:w-[80%] max-sm:m-auto max-sm:mb-24">
         <span>
-          <p className="text-center mb-6 font-bold secondary-font">
+          <p className="text-center mb-6 font-bold secondary-font whitespace-nowrap">
             Avez vous d'autres ingrédients ?
           </p>
-          <span className="flex flex-row items-center">
-            <input
-              type="text"
-              placeholder="Entrez vos produits..."
-              className={`focus:outline focus:outline-[7px] outline-${pageTheme}-primary duration-150 transition-all rounded-lg p-3 w-full shadow-md`}
-            />
-          </span>
+          <AutoCompleteComponent
+            pageTheme={pageTheme}
+            ingredientsSelected={ingredientsSelected}
+            setIngredientsSelected={setIngredientsSelected}
+          />
         </span>
         <button
-          className={`max-sm:hidden secondary-font p-6 my-8 bg-${pageTheme}-primary rounded-lg shadow-lg w-full`}
+          className={`max-sm:hidden secondary-font p-2 my-8 bg-${pageTheme}-primary rounded-lg shadow-lg w-full`}
         >
-          VALIDER
+          Valider
         </button>
-        <div className="sm:w-[95%] max-sm:h-[10vh] sm:h-[45vh] max-sm:mt-8 overflow-y-auto scroller-thumb scroller">
+        <div className="sm:w-[95%] h-[15rem] max-sm:mt-8 overflow-y-auto scroller-thumb scroller">
           {ingredientsSelected.map((element, index) => (
             <span className="flex flex-row justify-between items-center max-sm:h-6 max-sm:mr-4 sm:mr-8">
-              <p className="secondary-font sm:text-xl sm:mb-2">{element}</p>
+              <p className="secondary-font sm:mb-2">{element}</p>
               <button
                 onClick={() =>
                   setIngredientsSelected(
