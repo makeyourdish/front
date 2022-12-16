@@ -88,6 +88,7 @@ const AccountPage = () => {
   const buttonStyle =
     "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-xl secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
 
+  if (!user) return <div>Chargement...</div>
   return (
     <Layout page={`Profil: ${userId}`} pagetheme="food" screensize={+true}>
       <div className="flex-grow flex flex-col justify-between items-center relative">
