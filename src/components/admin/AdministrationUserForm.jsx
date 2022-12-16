@@ -63,7 +63,7 @@ const AdminUserForm = ({ user, loading, error }) => {
   const handleSubmit = useCallback(
     async ({ userName, email, password, isAdmin }) => {
       user
-        ? await api.put(`/userUpdate/${user.id}`, {
+        ? await api.put(`/user/${user.id}`, {
             userName,
             email,
             password,
@@ -103,7 +103,7 @@ const AdminUserForm = ({ user, loading, error }) => {
       onSubmit={handleSubmit}
     >
       {({ errors, touched }) => (
-        <Form className="w-5/6 md:w-4/5 lg:w-1/2 p-4 sm:p-8 md:p-12 border mx-auto flex flex-col items-center justify-center rounded">
+        <Form className="mb-12 w-5/6 md:w-4/5 lg:w-1/2 p-4 sm:p-8 md:p-12 border mx-auto flex flex-col items-center justify-center rounded">
           <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${

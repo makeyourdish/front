@@ -29,7 +29,7 @@ const showDeleteUserConfirm = (id, userName, users, setUsers) => {
 
 //* -------------------- Delete user function --------------------
 const deleteUser = async (id, users, setUsers) => {
-  await api.delete(`/userDelete/${id}`)
+  await api.delete(`/user/${id}`)
   setTimeout(() => {
     setUsers(users.filter((user) => user.id !== id))
   }, 1000)

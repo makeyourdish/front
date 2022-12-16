@@ -25,7 +25,7 @@ const ModifyIngredientAdministrationPage = () => {
         .get(`/ingredients/${ingredientId}`) // todo: edit this when exist
         .then((response) => setIngredient(response.data))
         .catch((err) => {
-          setError(err.message)
+          setError(err.response ? err.response.data : err.message)
         })
         .then(() => setLoading(false))
     }

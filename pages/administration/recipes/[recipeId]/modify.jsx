@@ -62,7 +62,7 @@ const ModifyrecipeAdministrationPage = () => {
         .get(`/recipes/${recipeId}`) // todo: edit this when exist
         .then((response) => setRecipe(response.data))
         .catch((err) => {
-          setError(err.message)
+          setError(err.response ? err.response.data : err.message)
         })
         .then(() => setLoading(false))
     }

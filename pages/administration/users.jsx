@@ -15,7 +15,7 @@ const UsersAdministrationPage = () => {
       .get("/userGetAll")
       .then((response) => setUsers(response.data))
       .catch((err) => {
-        setError(err.message)
+        setError(err.response ? err.response.data : err.message)
       })
       .then(() => setLoading(false))
   }, [])
@@ -36,7 +36,7 @@ const UsersAdministrationPage = () => {
         setUsers={setUsers}
       />
       <Link href={"/administration/users/add"} passHref>
-        <button className="mx-auto md:text-lg flex items-center justify-center my-5 md:my-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75">
+        <button className="mb-12 mx-auto md:text-lg flex items-center justify-center my-5 md:my-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75">
           <RiAddCircleFill className="text-3xl mr-2" /> Ajouter un utilisateur
         </button>
       </Link>

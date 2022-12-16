@@ -16,10 +16,10 @@ const ModifyUserAdministrationPage = () => {
   useEffect(() => {
     if (userId && !isNaN(userId)) {
       api
-        .get(`/userGetOne/${userId}`)
+        .get(`/user/${userId}`)
         .then((response) => setUser(response.data))
         .catch((err) => {
-          setError(err)
+          setError(err.response ? err.response.data : err.message)
         })
         .then(() => setLoading(false))
     }
