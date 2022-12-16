@@ -1,11 +1,11 @@
 import Link from "next/link"
 import Image from "next/image"
-import { useContext, useState, useEffect } from "react"
+import {useContext, useState, useEffect} from "react"
 import AppContext from "../components/AppContext"
 import useWindowDimensions from "../components/services/useWindowDimantions"
-import { FaUserAlt } from "react-icons/fa"
-import { FiMenu } from "react-icons/fi"
-import { RiLogoutBoxFill } from "react-icons/ri"
+import {FaUserAlt} from "react-icons/fa"
+import {FiMenu} from "react-icons/fi"
+import {RiLogoutBoxFill} from "react-icons/ri"
 
 const HeaderNavContent = (props) => {
   const buttonStyle =
@@ -28,7 +28,7 @@ const HeaderNavContent = (props) => {
               className={`${buttonStyle} text-xs sm:text-xl px-3 mr-3 md:mr-0`}
             >
               <FaUserAlt className="mr-2" />
-              <p>{"props.account.userName"}</p>
+              <p>{props.account.userName}</p>
             </a>
           </Link>
           <button onClick={props.signOut} className={`${buttonStyle} px-3`}>
@@ -47,7 +47,7 @@ const HeaderNavContent = (props) => {
   )
 }
 
-const HeaderNavMobile = ({ pagetheme, account, signOut }) => {
+const HeaderNavMobile = ({pagetheme, account, signOut}) => {
   return (
     <div>
       <HeaderNavContent
@@ -60,9 +60,9 @@ const HeaderNavMobile = ({ pagetheme, account, signOut }) => {
   )
 }
 
-const Header = ({ pagetheme }) => {
-  const { session, signOut } = useContext(AppContext)
-  const { width } = useWindowDimensions() // get window size
+const Header = ({pagetheme}) => {
+  const {session, signOut} = useContext(AppContext)
+  const {width} = useWindowDimensions() // get window size
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
   const logoUrl =
     (pagetheme === "food" && "/logoFood.png") ||
