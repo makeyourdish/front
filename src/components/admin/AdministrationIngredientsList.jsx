@@ -30,8 +30,7 @@ const showDeleteIngredientConfirm = (id, name, ingredients, setIngredients) => {
 
 //* -------------------- Delete ingredient function --------------------
 const deleteIngredient = async (id, ingredients, setIngredients) => {
-  await api.delete(`/ingredients/${id}`) // todo: edit this when database exist
-  //  router.push("", undefined, { shallow: true }) // todo: test this when database exist
+  await api.delete(`/ingredient/${id}`)
   setTimeout(() => {
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id))
   }, 1000)
@@ -47,10 +46,6 @@ const AdministrationingredientList = ({
   if (loading) {
     return <AdminLoader message="Chargement de la liste des ingrédients" />
   }
-
-  //! for test only
-  error = false
-  //! end for test only
 
   if (error) {
     return <AdminResponseError error={error} />
@@ -82,7 +77,9 @@ const AdministrationingredientList = ({
                   className="object-cover h-40 mx-auto"
                 />
               </td>
-              <td className="border w-min px-8">{ingredient.category}</td>
+              <td className="border w-min px-8">
+                {ingredient.categoryIngredients.name}
+              </td>
               <td className="border w-min">
                 <Link
                   href={`/administration/ingredients/${ingredient.id}/modify`}
@@ -96,7 +93,7 @@ const AdministrationingredientList = ({
                   onClick={() =>
                     showDeleteIngredientConfirm(
                       ingredient.id,
-                      ingredient.ingredientName,
+                      ingredient.name,
                       ingredients,
                       setIngredients
                     )

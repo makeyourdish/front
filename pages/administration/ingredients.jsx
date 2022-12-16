@@ -6,49 +6,13 @@ import Layout from "../../src/components/Layout"
 import AdministrationIngredientsList from "../../src/components/admin/AdministrationIngredientsList"
 
 const IngredientsAdministrationPage = () => {
-  const [ingredients, setIngredients] = useState([
-    {
-      id: 1,
-      name: "Tomate",
-      imageUrl:
-        "https://www.alimentarium.org/sites/default/files/media/image/2016-10/AL001-02%20tomate_0.jpg",
-      category: "Fruit",
-    },
-    {
-      id: 2,
-      name: "Carotte",
-      imageUrl:
-        "https://www.alimentarium.org/sites/default/files/media/image/2016-10/AL012-02%20carotte_0.jpg",
-      category: "Légume",
-    },
-    {
-      id: 3,
-      name: "Filet de poulet",
-      imageUrl:
-        "https://www.maison-conquet.fr/1388-pdt_540/filet-de-poulet-francais-par-2.jpg",
-      category: "Viande",
-    },
-    {
-      id: 4,
-      name: "Côte de porc",
-      imageUrl:
-        "https://dynfiles.comme-a-la-boucherie.com/original-catalogue-produit-11-12-2013---11-20-19---714.jpg",
-      category: "Viande",
-    },
-    {
-      id: 5,
-      name: "Pomme de terre",
-      imageUrl:
-        "https://www.academiedugout.fr/images/16365/1200-auto/fotolia_55292183_subscription_xl-copy.jpg?poix=50&poiy=50",
-      category: "Féculent",
-    },
-  ])
+  const [ingredients, setIngredients] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
     api
-      .get("/ingredients") // todo: edit this when database exist
+      .get("/allIngredient")
       .then((response) => setIngredients(response.data))
       .catch((err) => {
         setError(err.response ? err.response.data : err.message)

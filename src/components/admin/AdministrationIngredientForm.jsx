@@ -22,25 +22,14 @@ const displayingErrorMessagesSchema = Yup.object().shape({
 
 const AdminIngredientForm = ({ ingredient, loading, error }) => {
   const router = useRouter()
-  const [categories, setCategories] = useState([
-    { id: 1, name: "Fruits" },
-    { id: 2, name: "Légumes" },
-    { id: 3, name: "Viandes" },
-    { id: 4, name: "Poissons" },
-    { id: 5, name: "Laitages" },
-    { id: 6, name: "Féculents" },
-    { id: 7, name: "Boissons non alcoolisées" },
-    { id: 8, name: "Boissons alcoolisées" },
-    { id: 10, name: "Autres" },
-  ]) // todo: remove this line when the API is ready
-
+  const [categories, setCategories] = useState([])
   const [cotegoriesLoading, setCategoriesLoading] = useState(true)
   const [cotegoriesError, setCategoriesError] = useState(null)
   const [url, setUrl] = useState(ingredient ? ingredient.imageUrl : "")
 
   useEffect(() => {
     api
-      .get("/category")
+      .get("/allCategoryIngredient")
       .then((response) => setCategories(response.data))
       .catch((err) => {
         setCategoriesError(err.response ? err.response.data : err.message)
@@ -52,15 +41,15 @@ const AdminIngredientForm = ({ ingredient, loading, error }) => {
   const handleSubmit = useCallback(
     async ({ name, imageUrl, categoryIngredientsId }) => {
       ingredient
-        ? await api.put(`/ingredients/${ingredient.id}`, {
+        ? await api.put(`/ingredient/${ingredient.id}`, {
             name,
             imageUrl,
-            categoryIngredientsId,
+            categoryIngredientsId: parseInt(categoryIngredientsId),
           })
-        : await api.post("/ingredients", {
+        : await api.post("/ingredient", {
             name,
             imageUrl,
-            categoryIngredientsId,
+            categoryIngredientsId: parseInt(categoryIngredientsId),
           })
       router.push("/administration/ingredients")
     },

@@ -9,20 +9,14 @@ const ModifyIngredientAdministrationPage = () => {
     query: { ingredientId },
   } = useRouter()
 
-  const [ingredient, setIngredient] = useState({
-    id: 1,
-    name: "Cuisse de poulet",
-    imageUrl:
-      "https://www.alimentarium.org/sites/default/files/media/image/2016-10/AL001-02%20tomate_0.jpg",
-    categoryIngredientsId: 3,
-  })
+  const [ingredient, setIngredient] = useState({})
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     if (ingredientId && !isNaN(ingredientId)) {
       api
-        .get(`/ingredients/${ingredientId}`) // todo: edit this when exist
+        .get(`/ingredient/${ingredientId}`)
         .then((response) => setIngredient(response.data))
         .catch((err) => {
           setError(err.response ? err.response.data : err.message)
