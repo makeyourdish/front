@@ -32,6 +32,15 @@
   background-color: var(--drink-secondary-color);
 }
 
+.signin-flamme-background {
+  background: top/cover no-repeat url("/images/background/FlammeLogin.png");
+}
+.signup-ellips-background {
+  background: bottom/contain no-repeat
+    url("/images/background/Ellipsejaune.png");
+}
+
+/*********** Fonts ***********/
 h1,
 .primary-font {
   font-family: "Major Mono Display", monospace;
@@ -44,6 +53,48 @@ h1,
 
 .tertiary-font {
   font-family: "Inria Sans", sans-serif;
+}
+
+/*********** Borders ***********/
+
+.border-food-primary {
+  border-color: var(--food-primary-color);
+}
+
+.border-food-secondary {
+  border-color: var(--food-secondary-color);
+}
+
+.border-drink-primary {
+  border-color: var(--drink-primary-color);
+}
+
+.border-drink-secondary {
+  border-color: var(--drink-secondary-color);
+}
+
+/*********** animation ***********/
+
+.error-field {
+  animation: errorEntrance 0.2s ease 0s 1 normal forwards;
+}
+
+@keyframes errorEntrance {
+  0% {
+    transform: translateX(100px);
+  }
+
+  33% {
+    transform: translateX(-80px);
+  }
+
+  66% {
+    transform: translateX(40px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /*********** Others ***********/

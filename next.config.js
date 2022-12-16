@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.export = {
+  devIndicators: {
+    buildActivity: false,
+  },
   reactStrictMode: true,
   swcMinify: true,
  devIndicators: {
   buildActivity: false,
  }
 }
-
-module.exports = nextConfig
