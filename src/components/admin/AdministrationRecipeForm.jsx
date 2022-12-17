@@ -103,7 +103,9 @@ const RecipeIngredientsForms = ({
               <Field
                 className={`w-full border-2 rounded py-1 px-2 transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75`}
                 type="number"
+                step="0.01"
                 min="0"
+                max="1000"
                 name={`${
                   recipe ? recipeIngredient.ingredientId : index
                 }.quantity`}
@@ -179,7 +181,7 @@ const RecipeIngredientsForms = ({
             ...recipeIngredients,
             {
               ingredientId: ingredients[0].id,
-              quantity: 0.1,
+              quantity: 0.01,
               quantityType: null,
             },
           ])
@@ -202,7 +204,7 @@ const StepsForms = ({ recipeSteps, setRecipeSteps }) => {
       {recipeSteps.map((step, index) => (
         <div
           key={index}
-          className="flex flex-col md:flex-row items-center mb-1 justify-center w-full"
+          className="flex flex-col md:flex-row items-center justify-center w-full"
         >
           <div className="w-full">
             <Field
