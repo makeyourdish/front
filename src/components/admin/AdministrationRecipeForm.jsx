@@ -30,8 +30,6 @@ const displayingErrorMessagesSchema = Yup.object().shape({
   priceRange: Yup.string().required("La tranche prix est requise"),
   difficulty: Yup.string().required("La difficulté est requise"),
   recipeTypeId: Yup.string().required("Le champ est requis !"),
-  step: Yup.string().required("Les étapes de préparation sont requises"),
-  ingredients: Yup.string().required("Les ingrédients sont requis"),
 })
 
 //* -------------------- RecipeIngredientsForms component  --------------------
@@ -83,7 +81,7 @@ const RecipeIngredientsForms = ({
                     if (indexObj === index) {
                       return {
                         ...obj,
-                        ingredientId: parseInt(e.target.value),
+                        ingredientId: Number(e.target.value),
                       }
                     }
 
@@ -117,7 +115,7 @@ const RecipeIngredientsForms = ({
                       if (indexObj === index) {
                         return {
                           ...obj,
-                          quantity: parseInt(e.target.value),
+                          quantity: parseFloat(e.target.value),
                         }
                       }
 
@@ -258,13 +256,7 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
   const router = useRouter()
 
   //* -------------------------- Recipe types data --------------------------
-  const [types, setTypes] = useState([
-    { id: 1, name: "Entrée" },
-    { id: 2, name: "Plat" },
-    { id: 3, name: "Dessert" },
-    { id: 4, name: "Cockctail non alcoolisé" },
-    { id: 5, name: "Cockctail alcoolisé" },
-  ])
+  const [types, setTypes] = useState([])
   const [typesLoading, setTypesLoading] = useState(true)
   const [typesError, setTypesError] = useState(null)
 
@@ -280,13 +272,7 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
   }, [])
 
   //* -------------------------- ingredients data --------------------------
-  const [ingredients, setIngredients] = useState([
-    { id: 1, name: "Oeuf" },
-    { id: 2, name: "Salade" },
-    { id: 3, name: "Bacon" },
-    { id: 4, name: "Tomates" },
-    { id: 5, name: "Poires" },
-  ])
+  const [ingredients, setIngredients] = useState([])
   const [ingredientsLoading, setIngredientsLoading] = useState(true)
   const [ingredientsError, setIngredientsError] = useState(null)
 
@@ -441,38 +427,63 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
     { id: 4, difficultyName: "Difficile" },
     { id: 5, difficultyName: "Très difficile" },
   ]
-  const [recipeIngredients, setRecipeIngredients] = useState(
-    recipe ? recipe.ingredients : []
-  )
-  const [recipeSteps, setRecipeSteps] = useState(
-    recipe ? recipe.step.split(";") : []
-  )
+  const [recipeIngredients, setRecipeIngredients] = useState([])
+  useEffect(() => {
+    recipe && recipe.ingredients && setRecipeIngredients(recipe.ingredients)
+  }, [recipe])
+
+  const [recipeSteps, setRecipeSteps] = useState([])
+  useEffect(() => {
+    recipe && recipe.step && setRecipeSteps(recipe.step.split(";"))
+  }, [recipe])
 
   const handleSubmit = useCallback(
-    async ({ name, imageUrl, recipeTypeId }) => {
+    async ({
+      name,
+      personNb,
+      description,
+      imageUrl,
+      priceRange,
+      preparationTimeHours,
+      preparationTimeMinutes,
+      difficulty,
+      recipeTypeId,
+    }) => {
       recipe
-        ? await api.put(`/recipes/${recipe.id}`, {
+        ? await api.put(`/recipe/${recipe.id}`, {
             name,
+            personNb,
+            description,
             imageUrl,
-            recipeTypeId,
+            preparationTime: `${preparationTimeHours}h${preparationTimeMinutes}`,
+            step: recipeSteps.join(";"),
+            priceRange: Number(priceRange),
+            difficulty: Number(difficulty),
+            ingredients: recipeIngredients,
+            recipeTypeId: Number(recipeTypeId),
+            published: true,
           })
-        : await api.post("/Recipes", {
+        : await api.post("/recipe", {
             name,
+            personNb,
+            description,
             imageUrl,
-            recipeTypeId,
+            preparationTime: `${preparationTimeHours}h${preparationTimeMinutes}`,
+            step: recipeSteps.join(";"),
+            priceRange: Number(priceRange),
+            difficulty: Number(difficulty),
+            ingredients: recipeIngredients,
+            recipeTypeId: Number(recipeTypeId),
+            published: true,
           })
-      router.push("/administration/Recipes")
+      router.push("/administration/recipes")
     },
-    [router, recipe]
+    [recipe, recipeIngredients, recipeSteps, router]
   )
 
   if (loading || typesLoading || ingredientsLoading) {
     return <AdminLoader message="Chargement du formulaire" />
   }
-
-  //! for testing only
-  error = false
-  //! end for testing only
 
   if (error || typesError || ingredientsError) {
     return <AdminResponseError error={error || typesError} />
@@ -502,10 +513,10 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
         description: recipe ? recipe.description : "",
         imageUrl: recipe ? recipe.imageUrl : "",
         preparationTimeHours: recipe
-          ? recipe.preparationTime.split("h")[0]
+          ? recipe.preparationTime.split("h" || "H")[0]
           : "00",
         preparationTimeMinutes: recipe
-          ? recipe.preparationTime.split("h")[1]
+          ? recipe.preparationTime.split("h" || "H")[1]
           : "00",
         priceRange: recipe ? recipe.priceRange : priceRanges[0].id,
         difficulty: recipe ? recipe.difficulty : difficulties[0].id,

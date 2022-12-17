@@ -6,46 +6,13 @@ import Layout from "../../src/components/Layout"
 import AdministrationRecipesList from "../../src/components/admin/AdministrationRecipesList"
 
 const RecipesAdministrationPage = () => {
-  const [recipes, setRecipes] = useState([
-    {
-      id: 1,
-      name: "Oeufs mollets de ma grand-mère",
-      imageUrl:
-        "https://assets.afcdn.com/recipe/20190219/88020_w640h486c1cx1816cy2983cxb3738cyb5083.webp",
-      preparationTime: "8",
-      recipeTypeId: "Plat",
-    },
-    {
-      id: 2,
-      name: "Tarte thon, tomate et moutarde",
-      imageUrl:
-        "https://assets.afcdn.com/recipe/20180503/79010_w1000h1500c1cx1920cy2880.webp",
-      preparationTime: "55",
-      recipeTypeId: "Plat",
-    },
-    {
-      id: 3,
-      name: "Soupe au choux",
-      imageUrl:
-        "https://assets.afcdn.com/recipe/20200517/111343_w1000h667c1cx2880cy1920cxb5760cyb3840.webp",
-      preparationTime: "2h20",
-      recipeTypeId: "Entrée",
-    },
-    {
-      id: 4,
-      name: "Mojito",
-      imageUrl:
-        "https://assets.afcdn.com/recipe/20180705/80255_w350h250c1cx2774cy1849.jpg",
-      preparationTime: "2",
-      recipeTypeId: "Cocktail alcoolisé",
-    },
-  ])
+  const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
     api
-      .get("/recipes") // todo: edit this when database exist
+      .get("/allRecipe")
       .then((response) => setRecipes(response.data))
       .catch((err) => {
         setError(err.response ? err.response.data : err.message)
@@ -66,7 +33,7 @@ const RecipesAdministrationPage = () => {
         recipes={recipes}
         loading={loading}
         error={error}
-        setIngredients={setRecipes}
+        setRecipes={setRecipes}
       />
       <Link href={"/administration/recipes/add"} passHref>
         <button className="mb-12 mx-auto md:text-lg flex items-center justify-center my-5 md:my-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75">

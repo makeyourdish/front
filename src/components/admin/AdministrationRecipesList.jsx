@@ -30,8 +30,7 @@ const showDeleteRecipeConfirm = (id, name, recipes, setRecipes) => {
 
 //* -------------------- Delete recipe function --------------------
 const deleteRecipe = async (id, recipes, setRecipes) => {
-  await api.delete(`/recipes/${id}`) // todo: edit this when database exist
-  //  router.push("", undefined, { shallow: true }) // todo: test this when database exist
+  await api.delete(`/recipe/${id}`)
   setTimeout(() => {
     setRecipes(recipes.filter((recipe) => recipe.id !== id))
   }, 1000)
@@ -40,19 +39,15 @@ const deleteRecipe = async (id, recipes, setRecipes) => {
 
 const AdministrationrecipeList = ({ recipes, loading, error, setRecipes }) => {
   if (loading) {
-    return <AdminLoader message="Chargement de la liste des ingrédients" />
+    return <AdminLoader message="Chargement de la liste des recettes" />
   }
-
-  //! for test only
-  error = false
-  //! end for test only
 
   if (error) {
     return <AdminResponseError error={error} />
   }
 
   if (!recipes.length) {
-    return <AdminResponseNotFound message="Aucun ingrédient trouvé" />
+    return <AdminResponseNotFound message="Aucune recette trouvée" />
   }
 
   return (
@@ -79,7 +74,7 @@ const AdministrationrecipeList = ({ recipes, loading, error, setRecipes }) => {
                 />
               </td>
               <td className="border px-8">{recipe.preparationTime}</td>
-              <td className="border px-8">{recipe.recipeTypeId}</td>
+              <td className="border px-8">{recipe.recipeType.name}</td>
               <td className="border">
                 <Link
                   href={`/administration/recipes/${recipe.id}/modify`}

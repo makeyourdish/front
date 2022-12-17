@@ -44,12 +44,12 @@ const AdminIngredientForm = ({ ingredient, loading, error }) => {
         ? await api.put(`/ingredient/${ingredient.id}`, {
             name,
             imageUrl,
-            categoryIngredientsId: parseInt(categoryIngredientsId),
+            categoryIngredientsId: Number(categoryIngredientsId),
           })
         : await api.post("/ingredient", {
             name,
             imageUrl,
-            categoryIngredientsId: parseInt(categoryIngredientsId),
+            categoryIngredientsId: Number(categoryIngredientsId),
           })
       router.push("/administration/ingredients")
     },

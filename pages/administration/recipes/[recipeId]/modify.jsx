@@ -9,57 +9,14 @@ const ModifyrecipeAdministrationPage = () => {
     query: { recipeId },
   } = useRouter()
 
-  const [recipe, setRecipe] = useState({
-    id: 1,
-    name: "Le nom de la recette",
-    personNb: 2,
-    description: "La description de la recette",
-    imageUrl:
-      "https://www.google.fr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
-    preparationTime: "01h30",
-    step: "Etape 1;Etape 2;Etape 3;Etape 4;Etape 5",
-    priceRange: 4,
-    difficulty: 3,
-    published: false,
-    recipeTypeId: 2,
-    createdAt: "2022-12-12T13:52:39.401Z",
-    updatedAt: "2022-12-12T13:52:39.401Z",
-    ingredients: [
-      {
-        id: 3,
-        quantity: 3,
-        quantityType: null,
-        recipeId: 1,
-        ingredientId: 3,
-        ingredient: {
-          id: 3,
-          name: "Bacon",
-          imageUrl: null,
-          categoryIngredientsId: 1,
-        },
-      },
-      {
-        id: 2,
-        quantity: 1,
-        quantityType: "kg",
-        recipeId: 1,
-        ingredientId: 2,
-        ingredient: {
-          id: 2,
-          name: "Salade",
-          imageUrl: null,
-          categoryIngredientsId: 1,
-        },
-      },
-    ],
-  })
+  const [recipe, setRecipe] = useState({})
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     if (recipeId && !isNaN(recipeId)) {
       api
-        .get(`/recipes/${recipeId}`) // todo: edit this when exist
+        .get(`/recipe/${recipeId}`)
         .then((response) => setRecipe(response.data))
         .catch((err) => {
           setError(err.response ? err.response.data : err.message)
