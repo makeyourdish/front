@@ -174,7 +174,7 @@ const RecipeIngredientsForms = ({
       ))}
 
       <button
-        className="mx-auto md:text-md flex items-center justify-center p-2 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
+        className="mt-3 md:mt-0 mx-auto md:text-md flex items-center justify-center p-2 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
         onClick={(e) => {
           e.preventDefault()
           setRecipeIngredients([
@@ -242,7 +242,7 @@ const StepsForms = ({ recipeSteps, setRecipeSteps }) => {
       ))}
 
       <button
-        className="mx-auto md:text-md flex items-center justify-center p-2 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
+        className="mt-3 md:mt-0 mx-auto md:text-md flex items-center justify-center p-2 md:p-3 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
         onClick={(e) => {
           e.preventDefault()
           setRecipeSteps([...recipeSteps, ""])
