@@ -13,17 +13,17 @@ const HeaderNavContent = (props) => {
 
   return (
     <nav className={`${props.otherclass} w-full`}>
-      <h1
+      {/* <h1
         className={`${
           props.pagetheme === "food" ? "text-white" : "text-black"
         } text-center text-2xl sm:text-4xl mb-3 md:hidden`}
       >
         Make Your Dish
-      </h1>
+      </h1> */}
 
       {props.account ? (
         <div className="flex items-center justify-center flex-wrap">
-          <Link href={`/accounts/${props.account.id}`}>
+          <Link href={`/accounts/${props.account.userId}`}>
             <a
               className={`${buttonStyle} text-xs sm:text-xl px-3 mr-3 md:mr-0`}
             >
@@ -73,7 +73,7 @@ const Header = ({ pagetheme }) => {
   let account = null
 
   if (session) {
-    account = JSON.parse(session)
+    account = JSON.parse(session).payload
   }
 
   useEffect(() => {
