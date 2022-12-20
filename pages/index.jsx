@@ -118,7 +118,7 @@ const FeuilleDImg = () => {
 // 🔽🔽🔽 Page render 🔽🔽🔽
 const HomePage = () => {
   const buttonStyle =
-    "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-xl secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
+    "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-xl secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-105 hover:bg-white/75"
 
   return (
     <Layout page="Accueil" pagetheme="food" screensize={+true}>

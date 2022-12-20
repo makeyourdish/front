@@ -44,6 +44,7 @@ const AccountPage = () => {
   const [loading, setLoading] = useState(true)
   const [apiError, setApiError] = useState(null)
 
+
   useEffect(() => {
     if (session) {
       setTokenInfos(JSON.parse(session).payload)
@@ -72,7 +73,7 @@ const AccountPage = () => {
     >
       <div className="flex-grow flex flex-col justify-center items-center relative tertiary-font">
         <div className="w-full flex-col md:flex-row flex-grow flex items-stretch justify-center z-10">
-          <AccountNav pageSelected={1} />
+          <AccountNav pageSelected={1} user={user} />
           <AccountInformations
             userId={userId}
             tokenInfos={tokenInfos}

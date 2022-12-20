@@ -3,16 +3,16 @@ import { FaKeycdn, FaUserCircle } from "react-icons/fa"
 import { GiMeat } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
 
-const AccountNav = ({ pageSelected }) => {
+const AccountNav = ({ pageSelected, user }) => {
   const navItemsClass =
-    "bg-food-primary md:bg-transparent text-white md:text-black px-4 py-4 rounded-full shadow-md md:rounded-none md:shadow-none md:px-10 md:py-5 md:border-b-2 md:border-black md:text-xl md:w-full"
+    "bg-food-primary md:bg-transparent text-white md:text-black px-4 py-4 rounded-full shadow-md md:rounded-none md:shadow-none md:px-10 md:py-5 md:border-b-2 md:border-black md:text-xl md:w-full transition-all hover:scale-105 md:hover:bg-black/10"
 
   return (
     <nav className="flex md:flex-col items-center justify-evenly md:justify-start py-8 md:py-0 flex-wrap md:px-5">
       <button
         className={`${navItemsClass} mt-22 ${
           pageSelected === 1 && "font-bold"
-        }`}
+        } `}
       >
         <FaUserCircle className="md:hidden block text-2xl" />
         <p className="hidden md:block">Mes informations</p>
@@ -33,12 +33,14 @@ const AccountNav = ({ pageSelected }) => {
         <BiDrink className="md:hidden block text-2xl" />
         <p className="hidden md:block">Mes cockails</p>
       </button>
-      <Link href="/administration">
-        <a className={`${navItemsClass} md:mt-0 md:text-center`}>
-          <FaKeycdn className="md:hidden block text-2xl" />
-          <p className="hidden md:block">Administraton</p>
-        </a>
-      </Link>
+      {user && user.isAdmin && (
+        <Link href="/administration">
+          <a className={`${navItemsClass} md:mt-0 md:text-center`}>
+            <FaKeycdn className="md:hidden block text-2xl" />
+            <p className="hidden md:block">Administraton</p>
+          </a>
+        </Link>
+      )}
     </nav>
   )
 }

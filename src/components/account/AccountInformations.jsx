@@ -7,7 +7,7 @@ const UserInformations = ({ userId, tokenInfos, loading, apiError, user }) => {
   const router = useRouter()
 
   const buttonStyle =
-    "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-lg secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
+    "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-lg secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-105 hover:bg-white/75"
 
   if (userId && tokenInfos && userId != tokenInfos.userId) {
     return router.push(`/accounts/${tokenInfos.userId}`) //* If it's not the user's account, redirect to his account
