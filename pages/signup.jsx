@@ -32,6 +32,44 @@ const displayErrorSchema = Yup.object({
     .required("Requis"),
 })
 
+const FeuilleGImg = () => {
+  const src = "/images/background/FeuilleG.png"
+  const otherClass = "items-end absolute left-0 bottom-0"
+
+  return (
+    <>
+      <div className={`${otherClass} sm:hidden flex`}>
+        <Image src={src} width={429 / 3} height={352 / 3} alt="" />
+      </div>
+      <div className={`${otherClass} hidden sm:flex md:hidden`}>
+        <Image src={src} width={429 / 2} height={352 / 2} alt="" />
+      </div>
+      <div className={`${otherClass} hidden md:flex`}>
+        <Image src={src} width={429} height={352} alt="" />
+      </div>
+    </>
+  )
+}
+
+const FeuilleDImg = () => {
+  const src = "/images/background/FeuilleD.png"
+  const otherClass = "items-end absolute right-0 bottom-0"
+
+  return (
+    <>
+      <div className={`${otherClass} sm:hidden flex`}>
+        <Image src={src} width={358 / 3} height={448 / 3} alt="" />
+      </div>
+      <div className={`${otherClass} hidden sm:flex md:hidden`}>
+        <Image src={src} width={358 / 2} height={448 / 2} alt="" />
+      </div>
+      <div className={`${otherClass} hidden md:flex`}>
+        <Image src={src} width={358} height={448} alt="" />
+      </div>
+    </>
+  )
+}
+
 const Signup = () => {
   const { signUp, signUpError } = useContext(AppContext)
 
@@ -49,8 +87,8 @@ const Signup = () => {
       screensize={+true}
       hideheader={+true}
     >
-      <div className="flex flex-col justify-between items-center h-screen overflow-hidden">
-        <div className="w-screen text-3xl text-center mt-24">
+      <div className="flex flex-col justify-between items-center h-full relative overflow-hidden">
+        <div className="w-screen text-xl md:text-3xl text-center mt-10 md:mt-24">
           <Link href="/">
             <a>
               <h1>Make Your Dish</h1>
@@ -76,7 +114,7 @@ const Signup = () => {
           onSubmit={handleFormSubmit}
         >
           {({ errors, touched }) => (
-            <Form className="z-10 flex flex-col justify-center items-center w-1/2">
+            <Form className="z-10 flex flex-col justify-center items-center w-5/6 md:w-1/2 mb-10">
               <div className="mb-6 w-full">
                 <Field
                   className="text-center py-3 w-full rounded-full border-drink-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-yellow-500"
@@ -132,7 +170,7 @@ const Signup = () => {
 
               <button
                 type="submit"
-                className="bg-drink-primary rounded-full tertiary-font text-black text-2xl py-3 px-12 shadow-lg transition-all hover:scale-105 hover:bg-yellow-300/75 focus:outline focus:outline-3 focus:outline-yellow-5 00"
+                className="bg-drink-primary rounded-full tertiary-font text-black text-xl md:text-2xl py-3 px-12 shadow-lg transition-all hover:scale-105 hover:bg-yellow-300/75 focus:outline focus:outline-3 focus:outline-yellow-5 00"
               >
                 Créez votre compte
               </button>
@@ -140,27 +178,13 @@ const Signup = () => {
           )}
         </Formik>
 
-        <div className="w-2/3 flex items-end pb-6 justify-center text-2xl text-center tertiary-font signup-ellips-background min-h-[280px]">
+        <div className="w-screen flex flex-col md:flex-row pb-6 items-center md:items-end justify-end md:justify-center text-xl md:text-2xl text-center tertiary-font signup-ellips-background min-h-[100px] lg:min-h-[150px]">
           <p className="z-10 mr-2">Vous avez déjà un compte ?</p>
           <Link href="/signin">
             <a className="z-10 font-bold">Se connecter</a>
           </Link>
-          <div className="absolute left-0 bottom-0 flex items-end">
-            <Image
-              src="/images/background/FeuilleG.png"
-              width={429}
-              height={352}
-              alt=""
-            />
-          </div>
-          <div className="absolute right-0 bottom-0 flex items-end">
-            <Image
-              src="/images/background/FeuilleD.png"
-              width={358}
-              height={448}
-              alt=""
-            />
-          </div>
+          <FeuilleGImg />
+          <FeuilleDImg />
         </div>
       </div>
     </Layout>

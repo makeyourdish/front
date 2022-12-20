@@ -4,10 +4,13 @@ import { GiMeat } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
 
 const AccountNav = ({ pageSelected }) => {
+  const navItemsClass =
+    "bg-food-primary md:bg-transparent text-white md:text-black px-4 py-4 rounded-full shadow-md md:rounded-none md:shadow-none md:px-10 md:py-5 md:border-b-2 md:border-black md:text-xl md:w-full"
+
   return (
-    <nav className="flex md:flex-col items-center justify-evenly md:justify-start px-5">
+    <nav className="flex md:flex-col items-center justify-evenly md:justify-start py-8 md:py-0 flex-wrap md:px-5">
       <button
-        className={`bg-food-primary md:bg-transparent text-white md:text-black px-4 py-4 rounded-full shadow-md md:rounded-none md:shadow-none mt-14 md:mt-12 md:px-10 md:py-5 md:border-b-2 md:border-black md:text-xl md:w-full ${
+        className={`${navItemsClass} mt-22 ${
           pageSelected === 1 && "font-bold"
         }`}
       >
@@ -15,7 +18,7 @@ const AccountNav = ({ pageSelected }) => {
         <p className="hidden md:block">Mes informations</p>
       </button>
       <button
-        className={`bg-food-primary md:bg-transparent text-white md:text-black px-4 py-4 rounded-full shadow-md md:rounded-none md:shadow-none mt-14 md:mt-0 md:px-10 md:py-5 md:border-b-2 md:border-black md:text-xl md:w-full ${
+        className={`${navItemsClass} md:mt-0 ${
           pageSelected === 2 && "font-bold"
         }`}
       >
@@ -23,7 +26,7 @@ const AccountNav = ({ pageSelected }) => {
         <p className="hidden md:block">Mes recettes</p>
       </button>
       <button
-        className={`bg-food-primary md:bg-transparent text-white md:text-black px-4 py-4 rounded-full shadow-md md:rounded-none md:shadow-none mt-14 md:mt-0 md:px-10 md:py-5 md:border-b-2 md:border-black md:text-xl md:w-full ${
+        className={`${navItemsClass} md:mt-0 ${
           pageSelected === 3 && "font-bold"
         }`}
       >
@@ -31,7 +34,7 @@ const AccountNav = ({ pageSelected }) => {
         <p className="hidden md:block">Mes cockails</p>
       </button>
       <Link href="/administration">
-        <a className="bg-food-primary md:bg-transparent text-white md:text-black px-4 py-4 rounded-full shadow-md md:rounded-none md:shadow-none mt-14 md:mt-0 md:text-center md:py-5 md:border-b-2 md:border-black md:text-xl md:w-full">
+        <a className={`${navItemsClass} md:mt-0 md:text-center`}>
           <FaKeycdn className="md:hidden block text-2xl" />
           <p className="hidden md:block">Administraton</p>
         </a>

@@ -10,7 +10,7 @@ const UserInformations = ({ userId, tokenInfos, loading, apiError, user }) => {
     "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-lg secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
 
   if (userId && tokenInfos && userId != tokenInfos.userId) {
-    return router.push(`/accounts/${tokenInfos.userId}`)
+    return router.push(`/accounts/${tokenInfos.userId}`) //* If it's not the user's account, redirect to his account
   }
 
   if (loading) {
@@ -46,14 +46,14 @@ const UserInformations = ({ userId, tokenInfos, loading, apiError, user }) => {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row z-30">
-        <Link href="/recipes/make">
-          <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
+      <div className="flex flex-col lg:flex-row z-30">
+        <Link href={`accounts/${userId}/changeInformations`}>
+          <a className={`${buttonStyle} mb-4 lg:mb-0 lg:mr-4`}>
             Modifier mes informations
           </a>
         </Link>
-        <Link href="/recipes/make">
-          <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
+        <Link href={`accounts/${userId}/changePassword`}>
+          <a className={`${buttonStyle} mb-4 lg:mb-0 lg:mr-4`}>
             Modifier mon mot de passe
           </a>
         </Link>

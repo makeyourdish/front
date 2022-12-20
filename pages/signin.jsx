@@ -79,7 +79,7 @@ const Signin = () => {
           onSubmit={handleFormSubmit}
         >
           {({ errors, touched }) => (
-            <Form className="flex flex-col justify-center items-center w-5/6 md:w-1/2">
+            <Form className="z-10 flex flex-col justify-center items-center w-5/6 md:w-1/2">
               <div className="mb-6 w-full">
                 <Field
                   className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-red-500"

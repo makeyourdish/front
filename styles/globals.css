@@ -36,8 +36,7 @@
   background: top/cover no-repeat url("/images/background/FlammeLogin.png");
 }
 .signup-ellips-background {
-  background: bottom/contain no-repeat
-    url("/images/background/Ellipsejaune.png");
+  background: top/cover no-repeat url("/images/background/Ellipsejaune.png");
 }
 
 /*********** Fonts ***********/
