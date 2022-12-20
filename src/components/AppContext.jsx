@@ -46,7 +46,7 @@ export const AppContextProvider = (props) => {
   useEffect(() => {
     // Redirects the user if he's not logged or not administrator in and if the page is only accessible for administrators
     if (session && Page.administration) {
-      const isAdmin = JSON.parse(session).isAdmin
+      const isAdmin = JSON.parse(session).payload.userAdmin
 
       if (!isAdmin) {
         router.push("/")
