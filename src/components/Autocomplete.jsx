@@ -1,16 +1,19 @@
 import AutoComplete from "@tarekraafat/autocomplete.js"
-import { useEffect } from "react"
+import {useEffect} from "react"
 
 const AutoCompleteComponent = ({
-  pageTheme, ingredientsSelected, setIngredientsSelected
+  pageTheme,
+  ingredientsSelected,
+  setIngredientsSelected,
 }) => {
+  let autoComplete
 
   useEffect(() => {
-    const autoCompleteJS = new AutoComplete({
+    const autoComplete = new AutoComplete({
       threshold: 2,
       selector: "#searchIngredients",
       data: {
-        src: ["patate", "patati", "patatou", "patatra", "courge", "poireaux"],
+        src: ["patate", "patati", "patatou", "patatra", "Courgette", "Poireau"],
         cache: true,
       },
       resultsList: {
@@ -28,7 +31,7 @@ const AutoCompleteComponent = ({
       events: {
         input: {
           focus: () => {
-            if (autoCompleteJS.input.value.length) autoCompleteJS.start()
+            if (autoComplete.input.value.length) autoComplete.start()
           },
           selection: (event) => {
             const value = event.detail.selection.value
@@ -41,6 +44,17 @@ const AutoCompleteComponent = ({
       },
     })
   }, [])
+
+  /*useEffect(()=> {
+    if (autoComplete) {
+    autoComplete.events.input.selection = (event) => {
+    const value = event.detail.selection.value
+    document.getElementById("searchIngredients").value = value
+    if (!ingredientsSelected.includes(value)) {
+      setIngredientsSelected((oldArray) => [...oldArray, value])
+      }
+    }
+},[ingredientsSelected])*/
 
   return (
     <div className="autoComplete_wrapper tertiary-font font-light w-full">
