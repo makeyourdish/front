@@ -122,7 +122,7 @@ const HomePage = () => {
 
   return (
     <Layout page="Accueil" pagetheme="food" screensize={+true}>
-      <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
+      <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
         <PoeleImg />
         <div className="flex flex-col md:flex-row z-30">
           <Link href="/recipes/make">

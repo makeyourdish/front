@@ -42,7 +42,7 @@ const AdministrationUserList = ({ users, loading, error, setUsers }) => {
   }
 
   if (error) {
-    return <AdminResponseError error={error} />
+    return <AdminResponseError error={error} otherClass="mt-10" />
   }
 
   if (!users.length) {

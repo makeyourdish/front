@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { Form, Formik, Field } from "formik"
 import * as Yup from "yup"
 import { RiAddCircleFill } from "react-icons/ri"
@@ -59,18 +59,28 @@ const displayingErrorMessagesSchemaForModification = Yup.object().shape({
 
 const AdminUserForm = ({ user, loading, error }) => {
   const router = useRouter()
+  const [responseError, setResponseError] = useState(null)
 
   const handleSubmit = useCallback(
     async ({ userName, email, password, isAdmin }) => {
       user
-        ? await api.put(`/user/${user.id}`, {
-            userName,
-            email,
-            password,
-            isAdmin,
-          })
-        : await api.post("/sign-up", { userName, email, password, isAdmin })
-      router.push("/administration/users")
+        ? await api
+            .put(`/user/${user.id}`, {
+              userName,
+              email,
+              password,
+              isAdmin,
+            })
+            .then(() => router.push("/administration/users"))
+            .catch((err) =>
+              setResponseError(err.response ? err.response.data : err.message)
+            )
+        : await api
+            .post("/user", { userName, email, password, isAdmin })
+            .then(() => router.push("/administration/users"))
+            .catch((err) =>
+              setResponseError(err.response ? err.response.data : err.message)
+            )
     },
     [router, user]
   )
@@ -80,7 +90,7 @@ const AdminUserForm = ({ user, loading, error }) => {
   }
 
   if (error) {
-    return <AdminResponseError error={error} />
+    return <AdminResponseError error={error} otherClass="mt-10" />
   }
 
   if (user && !Object.keys(user).length) {
@@ -104,6 +114,9 @@ const AdminUserForm = ({ user, loading, error }) => {
     >
       {({ errors, touched }) => (
         <Form className="mb-12 w-5/6 md:w-4/5 lg:w-1/2 p-4 sm:p-8 md:p-12 border mx-auto flex flex-col items-center justify-center rounded">
+          {responseError && (
+            <AdminResponseError error={responseError} otherClass="mb-10" />
+          )}
           <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${

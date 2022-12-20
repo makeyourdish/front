@@ -43,7 +43,7 @@ const AdministrationrecipeList = ({ recipes, loading, error, setRecipes }) => {
   }
 
   if (error) {
-    return <AdminResponseError error={error} />
+    return <AdminResponseError error={error} otherClass="mt-10" />
   }
 
   if (!recipes.length) {

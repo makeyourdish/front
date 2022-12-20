@@ -26,6 +26,7 @@ const AdminIngredientForm = ({ ingredient, loading, error }) => {
   const [cotegoriesLoading, setCategoriesLoading] = useState(true)
   const [cotegoriesError, setCategoriesError] = useState(null)
   const [url, setUrl] = useState(ingredient ? ingredient.imageUrl : "")
+  const [responseError, setResponseError] = useState(null)
 
   useEffect(() => {
     api
@@ -41,17 +42,26 @@ const AdminIngredientForm = ({ ingredient, loading, error }) => {
   const handleSubmit = useCallback(
     async ({ name, imageUrl, categoryIngredientsId }) => {
       ingredient
-        ? await api.put(`/ingredient/${ingredient.id}`, {
-            name,
-            imageUrl,
-            categoryIngredientsId: Number(categoryIngredientsId),
-          })
-        : await api.post("/ingredient", {
-            name,
-            imageUrl,
-            categoryIngredientsId: Number(categoryIngredientsId),
-          })
-      router.push("/administration/ingredients")
+        ? await api
+            .put(`/ingredient/${ingredient.id}`, {
+              name,
+              imageUrl,
+              categoryIngredientsId: Number(categoryIngredientsId),
+            })
+            .then(() => router.push("/administration/ingredients"))
+            .catch((err) =>
+              setResponseError(err.response ? err.response.data : err.message)
+            )
+        : await api
+            .post("/ingredient", {
+              name,
+              imageUrl,
+              categoryIngredientsId: Number(categoryIngredientsId),
+            })
+            .then(() => router.push("/administration/ingredients"))
+            .catch((err) =>
+              setResponseError(err.response ? err.response.data : err.message)
+            )
     },
     [router, ingredient]
   )
@@ -61,12 +71,17 @@ const AdminIngredientForm = ({ ingredient, loading, error }) => {
   }
 
   if (error || cotegoriesError) {
-    return <AdminResponseError error={error || cotegoriesError} />
+    return (
+      <AdminResponseError error={error || cotegoriesError} otherClass="mt-10" />
+    )
   }
 
   if (!categories.length) {
     return (
-      <AdminResponseError error="Vous devez créer au moins une catégorie" />
+      <AdminResponseError
+        error="Vous devez créer au moins une catégorie"
+        otherClass="mt-10"
+      />
     )
   }
 
@@ -88,6 +103,9 @@ const AdminIngredientForm = ({ ingredient, loading, error }) => {
     >
       {({ errors, touched }) => (
         <Form className="mb-12 w-5/6 md:w-4/5 lg:w-1/2 p-4 sm:p-8 md:p-12 border mx-auto flex flex-col items-center justify-center rounded">
+          {responseError && (
+            <AdminResponseError error={responseError} otherClass="mb-10" />
+          )}
           <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${

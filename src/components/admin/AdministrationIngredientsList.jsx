@@ -48,7 +48,7 @@ const AdministrationingredientList = ({
   }
 
   if (error) {
-    return <AdminResponseError error={error} />
+    return <AdminResponseError error={error} otherClass="mt-10" />
   }
 
   if (!ingredients.length) {

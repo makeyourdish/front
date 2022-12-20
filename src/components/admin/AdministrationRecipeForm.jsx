@@ -256,6 +256,7 @@ const StepsForms = ({ recipeSteps, setRecipeSteps }) => {
 
 const AdminRecipeForm = ({ recipe, loading, error }) => {
   const router = useRouter()
+  const [responseError, setResponseError] = useState(null)
 
   //* -------------------------- Recipe types data --------------------------
   const [types, setTypes] = useState([])
@@ -452,33 +453,42 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
       recipeTypeId,
     }) => {
       recipe
-        ? await api.put(`/recipe/${recipe.id}`, {
-            name,
-            personNb,
-            description,
-            imageUrl,
-            preparationTime: `${preparationTimeHours}h${preparationTimeMinutes}`,
-            step: recipeSteps.join(";"),
-            priceRange: Number(priceRange),
-            difficulty: Number(difficulty),
-            ingredients: recipeIngredients,
-            recipeTypeId: Number(recipeTypeId),
-            published: true,
-          })
-        : await api.post("/recipe", {
-            name,
-            personNb,
-            description,
-            imageUrl,
-            preparationTime: `${preparationTimeHours}h${preparationTimeMinutes}`,
-            step: recipeSteps.join(";"),
-            priceRange: Number(priceRange),
-            difficulty: Number(difficulty),
-            ingredients: recipeIngredients,
-            recipeTypeId: Number(recipeTypeId),
-            published: true,
-          })
-      router.push("/administration/recipes")
+        ? await api
+            .put(`/recipe/${recipe.id}`, {
+              name,
+              personNb,
+              description,
+              imageUrl,
+              preparationTime: `${preparationTimeHours}h${preparationTimeMinutes}`,
+              step: recipeSteps.join(";"),
+              priceRange: Number(priceRange),
+              difficulty: Number(difficulty),
+              ingredients: recipeIngredients,
+              recipeTypeId: Number(recipeTypeId),
+              published: true,
+            })
+            .then(() => router.push("/administration/recipes"))
+            .catch((err) =>
+              setResponseError(err.response ? err.response.data : err.message)
+            )
+        : await api
+            .post("/recipe", {
+              name,
+              personNb,
+              description,
+              imageUrl,
+              preparationTime: `${preparationTimeHours}h${preparationTimeMinutes}`,
+              step: recipeSteps.join(";"),
+              priceRange: Number(priceRange),
+              difficulty: Number(difficulty),
+              ingredients: recipeIngredients,
+              recipeTypeId: Number(recipeTypeId),
+              published: true,
+            })
+            .then(() => router.push("/administration/recipes"))
+            .catch((err) =>
+              setResponseError(err.response ? err.response.data : err.message)
+            )
     },
     [recipe, recipeIngredients, recipeSteps, router]
   )
@@ -488,18 +498,24 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
   }
 
   if (error || typesError || ingredientsError) {
-    return <AdminResponseError error={error || typesError} />
+    return <AdminResponseError error={error || typesError} otherClass="mt-10" />
   }
 
   if (!types.length) {
     return (
-      <AdminResponseError error="Vous devez créer au moins un type de recette ou de cocktail" />
+      <AdminResponseError
+        error="Vous devez créer au moins un type de recette ou de cocktail"
+        otherClass="mt-10"
+      />
     )
   }
 
   if (!ingredients.length) {
     return (
-      <AdminResponseError error="Vous devez créer au moins un ingrédient" />
+      <AdminResponseError
+        error="Vous devez créer au moins un ingrédient"
+        otherClass="mt-10"
+      />
     )
   }
 
@@ -529,6 +545,9 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
     >
       {({ errors, touched }) => (
         <Form className="mb-12 w-5/6 md:w-4/5 lg:w-1/2 p-4 sm:p-8 md:p-12 border mx-auto flex flex-col items-center justify-center rounded">
+          {responseError && (
+            <AdminResponseError error={responseError} otherClass="mb-10" />
+          )}
           <div className="mb-3 sm:mb-6 w-full">
             <Field
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
