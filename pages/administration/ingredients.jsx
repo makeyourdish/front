@@ -44,7 +44,7 @@ const IngredientsAdministrationPage = () => {
   )
 }
 
-// IngredientsAdministrationPage.private = true // todo: edit this when signin exist
-// IngredientsAdministrationPage.administration = true // todo: edit this when signin exist
+IngredientsAdministrationPage.private = true
+IngredientsAdministrationPage.administration = true
 
 export default IngredientsAdministrationPage

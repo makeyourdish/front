@@ -45,7 +45,7 @@ const RecipesAdministrationPage = () => {
   )
 }
 
-// RecipesAdministrationPage.private = true // todo: edit this when signin exist
-// RecipesAdministrationPage.administration = true // todo: edit this when signin exist
+RecipesAdministrationPage.private = true
+RecipesAdministrationPage.administration = true
 
 export default RecipesAdministrationPage

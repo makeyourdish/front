@@ -45,7 +45,7 @@ const ModifyIngredientAdministrationPage = () => {
   )
 }
 
-// ModifyIngredientAdministrationPage.private = true
-// ModifyIngredientAdministrationPage.administration = true
+ModifyIngredientAdministrationPage.private = true
+ModifyIngredientAdministrationPage.administration = true
 
 export default ModifyIngredientAdministrationPage

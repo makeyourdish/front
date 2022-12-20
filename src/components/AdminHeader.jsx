@@ -1,21 +1,17 @@
 import Link from "next/link"
 import Image from "next/image"
-// import { useContext } from "react"
+import { useContext } from "react"
 import { IoCaretBackOutline } from "react-icons/io5"
 import { MdWeb } from "react-icons/md"
-// import AppContext from "./AppContext"
+import AppContext from "./AppContext"
 
 const AdminHeader = () => {
-  // const { session } = useContext(AppContext)
-  // let accountUserName = null
-  //todo: add this line when signin exist
+  const { session } = useContext(AppContext)
+  let userName = null
 
-  const userName = "SokouPM"
-
-  // if (session) {
-  //   userName = JSON.parse(session).userName
-  // }
-  //todo: add this line when signin exist
+  if (session) {
+    userName = JSON.parse(session).payload.userName
+  }
 
   return (
     <header className="bg-gray-800 flex items-center justify-between px-4 py-2">

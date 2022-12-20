@@ -45,7 +45,7 @@ const ModifyrecipeAdministrationPage = () => {
   )
 }
 
-// ModifyrecipeAdministrationPage.private = true
-// ModifyrecipeAdministrationPage.administration = true
+ModifyrecipeAdministrationPage.private = true
+ModifyrecipeAdministrationPage.administration = true
 
 export default ModifyrecipeAdministrationPage

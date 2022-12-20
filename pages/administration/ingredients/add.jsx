@@ -16,7 +16,7 @@ const AddIngredientAdministrationPage = () => {
   )
 }
 
-// AddIngredientAdministrationPage.private = true // todo: edit this when signin exist
-// AddIngredientAdministrationPage.administration = true // todo: edit this when signin exist
+AddIngredientAdministrationPage.private = true
+AddIngredientAdministrationPage.administration = true
 
 export default AddIngredientAdministrationPage
