@@ -38,9 +38,6 @@ const FeuilleGImg = () => {
 
   return (
     <>
-      <div className={`${otherClass} sm:hidden flex`}>
-        <Image src={src} width={429 / 3} height={352 / 3} alt="" />
-      </div>
       <div className={`${otherClass} hidden sm:flex md:hidden`}>
         <Image src={src} width={429 / 2} height={352 / 2} alt="" />
       </div>
@@ -57,9 +54,6 @@ const FeuilleDImg = () => {
 
   return (
     <>
-      <div className={`${otherClass} sm:hidden flex`}>
-        <Image src={src} width={358 / 3} height={448 / 3} alt="" />
-      </div>
       <div className={`${otherClass} hidden sm:flex md:hidden`}>
         <Image src={src} width={358 / 2} height={448 / 2} alt="" />
       </div>
@@ -87,7 +81,7 @@ const Signup = () => {
       screensize={+true}
       hideheader={+true}
     >
-      <div className="flex flex-col justify-between items-center h-full relative overflow-hidden">
+      <div className="flex flex-col justify-between items-center h-screen relative overflow-hidden">
         <div className="w-screen text-xl md:text-3xl text-center mt-10 md:mt-24">
           <Link href="/">
             <a>
