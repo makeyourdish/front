@@ -1,28 +1,24 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {RxCrossCircled} from "react-icons/rx"
 import Layout from "./Layout"
 import AutoCompleteComponent from "./Autocomplete"
+import api from "./services/api"
 
 const Generate = ({pageTheme}) => {
   const categoryIngredientsCss =
     "secondary-font text-xl m-12 max-sm:text-center"
   const buttonIngredients = `shadow-lg sm:w-[200px] max-sm:whitespace-nowrap bg-${pageTheme}-primary-translucent sm:m-2 max-sm:mb-6 max-sm:mx-2 rounded-lg p-2 text-lg`
-  const [ingredientsSelected, setIngredientsSelected] = useState([
-    "Poireau",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-    "aeazea",
-  ])
+  const [ingredientsSelected, setIngredientsSelected] = useState([])
+  const [categoriesIngredients, setCategoriesIngredients] = useState([])
+
+  useEffect(async () => {
+    await api
+      .get(`${process.env.BACK_URL}/allCategoryIngredient`)
+      .then((response) => {
+        setCategoriesIngredients((oldArray) => [...oldArray, response.data])
+        console.log(response)
+      })
+  }, [])
 
   function callIngredients() {
     return (
