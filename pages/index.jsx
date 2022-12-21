@@ -125,7 +125,7 @@ const HomePage = () => {
       <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
         <PoeleImg />
         <div className="flex flex-col md:flex-row z-30">
-          <Link href="/recipes/make">
+          <Link href="/generate?food">
             <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
               Génère ton plat
             </a>
@@ -147,7 +147,7 @@ const HomePage = () => {
       <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-drink-secondary overflow-hidden relative py-2">
         <CocktailImg />
         <div className="flex flex-col md:flex-row z-30">
-          <Link href="/drinks/make">
+          <Link href="/generate?drink">
             <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
               Génère ton cocktail
             </a>

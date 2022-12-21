@@ -5,4 +5,7 @@ module.exports = {
   devIndicators: {
     buildActivity: false,
   },
+  env: {
+    BACK_URL: "http://localhost:3030",
+  },
 }

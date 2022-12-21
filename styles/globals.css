@@ -10,9 +10,26 @@
 
 :root {
   --food-primary-color: #f68a8a;
+
+  --food-primary-color-translucent: rgb(246, 138, 138, 0.3);
   --food-secondary-color: #ffdbdb;
   --drink-primary-color: #fffcb5;
+  --drink-primary-color-translucent: rgb(255, 252, 181, 0.8);
   --drink-secondary-color: #d6f9f7;
+}
+
+/*********** Scroller ***********/
+
+.scroller::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.scroller-thumb::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 /*********** Backgrounds ***********/
@@ -39,6 +56,14 @@
   background: top/cover no-repeat url("/images/background/Ellipsejaune.png");
 }
 
+.bg-food-primary-translucent {
+  background-color: var(--food-primary-color-translucent);
+}
+
+.bg-drink-primary-translucent {
+  background-color: var(--drink-primary-color-translucent);
+}
+
 /*********** Fonts ***********/
 h1,
 .primary-font {
@@ -52,6 +77,24 @@ h1,
 
 .tertiary-font {
   font-family: "Inria Sans", sans-serif;
+}
+
+/*********** Outline ***********/
+
+.outline-food-primary {
+  outline-color: var(--food-primary-color);
+}
+
+.outline-food-secondary {
+  outline-color: var(--food-secondary-color);
+}
+
+.outline-drink-primary {
+  outline-color: var(--drink-primary-color);
+}
+
+.outline-drink-secondary {
+  outline-color: var(--drink-secondary-color);
 }
 
 /*********** Borders ***********/
@@ -94,6 +137,73 @@ h1,
   100% {
     transform: translateX(0);
   }
+}
+
+/*********** AutoComplete ***********/
+
+.autoComplete_wrapper > ul {
+  position: absolute;
+  max-height: 226px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+  border-top-left-radius: 0.6rem;
+  border-bottom-left-radius: 0.6rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 3px 6px rgba(149, 157, 165, 0.15);
+  border: 1px solid rgba(33, 33, 33, 0.07);
+  z-index: 1000;
+  width: 75%;
+  margin: auto;
+  outline-style: none;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+.autoComplete_wrapper > ul:empty,
+.autoComplete_wrapper > ul[hidden] {
+  display: block;
+  opacity: 0;
+  transform: scale(0);
+}
+.autoComplete_wrapper > ul > li {
+  margin: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  list-style: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #212121;
+  transition: all 0.1s ease-in-out;
+  border-radius: 0.35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease;
+}
+.autoComplete_wrapper > ul > li::selection {
+  background-color: rgb(245, 245, 245);
+}
+.autoComplete_wrapper > ul > li:hover {
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+}
+.autoComplete_wrapper > ul > li mark {
+  background-color: transparent;
+  font-weight: 700;
+}
+.autoComplete_wrapper > ul > li mark::selection {
+  color: rgba(#fff, 0);
+  background-color: rgba(#fff, 0);
+}
+.autoComplete_wrapper > ul > li[aria-selected="true"] {
+  background-color: rgb(245, 245, 245);
+}
+
+.autoComplete_wrapper {
+  display: inline-block;
+  position: relative;
+  width: 100%;
 }
 
 /*********** Others ***********/
