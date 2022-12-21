@@ -37,7 +37,7 @@ const AccountNav = ({ pageSelected, user }) => {
         <Link href="/administration">
           <a className={`${navItemsClass} md:mt-0 md:text-center`}>
             <FaKeycdn className="md:hidden block text-2xl" />
-            <p className="hidden md:block">Administraton</p>
+            <p className="hidden md:block">Administration</p>
           </a>
         </Link>
       )}
