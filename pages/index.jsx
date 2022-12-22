@@ -1,5 +1,5 @@
+import Link from "next/link"
 import Image from "next/image"
-import Link from "next/Link"
 import Layout from "../src/components/Layout"
 import bgImageTwoColors from "/public/images/background/Separation.png"
 
@@ -118,11 +118,11 @@ const FeuilleDImg = () => {
 // 🔽🔽🔽 Page render 🔽🔽🔽
 const HomePage = () => {
   const buttonStyle =
-    "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-xl secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-110 hover:bg-white/75"
+    "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-xl secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-105 hover:bg-white/75"
 
   return (
     <Layout page="Accueil" pagetheme="food" screensize={+true}>
-      <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
+      <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
         <PoeleImg />
         <div className="flex flex-col md:flex-row z-30">
           <Link href="/recipes/make">
@@ -130,8 +130,8 @@ const HomePage = () => {
               Génère ton plat
             </a>
           </Link>
-          <Link href="/list?food">
-            <a className={buttonStyle}>Notre cuisine</a>
+          <Link href="/recipes">
+            <a className={buttonStyle}>Nos plats</a>
           </Link>
         </div>
         <div className="relative z-20">
@@ -152,7 +152,7 @@ const HomePage = () => {
               Génère ton cocktail
             </a>
           </Link>
-          <Link href="/list?drink">
+          <Link href="/drinks">
             <a className={buttonStyle}>Nos cocktails</a>
           </Link>
         </div>
