@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Layout from "./Layout"
 
 const ListItems = (pageTheme) => {
