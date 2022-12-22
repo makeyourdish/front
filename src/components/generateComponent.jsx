@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react"
+import { /* useEffect, */ useState } from "react"
 import { RxCrossCircled } from "react-icons/rx"
 import Layout from "./Layout"
 import AutoCompleteComponent from "./Autocomplete"
-import api from "./services/api"
+// import api from "./services/api"
 
 const Generate = ({ pageTheme }) => {
   const categoryIngredientsCss =
     "secondary-font mt-[4vh] mb-[2vh] text-lg max-sm:text-center"
   const buttonIngredients = `shadow-lg max-sm:whitespace-nowrap bg-${pageTheme}-primary-translucent sm:m-2 max-sm:mb-6 max-sm:mx-2 rounded-lg p-2 text-lg`
   const [ingredientsSelected, setIngredientsSelected] = useState([])
-  const [categoriesIngredients, setCategoriesIngredients] = useState([])
+  // const [categoriesIngredients, setCategoriesIngredients] = useState([])
 
   useEffect(() => {
     api
@@ -82,6 +82,7 @@ const Generate = ({ pageTheme }) => {
         <div className="sm:w-full sm:h-[calc(100%-200px)] max-sm:max-h-[200px] max-sm:flex max-sm:flex-row max-sm:flex-wrap max-sm:justify-center max-sm:mt-8 overflow-y-auto scroller-thumb scroller">
           {ingredientsSelected.map((element, index) => (
             <button
+              key={index}
               className="flex flex-row items-center max-sm:h-6 max-sm:mr-4 sm:pr-6 max-sm:p-2 max-sm:m-2 max-sm:rounded-lg max-sm:bg-black/[.04] sm:w-full sm:justify-between"
               onClick={() =>
                 setIngredientsSelected(
