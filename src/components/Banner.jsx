@@ -3,7 +3,7 @@ import Link from "next/link"
 const Banner = () => {
   return (
     <div>
-      <Link href="/recipes">
+      <Link href="/recipes" passHref>
         <button>Les recettes</button>
       </Link>
     </div>
