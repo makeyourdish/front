@@ -6,7 +6,7 @@ const AutoCompleteComponent = ({
   ingredientsSelected,
   setIngredientsSelected,
 }) => {
-  let autoComplete
+  // let autoComplete
 
   useEffect(() => {
     const autoComplete = new AutoComplete({
@@ -31,11 +31,12 @@ const AutoCompleteComponent = ({
       events: {
         input: {
           focus: () => {
-            if (autoComplete.input.value.length) autoComplete.start()
+            if (autoComplete.input.value.length) {autoComplete.start()}
           },
           selection: (event) => {
             const value = event.detail.selection.value
             document.getElementById("searchIngredients").value = value
+            
             if (!ingredientsSelected.includes(value)) {
               setIngredientsSelected((oldArray) => [...oldArray, value])
             }
