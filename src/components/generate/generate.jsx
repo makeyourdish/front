@@ -1,0 +1,46 @@
+import { useEffect, useState } from "react"
+import Layout from "../Layout"
+import api from "../services/api"
+import IngredientsList from "./ingredientsList"
+import IngredientsSelectedForValidation from "./ingredientsSelectedForValidation"
+
+const Generate = ({ pageTheme }) => {
+  const [ingredientsSelected, setIngredientsSelected] = useState([])
+  const [categoriesIngredients, setCategoriesIngredients] = useState([])
+
+  useEffect(() => {
+    api
+      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}allCategoryIngredient`)
+      .then((response) => {
+        setCategoriesIngredients(response.data)
+      })
+  }, [])
+
+  return (
+    <Layout page="Recipes" pagetheme={pageTheme} screensize={+true}>
+      <h1 className="text-2xl mt-[8vh] secondary-font sm:ml-[5vw] max-sm:text-center">
+        Qu’y a-t-il dans votre cuisine ?
+      </h1>
+      <IngredientsList
+        categoriesIngredients={categoriesIngredients}
+        ingredientsSelected={ingredientsSelected}
+        setIngredientsSelected={setIngredientsSelected}
+        pageTheme={pageTheme}
+      />
+      <IngredientsSelectedForValidation
+        ingredientsSelected={ingredientsSelected}
+        setIngredientsSelected={setIngredientsSelected}
+        pageTheme={pageTheme}
+      />
+
+      {/* boutton pour le design mobile*/}
+      <button
+        className={`sm:hidden w-full py-[15px] secondary-font rounded-t-full bg-${pageTheme}-primary fixed bottom-0 border-t-4 border-black/[.1]`}
+      >
+        Valider
+      </button>
+    </Layout>
+  )
+}
+
+export default Generate
