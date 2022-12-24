@@ -1,15 +1,15 @@
-import { /* useEffect, */ useState } from "react"
+import { useEffect, useState } from "react"
 import { RxCrossCircled } from "react-icons/rx"
 import Layout from "./Layout"
 import AutoCompleteComponent from "./Autocomplete"
-// import api from "./services/api"
+import api from "./services/api"
 
 const Generate = ({ pageTheme }) => {
   const categoryIngredientsCss =
     "secondary-font mt-[4vh] mb-[2vh] text-lg max-sm:text-center"
   const buttonIngredients = `shadow-lg max-sm:whitespace-nowrap bg-${pageTheme}-primary-translucent sm:m-2 max-sm:mb-6 max-sm:mx-2 rounded-lg p-2 text-lg`
   const [ingredientsSelected, setIngredientsSelected] = useState([])
-  // const [categoriesIngredients, setCategoriesIngredients] = useState([])
+  const [categoriesIngredients, setCategoriesIngredients] = useState([])
 
   useEffect(() => {
     api
