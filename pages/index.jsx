@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import Layout from "../src/components/Layout"
 import bgImageTwoColors from "/public/images/background/Separation.png"
+import { useRouter } from "next/router"
 
 // 🔽🔽🔽 Images 🔽🔽🔽
 const PoeleImg = () => {
@@ -117,19 +118,30 @@ const FeuilleDImg = () => {
 
 // 🔽🔽🔽 Page render 🔽🔽🔽
 const HomePage = () => {
+  const router = useRouter()
   const buttonStyle =
     "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-xl secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-105 hover:bg-white/75"
+
+  const generateButton = (productToGenerate) => {
+    if (window.localStorage.getItem("jwt") == null) {
+      router.push(`/signin`)
+    } else {
+      router.push(`/generate?${productToGenerate}`)
+    }
+  }
 
   return (
     <Layout page="Accueil" pagetheme="food" screensize={+true}>
       <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-food-secondary relative py-2">
         <PoeleImg />
         <div className="flex flex-col md:flex-row z-30">
-          <Link href="/generate?food">
-            <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
-              Génère ton plat
-            </a>
-          </Link>
+          <button
+            type="button"
+            onClick={() => generateButton("food")}
+            className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}
+          >
+            Génère ton plat
+          </button>
           <Link href="/recipes">
             <a className={buttonStyle}>Nos plats</a>
           </Link>
@@ -147,16 +159,17 @@ const HomePage = () => {
       <div className="w-full flex-1 flex flex-col-reverse md:flex-row items-center justify-evenly bg-drink-secondary overflow-hidden relative py-2">
         <CocktailImg />
         <div className="flex flex-col md:flex-row z-30">
-          <Link href="/generate?drink">
-            <a className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}>
-              Génère ton cocktail
-            </a>
-          </Link>
+          <button
+            type="button"
+            onClick={() => generateButton("drink")}
+            className={`${buttonStyle} mb-4 md:mb-0 md:mr-4`}
+          >
+            Génère ton cocktail
+          </button>
           <Link href="/drinks">
             <a className={buttonStyle}>Nos cocktails</a>
           </Link>
         </div>
-
         <FeuilleGImg />
         <EllipseImg />
         <FeuilleDImg />
