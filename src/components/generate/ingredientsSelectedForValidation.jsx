@@ -1,11 +1,20 @@
-import AutoCompleteComponent from "../Autocomplete"
+import AutoCompleteComponent from "./autocomplete"
 import { RxCrossCircled } from "react-icons/rx"
+import { useRouter } from "next/router"
 
 const IngredientsSelectedForValidation = ({
+  categoriesIngredients,
   ingredientsSelected,
   setIngredientsSelected,
   pageTheme,
 }) => {
+  const router = useRouter()
+
+  const submitIngredientsSelected = () => {
+    localStorage.setItem("ingredients", ingredientsSelected)
+    router.push(`/recipes?${pageTheme}`)
+  }
+
   return (
     <div
       className={`sm:flex sm:flex-col sm:justify-between sm:fixed sm:top-[20vh] sm:right-[2vw] sm:h-[70vh] sm:p-12 sm:w-[calc(300px+10vw)] sm:rounded-lg sm:bg-black/[.03] max-sm:w-[80%] max-sm:mx-auto max-sm:max-h-[300px] max-sm:mb-[120px]`}
@@ -15,6 +24,7 @@ const IngredientsSelectedForValidation = ({
           Avez vous d'autres ingrédients ?
         </p>
         <AutoCompleteComponent
+          categoriesIngredients={categoriesIngredients}
           pageTheme={pageTheme}
           ingredientsSelected={ingredientsSelected}
           setIngredientsSelected={setIngredientsSelected}
@@ -38,6 +48,18 @@ const IngredientsSelectedForValidation = ({
       </div>
       <button
         className={`max-sm:hidden secondary-font p-2 mt-8 bg-${pageTheme}-primary rounded-lg shadow-lg w-full`}
+        onClick={() => {
+          submitIngredientsSelected()
+        }}
+      >
+        Valider
+      </button>
+      {/* boutton pour le design mobile*/}
+      <button
+        className={`sm:hidden w-full py-[15px] secondary-font rounded-t-full bg-${pageTheme}-primary fixed bottom-0 border-t-4 border-black/[.1]`}
+        onClick={() => {
+          submitIngredientsSelected()
+        }}
       >
         Valider
       </button>

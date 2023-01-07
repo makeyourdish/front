@@ -7,9 +7,9 @@ const GeneratePage = () => {
 
   return drink === "" ? (
     <Generate pageTheme="drink" />
-  ) : food === "" ? (
-    <Generate pageTheme="food" />
-  ) : null
+  ) : (
+    food === "" && <Generate pageTheme="food" />
+  )
 }
 
 export default GeneratePage

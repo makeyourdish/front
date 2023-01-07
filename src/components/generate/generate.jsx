@@ -28,17 +28,11 @@ const Generate = ({ pageTheme }) => {
         pageTheme={pageTheme}
       />
       <IngredientsSelectedForValidation
+        categoriesIngredients={categoriesIngredients}
         ingredientsSelected={ingredientsSelected}
         setIngredientsSelected={setIngredientsSelected}
         pageTheme={pageTheme}
       />
-
-      {/* boutton pour le design mobile*/}
-      <button
-        className={`sm:hidden w-full py-[15px] secondary-font rounded-t-full bg-${pageTheme}-primary fixed bottom-0 border-t-4 border-black/[.1]`}
-      >
-        Valider
-      </button>
     </Layout>
   )
 }
