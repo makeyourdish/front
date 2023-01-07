@@ -197,7 +197,7 @@ const RecipeIngredientsForms = ({
 //* -------------------------- StepsForms component  --------------------------
 const StepsForms = ({ recipeSteps, setRecipeSteps }) => {
   return (
-    <fieldset className="w-full border-2 rounded p-3">
+    <fieldset className="w-full border-2 rounded p-3 mb-4">
       <legend className="px-2 py-1 text-center md:text-left md:px-3 md:py-2 bg-gray-200 rounded">
         Étapes de la recette
       </legend>
@@ -451,6 +451,8 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
       preparationTimeMinutes,
       difficulty,
       recipeTypeId,
+      published,
+      isCocktail,
     }) => {
       recipe
         ? await api
@@ -465,7 +467,8 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
               difficulty: Number(difficulty),
               ingredients: recipeIngredients,
               recipeTypeId: Number(recipeTypeId),
-              published: true,
+              published,
+              isCocktail,
             })
             .then(() => router.push("/administration/recipes"))
             .catch((err) =>
@@ -483,7 +486,8 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
               difficulty: Number(difficulty),
               ingredients: recipeIngredients,
               recipeTypeId: Number(recipeTypeId),
-              published: true,
+              published,
+              isCocktail,
             })
             .then(() => router.push("/administration/recipes"))
             .catch((err) =>
@@ -539,6 +543,8 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
         priceRange: recipe ? recipe.priceRange : priceRanges[0].id,
         difficulty: recipe ? recipe.difficulty : difficulties[0].id,
         recipeTypeId: recipe ? recipe.recipeTypeId : types[0].id,
+        published: recipe ? recipe.published : false,
+        isCocktail: recipe ? recipe.isCocktail : false,
       }}
       validationSchema={displayingErrorMessagesSchema}
       onSubmit={handleSubmit}
@@ -769,6 +775,18 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
             recipeSteps={recipeSteps}
             setRecipeSteps={setRecipeSteps}
           />
+
+          <div className="flex flex-col md:flex-row items-center justify-between w-full text-xl">
+            <label className="select-none cursor-pointer mb-4 md:mb-0">
+              <Field className="mr-2" type="checkbox" name="isCocktail" />
+              Est-ce un cocktail ?
+            </label>
+
+            <label className="select-none cursor-pointer">
+              <Field className="mr-2" type="checkbox" name="published" />
+              Publier la recette
+            </label>
+          </div>
 
           {recipe ? (
             <button
