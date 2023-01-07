@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { FaEuroSign } from "react-icons/fa"
-import { ImSad2 } from "react-icons/im"
+import { ImSad2, ImSpoonKnife } from "react-icons/im"
 import { IoClose } from "react-icons/io5"
 import Loader from "./Loader"
 
@@ -16,7 +16,22 @@ const PriceRender = ({ price }) => {
     ]
   }
 
-  return <div className="flex text-3xl">{priceRender}</div>
+  return <div className="flex text-xl">{priceRender}</div>
+}
+
+const DifficultyRender = ({ difficulty }) => {
+  let DifficultyRender = []
+
+  for (let i = 1; i <= difficulty; i++) {
+    DifficultyRender = [
+      ...DifficultyRender,
+      <span key={i}>
+        <ImSpoonKnife />
+      </span>,
+    ]
+  }
+
+  return <div className="flex text-xl">Difficulté : <span className="self-center pl-2">{DifficultyRender}</span></div>
 }
 
 const IngredientsRender = ({ ingredients }) => {
@@ -31,6 +46,7 @@ const IngredientsRender = ({ ingredients }) => {
             <img
               src={ingredient.ingredient.imageUrl}
               alt="Image de l'ingrédient"
+              className="w-20 h-20 rounded-full"
             />
           ) : (
             <div className="w-16 h-16 bg-white rounded-full shadow-md mb-2 flex items-center justify-center">
@@ -88,30 +104,31 @@ const RecipeOrDrinkDetail = ({ recipeOrDrink, loading, error }) => {
 
   return (
     <section className="pt-12 w-10/12 xl:w-3/5 mx-auto">
-      <div className="flex flex-col md:flex-row items-start justify-between mb-10">
+      <div className="flex flex-col md:flex-row items-center justify-between mb-10">
         <div className="md:w-1/2 md:mr-5">
           <img
             className="bg-white rounded-3xl"
-            src={recipeOrDrink.imageUrl}
+            src={recipeOrDrink?.imageUrl}
             alt="image de la recette ou du cocktail"
           />
         </div>
-        <div className="md:w-1/2 md:ml-5">
+        <div className="md:w-1/2 md:ml-5 mt-4">
           <h2 className="secondary-font text-2xl md:text-4xl mb-5">
-            {recipeOrDrink.name}
+            {recipeOrDrink?.name}
           </h2>
           <p className="tertiary-font text-lg md:text-xl text-justify mb-5">
-            {recipeOrDrink.description}
+            {recipeOrDrink?.description}
           </p>
           <p className="tertiary-font text-lg md:text-xl text-justify mb-5">
             <span className="font-bold">Temps de préparation :</span>{" "}
-            {recipeOrDrink.preparationTime}
+            {recipeOrDrink?.preparationTime}
           </p>
           <div className="tertiary-font text-justify mb-5 flex items-center justify-between">
-            <PriceRender price={recipeOrDrink.priceRange} />
+            <PriceRender price={recipeOrDrink?.priceRange} />
             <p className="font-bold  text-xl md:text-2xl">
-              {recipeOrDrink.difficulty[0].toUpperCase() +
-                recipeOrDrink.difficulty.slice(1).toLowerCase()}
+              {/* {recipeOrDrink.difficulty[0].toUpperCase() +
+                recipeOrDrink.difficulty.slice(1).toLowerCase()} */}
+                <DifficultyRender difficulty={recipeOrDrink?.difficulty}/>
             </p>
           </div>
         </div>
@@ -121,14 +138,14 @@ const RecipeOrDrinkDetail = ({ recipeOrDrink, loading, error }) => {
         <h3 className="secondary-font text-center text-xl md:text-2xl mb-4">
           Ingrédients :
         </h3>
-        <IngredientsRender ingredients={recipeOrDrink.ingredients} />
+        <IngredientsRender ingredients={recipeOrDrink?.ingredients} />
       </div>
 
       <div className="border-t-2 border-black pt-6 mb-10">
         <h3 className="secondary-font text-center text-xl md:text-2xl mb-4">
           Préparation :
         </h3>
-        <StepsRender steps={recipeOrDrink.step.split(";")} />
+        <StepsRender steps={recipeOrDrink?.step.split(";")} />
       </div>
     </section>
   )

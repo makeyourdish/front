@@ -6,7 +6,7 @@ import api from "../../src/components/services/api"
 
 const RecipeDetailPage = () => {
   const {
-    query: { recipeId },
+    query: { drinkId },
   } = useRouter()
 
   const [drink, setDrink] = useState(null)
@@ -14,9 +14,9 @@ const RecipeDetailPage = () => {
   const [apiError, setApiError] = useState(null)
 
   useEffect(() => {
-    if (recipeId && !isNaN(recipeId)) {
+    if (drinkId && !isNaN(drinkId)) {
       api
-        .get(`/recipe/${recipeId}`)
+        .get(`/recipe/${drinkId}`)
         .then((response) => {
           setDrink(response.data)
         })
@@ -25,7 +25,7 @@ const RecipeDetailPage = () => {
         })
         .then(() => setLoading(false))
     }
-  }, [recipeId])
+  }, [drinkId])
 
   return (
     <Layout
