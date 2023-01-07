@@ -47,12 +47,12 @@ const UserInformations = ({ userId, tokenInfos, loading, apiError, user }) => {
       </div>
 
       <div className="flex flex-col lg:flex-row z-30">
-        <Link href={`accounts/${userId}/changeInformations`}>
+        <Link href={`/accounts/${userId}/updateAccountInfos`}>
           <a className={`${buttonStyle} mb-4 lg:mb-0 lg:mr-4`}>
             Modifier mes informations
           </a>
         </Link>
-        <Link href={`accounts/${userId}/changePassword`}>
+        <Link href={`/accounts/${userId}/updateAccountPassword`}>
           <a className={`${buttonStyle} mb-4 lg:mb-0 lg:mr-4`}>
             Modifier mon mot de passe
           </a>
