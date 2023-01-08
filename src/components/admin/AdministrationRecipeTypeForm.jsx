@@ -13,38 +13,38 @@ import AdminResponseNotFound from "./infos/AdminResponseNotFound"
 //* -------------------- Validation schema for creation  --------------------
 
 const displayingErrorMessagesSchema = Yup.object().shape({
-  name: Yup.string().required("Le nom de la categorie est requis"),
+  name: Yup.string().required("Le nom du type est requis"),
 })
 
 //* -------------------------- End validation schema --------------------------
 
-const AdminIngredientForm = ({ categoryIngredient, loading, error }) => {
+const AdminIngredientForm = ({ recipeType, loading, error }) => {
   const router = useRouter()
   const [responseError, setResponseError] = useState(null)
 
   const handleSubmit = useCallback(
     async ({ name, isCocktail }) => {
-      categoryIngredient
+      recipeType
         ? await api
-            .put(`/categoryIngredient/${categoryIngredient.id}`, {
+            .put(`/recipeType/${recipeType.id}`, {
               name,
               isCocktail,
             })
-            .then(() => router.push("/administration/categoryIngredients"))
+            .then(() => router.push("/administration/recipeTypes"))
             .catch((err) =>
               setResponseError(err.response ? err.response.data : err.message)
             )
         : await api
-            .post("/categoryIngredient", {
+            .post("/recipeType", {
               name,
               isCocktail,
             })
-            .then(() => router.push("/administration/categoryIngredients"))
+            .then(() => router.push("/administration/recipeTypes"))
             .catch((err) =>
               setResponseError(err.response ? err.response.data : err.message)
             )
     },
-    [router, categoryIngredient]
+    [router, recipeType]
   )
 
   if (loading) {
@@ -55,15 +55,15 @@ const AdminIngredientForm = ({ categoryIngredient, loading, error }) => {
     return <AdminResponseError error={error} otherClass="mt-10" />
   }
 
-  if (categoryIngredient && !Object.keys(categoryIngredient).length) {
+  if (recipeType && !Object.keys(recipeType).length) {
     return <AdminResponseNotFound message="Ingrédient non trouvé" />
   }
 
   return (
     <Formik
       initialValues={{
-        name: categoryIngredient ? categoryIngredient.name : "",
-        isCocktail: categoryIngredient ? categoryIngredient.isCocktail : false,
+        name: recipeType ? recipeType.name : "",
+        isCocktail: recipeType ? recipeType.isCocktail : false,
       }}
       validationSchema={displayingErrorMessagesSchema}
       onSubmit={handleSubmit}
@@ -78,9 +78,9 @@ const AdminIngredientForm = ({ categoryIngredient, loading, error }) => {
               className={`border-2 rounded py-1 px-2 w-full transition-all duration-75 outline-none outline-offset-0 focus:outline-4 focus:outline-slate-600/75 ${
                 touched.name && errors.name && "border-red-600"
               }`}
-              label="Nom de la catégorie d'ingrédient"
+              label="Nom du type de recette / cocktail"
               name="name"
-              placeholder="Le nom de la catégorie d'ingrédient"
+              placeholder="Le nom du type de recette / cocktail"
             />
             {errors.name && touched.name && (
               <div className="error-field rounded font-bold p-2 text-red-600 text-center bg-red-200">
@@ -95,17 +95,16 @@ const AdminIngredientForm = ({ categoryIngredient, loading, error }) => {
               type="checkbox"
               name="isCocktail"
             />
-            Afficher aussi pour les cocktails <br />
-            (Si non coché, cette catégorie ne s'affichera que pour les plats )
+            Pour les cocktails.
           </label>
 
-          {categoryIngredient ? (
+          {recipeType ? (
             <button
               type="submit"
               className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-blue-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-600/75"
             >
-              <FaEdit className="text-xl md:text-3xl mr-2" /> Modifier la
-              categorie d'ingrédient
+              <FaEdit className="text-xl md:text-3xl mr-2" /> Modifier le type
+              de recette / cocktail
             </button>
           ) : (
             <button
@@ -113,7 +112,7 @@ const AdminIngredientForm = ({ categoryIngredient, loading, error }) => {
               className="md:text-lg flex items-center justify-center mt-5 md:mt-10 p-3 md:p-5 bg-green-600 text-white rounded-lg transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-green-600/75"
             >
               <RiAddCircleFill className="text-xl md:text-3xl mr-2" /> Ajouter
-              la categorie d'ingrédient
+              le type de recette / cocktail
             </button>
           )}
         </Form>

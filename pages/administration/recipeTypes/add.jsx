@@ -1,17 +1,17 @@
 import Layout from "../../../src/components/Layout"
-import AdministrationCategoryIngredientForm from "../../../src/components/admin/AdministrationCategoryIngredientForm"
+import AdministrationRecipeTypeForm from "../../../src/components/admin/AdministrationRecipeTypeForm"
 
 const AddCategoryIngredientAdministrationPage = () => {
   return (
     <Layout
-      page="Administration / Ajouter une catégorie d'ingrédient"
+      page="Administration / Ajouter un type de recette ou cocktail"
       hideheader={+true}
       diplayadminheader={+true}
     >
       <h2 className="text-center text-xl sm:text-2xl md:text-3xl underline font-bold my-5 md:my-10">
-        Ajouter une catégorie d'ingrédient
+        Ajouter un type de recette ou cocktail
       </h2>
-      <AdministrationCategoryIngredientForm />
+      <AdministrationRecipeTypeForm />
     </Layout>
   )
 }
