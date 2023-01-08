@@ -25,15 +25,15 @@ const DifficultyRender = ({ difficulty }) => {
   for (let i = 1; i <= difficulty; i++) {
     DifficultyRender = [
       ...DifficultyRender,
-      <span key={i}>
+      <span key={i} className="ml-2">
         <ImSpoonKnife />
       </span>,
     ]
   }
 
   return (
-    <div className="flex text-xl">
-      Difficulté : <span className="self-center pl-2">{DifficultyRender}</span>
+    <div className="flex items-center justify-center text-xl">
+      Difficulté : {DifficultyRender}
     </div>
   )
 }
@@ -129,8 +129,6 @@ const RecipeOrDrinkDetail = ({ recipeOrDrink, loading, error }) => {
           <div className="tertiary-font text-justify mb-5 flex items-center justify-between">
             <PriceRender price={recipeOrDrink?.priceRange} />
             <p className="font-bold  text-xl md:text-2xl">
-              {/* {recipeOrDrink.difficulty[0].toUpperCase() +
-                recipeOrDrink.difficulty.slice(1).toLowerCase()} */}
               <DifficultyRender difficulty={recipeOrDrink?.difficulty} />
             </p>
           </div>

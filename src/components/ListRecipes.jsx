@@ -3,9 +3,14 @@ import { useEffect, useState } from "react"
 import Layout from "./Layout"
 import api from "./services/api"
 import { useRouter } from "next/router"
+import Loader from "./Loader"
+import { ImSad2 } from "react-icons/im"
 
 const ListRecipes = () => {
   const [recipes, setRecipes] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [apiError, setApiError] = useState(null)
+
   const router = useRouter()
   const path = window.location.search.slice(1)
 
@@ -18,12 +23,47 @@ const ListRecipes = () => {
   }, [path])
 
   const getRecipesWithApi = (endpoint) => {
-    api.get(`/${endpoint}`).then((response) => {
-      setRecipes(response.data)
-    })
+    api
+      .get(`/${endpoint}`)
+      .then((response) => {
+        setRecipes(response.data)
+      })
+      .catch((error) => {
+        setApiError(error.response ? error.response.data : error.message)
+      })
+      .then(() => setLoading(false))
   }
 
   const DisplayRecipes = () => {
+    if (loading) {
+      return (
+        <section className="flex items-center justify-center flex-grow">
+          <Loader color="color" message="Chargement des recettes" />
+        </section>
+      )
+    }
+
+    if (apiError) {
+      return (
+        <section className="flex items-center justify-center flex-grow">
+          <div className="w-full mb-7 py-2 flex items-center justify-center text-center font-bold text-2xl rounded">
+            <ImSad2 className="text-5xl mr-3" /> {apiError}
+          </div>
+        </section>
+      )
+    }
+
+    if (!recipes.length) {
+      return (
+        <section className="flex items-center justify-center flex-grow">
+          <div className="w-full mb-7 py-2 flex items-center justify-center text-center font-bold text-2xl rounded">
+            <ImSad2 className="text-5xl mr-3" /> Aucune recette ou cocktail
+            trouvée
+          </div>
+        </section>
+      )
+    }
+
     return recipes.map((recipe, key) => {
       const recipeIngredients = []
       recipe.ingredients.forEach((ingredient) => {
@@ -89,7 +129,7 @@ const ListRecipes = () => {
     <Layout page="Recipes" pagetheme={path} screensize={+true}>
       <div className="my-20">
         <h1 className="text-4xl secondary-font mb-16 max-sm:text-center sm:pl-[25%]">
-          Nos recettes
+          Nos {path.includes("food") ? "plats" : "cocktails"}
         </h1>
         <ul>
           <DisplayRecipes />
