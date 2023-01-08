@@ -4,6 +4,7 @@ import { FaUserCircle } from "react-icons/fa"
 import { IoFastFood } from "react-icons/io5"
 import { BiFoodMenu } from "react-icons/bi"
 import Layout from "../src/components/Layout"
+import { MdOutlineNoFood } from "react-icons/md"
 
 const AdministrationPage = () => {
   const [info, setInfo] = useState(null)
@@ -62,6 +63,42 @@ const AdministrationPage = () => {
             >
               <IoFastFood className="text-lg sm:text-3xl mr-2" />
               Gestion des recettes et des cocktails
+            </a>
+          </Link>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-center w-full">
+          <Link href="/administration/recipeTypes">
+            <a
+              onMouseEnter={() => {
+                setInfo(
+                  "Ajouter, modifier, supprimer ou afficher les types de recettes"
+                )
+              }}
+              onMouseLeave={() => {
+                setInfo(null)
+              }}
+              className="flex items-center justify-center rounded-lg w-full py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
+            >
+              <MdOutlineNoFood className="text-lg sm:text-3xl mr-2" />
+              Gestion des types de recettes
+            </a>
+          </Link>
+
+          <Link href="/administration/categoryIngredients">
+            <a
+              onMouseEnter={() => {
+                setInfo(
+                  "Ajouter, modifier, supprimer ou afficher les catégories d'ingrédients"
+                )
+              }}
+              onMouseLeave={() => {
+                setInfo(null)
+              }}
+              className="flex items-center justify-center rounded-lg w-full py-4 m-3 text-sm sm:text-lg bg-blue-500 text-white transition-all duration-75 hover:scale-105 hover:drop-shadow-xl focus:outline focus:outline-4 focus:outline-blue-500/75"
+            >
+              <MdOutlineNoFood className="text-lg sm:text-3xl mr-2" />
+              Gestion des catégories d'ingrédients
             </a>
           </Link>
         </div>

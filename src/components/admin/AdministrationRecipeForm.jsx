@@ -776,15 +776,10 @@ const AdminRecipeForm = ({ recipe, loading, error }) => {
             setRecipeSteps={setRecipeSteps}
           />
 
-          <div className="flex flex-col md:flex-row items-center justify-between w-full text-xl">
-            <label className="select-none cursor-pointer mb-4 md:mb-0">
-              <Field className="mr-2" type="checkbox" name="isCocktail" />
-              Est-ce un cocktail ?
-            </label>
-
+          <div className="flex items-center justify-center w-full text-xl">
             <label className="select-none cursor-pointer">
               <Field className="mr-2" type="checkbox" name="published" />
-              Publier la recette
+              Publier la recette ?
             </label>
           </div>
 

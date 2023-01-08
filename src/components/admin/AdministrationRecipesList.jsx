@@ -11,7 +11,7 @@ import AdminResponseNotFound from "./infos/AdminResponseNotFound"
 //* -------------------- Delete recipe confirm dialog box --------------------
 const showDeleteRecipeConfirm = (id, name, recipes, setRecipes) => {
   Swal.fire({
-    title: `Vous êtes sûr de vouloir supprimer l'ingrédient "${name}" ?`,
+    title: `Vous êtes sûr de vouloir supprimer la recette ou le cocktail "${name}" ?`,
     text: "Cette action est définitive !",
     icon: "warning",
     showDenyButton: true,
@@ -88,7 +88,7 @@ const AdministrationrecipeList = ({ recipes, loading, error, setRecipes }) => {
                   onClick={() =>
                     showDeleteRecipeConfirm(
                       recipe.id,
-                      recipe.recipeName,
+                      recipe.name,
                       recipes,
                       setRecipes
                     )
