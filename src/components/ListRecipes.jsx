@@ -66,13 +66,13 @@ const ListRecipes = () => {
 
     const isContainsAtLeastOneSelectedIngredient = (recipeIngredients) => {
       for (let i = 0; i < recipeIngredients.length; i++) {
-        console.log(recipeIngredients[i])
         if (
           localStorage.getItem("ingredients").includes(recipeIngredients[i])
         ) {
           return true
         }
       }
+
       return false
     }
 
