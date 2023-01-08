@@ -31,7 +31,11 @@ const DifficultyRender = ({ difficulty }) => {
     ]
   }
 
-  return <div className="flex text-xl">Difficulté : <span className="self-center pl-2">{DifficultyRender}</span></div>
+  return (
+    <div className="flex text-xl">
+      Difficulté : <span className="self-center pl-2">{DifficultyRender}</span>
+    </div>
+  )
 }
 
 const IngredientsRender = ({ ingredients }) => {
@@ -45,7 +49,6 @@ const IngredientsRender = ({ ingredients }) => {
           {ingredient.ingredient.imageUrl ? (
             <img
               src={ingredient.ingredient.imageUrl}
-              alt="Image de l'ingrédient"
               className="w-20 h-20 rounded-full shadow-md"
             />
           ) : (
@@ -70,10 +73,9 @@ const StepsRender = ({ steps }) => {
   return (
     <ul className="flex flex-col items-center justify-center text-lg md:text-xl flex-wrap font-semibold">
       {steps.map((step, index) => (
-        <li key={index} className="text-center mb-3">
-          <p>
-            Etape {index + 1} - {step}
-          </p>
+        <li key={index} className="text-center my-6">
+          <p className="font-extrabold text-2xl mb-3">Etape {index + 1} :</p>{" "}
+          <p>{step}</p>
         </li>
       ))}
     </ul>
@@ -128,7 +130,7 @@ const RecipeOrDrinkDetail = ({ recipeOrDrink, loading, error }) => {
             <p className="font-bold  text-xl md:text-2xl">
               {/* {recipeOrDrink.difficulty[0].toUpperCase() +
                 recipeOrDrink.difficulty.slice(1).toLowerCase()} */}
-                <DifficultyRender difficulty={recipeOrDrink?.difficulty}/>
+              <DifficultyRender difficulty={recipeOrDrink?.difficulty} />
             </p>
           </div>
         </div>

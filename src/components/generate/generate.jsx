@@ -12,7 +12,6 @@ const Generate = ({ pageTheme }) => {
     api
       .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}allCategoryIngredient`)
       .then((response) => {
-        console.log(response.data)
         if (pageTheme === "drink") {
           const categoriesIngredientsCocktail = []
           response.data.forEach((categoryIngredient) => {

@@ -47,7 +47,7 @@ const RecipeIngredientsForms = ({
     "cl",
     "l",
     "cuillère à soupe",
-    "cuillère à caffé",
+    "cuillère à café",
     "pincée",
     "tasse",
     "verre",

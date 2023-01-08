@@ -3,6 +3,7 @@ import Image from "next/image"
 import Layout from "../src/components/Layout"
 import bgImageTwoColors from "/public/images/background/Separation.png"
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 // 🔽🔽🔽 Images 🔽🔽🔽
 const PoeleImg = () => {
@@ -121,6 +122,10 @@ const HomePage = () => {
   const router = useRouter()
   const buttonStyle =
     "bg-white text-center px-9 py-2 md:px-12 md:py-3 md:text-xl secondary-font rounded-2xl drop-shadow-md transition transform hover:scale-105 hover:bg-white/75"
+
+  useEffect(() => {
+    localStorage.setItem("ingredients", "")
+  }, [])
 
   const generateButton = (productToGenerate) => {
     if (window.localStorage.getItem("jwt") == null) {

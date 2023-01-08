@@ -10,7 +10,6 @@
 
 :root {
   --food-primary-color: #f68a8a;
-
   --food-primary-color-translucent: rgb(246, 138, 138, 0.3);
   --food-secondary-color: #ffdbdb;
   --drink-primary-color: #fffcb5;
@@ -62,6 +61,16 @@
 
 .bg-drink-primary-translucent {
   background-color: var(--drink-primary-color-translucent);
+}
+
+/*********** Text color  ***********/
+
+.text-food-primary {
+  color: var(--food-primary-color);
+}
+
+.text-drink-primary {
+  color: black;
 }
 
 /*********** Fonts ***********/
