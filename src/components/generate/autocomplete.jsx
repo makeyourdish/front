@@ -14,18 +14,17 @@ const AutoCompleteComponent = ({
         allIngredients.push(ingredient.name)
       }
     }
-    console.log(allIngredients)
 
     if (categoriesIngredients.length != 0) {
       const autoComplete = new AutoComplete({
-        threshold: 2,
+        threshold: 0,
         selector: "#searchIngredients",
         data: {
           src: allIngredients,
           cache: true,
         },
         resultsList: {
-          maxResults: 5,
+          maxResults: 20,
         },
         resultItem: {
           element: (item, data) => {

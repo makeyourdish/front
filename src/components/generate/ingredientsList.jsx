@@ -5,6 +5,7 @@ const IngredientsList = ({
   setIngredientsSelected,
 }) => {
   function callIngredients(category) {
+    console.log(category)
     return (
       <ul className="flex flex-row flex-wrap sm:justify-left max-sm:justify-center overflow-y-auto scroller-thumb scroller tertiary-font max-h-[200px]">
         {category.ingredients.map((ingredient, key) => (
@@ -35,7 +36,7 @@ const IngredientsList = ({
   }
 
   return (
-    <div className="sm:w-[50vw] sm:my-[5vh] sm:ml-[7vw] sm:mx-auto max-sm:flex max-sm:flex-col-reverse max-sm:justify-between max-sm:px-12">
+    <div className="sm:w-[45vw] sm:my-[5vh] sm:ml-[7vw] sm:mx-auto max-sm:flex max-sm:flex-col-reverse max-sm:justify-between max-sm:px-12">
       <div className="justify-between flex flex-col max-sm:mb-16">
         <ul>
           {categoriesIngredients.map((category, key) => (
