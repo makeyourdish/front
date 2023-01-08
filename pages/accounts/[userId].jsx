@@ -6,6 +6,7 @@ import api from "../../src/components/services/api"
 import Layout from "../../src/components/Layout"
 import AccountNav from "../../src/components/account/AccountNav"
 import AccountInformations from "../../src/components/account/AccountInformations"
+import { ImSad2 } from "react-icons/im"
 
 const SpatuleImg = () => {
   const src = "/images/background/Spatule.png"
@@ -44,7 +45,6 @@ const AccountPage = () => {
   const [loading, setLoading] = useState(true)
   const [apiError, setApiError] = useState(null)
 
-
   useEffect(() => {
     if (session) {
       setTokenInfos(JSON.parse(session).payload)
@@ -65,6 +65,23 @@ const AccountPage = () => {
     }
   }, [userId])
 
+  if (Number(userId) !== tokenInfos?.userId) {
+    return (
+      <Layout
+        page="Modifier mon mot de passe"
+        pagetheme="food"
+        screensize={+true}
+      >
+        <section className="flex items-center justify-center flex-grow">
+          <div className="w-full mb-7 py-2 flex items-center justify-center text-center font-bold text-2xl rounded">
+            <ImSad2 className="text-5xl mr-3" /> Vous n'avez pas accès à cette
+            page
+          </div>
+        </section>
+      </Layout>
+    )
+  }
+
   return (
     <Layout
       page={`Profil: ${user?.userName || "..."}`}
@@ -76,7 +93,6 @@ const AccountPage = () => {
           <AccountNav pageSelected={1} user={user} />
           <AccountInformations
             userId={userId}
-            tokenInfos={tokenInfos}
             loading={loading}
             apiError={apiError}
             user={user}
