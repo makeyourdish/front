@@ -5,7 +5,6 @@ const IngredientsList = ({
   setIngredientsSelected,
 }) => {
   function callIngredients(category) {
-    console.log(category)
     return (
       <ul className="flex flex-row flex-wrap sm:justify-left max-sm:justify-center overflow-y-auto scroller-thumb scroller tertiary-font max-h-[200px]">
         {category.ingredients.map((ingredient, key) => (

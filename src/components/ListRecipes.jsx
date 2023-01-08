@@ -7,46 +7,59 @@ const ListRecipes = (pageTheme) => {
 
   useEffect(() => {
     const path = window.location.search
-    if (path.includes("food")) {
+    if (path.includes("?food")) {
       getRecipesWithApi("NormalRecipe")
-    } else if (path.includes("drink")) {
+    } else if (path.includes("?drink")) {
       getRecipesWithApi("CocktailRecipe")
     }
-    console.log(recipes)
   }, [])
 
   const getRecipesWithApi = (endpoint) => {
     api
       .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}${endpoint}`)
       .then((response) => {
+        console.log(response.data)
         setRecipes(response.data)
       })
   }
 
   const displayRecipes = () => {
     return (
-      <div className="border-b-[1px] border-black/20 p-8 m-auto  w-[80%] tertiary-font">
-        <h4 className="mb-8 max-sm:text-center sm:pl-8 text-3xl font-bold">
-          Titre d'une recette
-        </h4>
-        <span className="flex max-sm:flex-col sm:flex-row justify-between">
-          <div className="flex flex-col max-sm:text-center justify-around text-xl">
-            <p className="max-sm:mb-12">
-              Une pintade farcie au foie gras et aux marrons avec ses légumes
-              oubliés, une recette aux couleurs chaleureuses à déguster avec vos
-              proches !
-            </p>
-            <div className="flex flex-row justify-around max-sm:mb-6">
-              <p>1h55</p>
-              <p>4 personnes</p>
-            </div>
-            <div className="flex flex-row justify-around">
-              <span id="stars">3</span>
-              <span id="priceSlice">4</span>
-            </div>
-          </div>
-        </span>
-      </div>
+      <ul>
+        {recipes.map((recipe, key) => {
+          return (
+            <li
+              key={key}
+              className="border-b-[1px] border-black/20 py-8 m-auto w-[80%] max-w-[1200px] tertiary-font bg-red-200"
+            >
+              <h4 className="mb-4 max-sm:text-center sm:pl-8 text-3xl font-bold">
+                {recipe.name}
+              </h4>
+              <div className="flex max-sm:flex-col sm:flex-row justify-between bg-purple-200">
+                <img
+                  src={recipe.imageUrl}
+                  className="rounded-xl max-w-[200px] max-sm:m-auto max-sm:mb-5"
+                />
+                <div className="flex flex-col max-sm:text-center justify-between mx-[5vw] bg-green-300">
+                  <p className="max-sm:mb-8 text-lg sm:mb-6 overflow-y-auto max-h-[180px] scroller scroller-thumb bg-yellow-400">
+                    {recipe.description}
+                  </p>
+                  <section className="bg-slate-100">
+                    <span className="flex flex-row justify-around max-sm:mb-2 ">
+                      <p>{recipe.preparationTime}</p>
+                      <p>{recipe.personNb} personne(s)</p>
+                    </span>
+                    <span className="flex flex-row justify-around">
+                      <p> Difficulté : {recipe.difficulty}</p>
+                      <p>Coût : {recipe.priceRange}</p>
+                    </span>
+                  </section>
+                </div>
+              </div>
+            </li>
+          )
+        })}
+      </ul>
     )
   }
 

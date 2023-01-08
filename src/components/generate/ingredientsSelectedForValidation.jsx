@@ -17,7 +17,7 @@ const IngredientsSelectedForValidation = ({
 
   return (
     <div
-      className={`sm:flex sm:flex-col sm:justify-between sm:fixed sm:top-[20vh] sm:right-[2vw] sm:h-[70vh] sm:p-12 sm:w-[calc(300px+10vw)] sm:rounded-lg sm:bg-black/[.03] max-sm:w-[80%] max-sm:mx-auto max-sm:max-h-[300px] max-sm:mb-[120px]`}
+      className={`sm:flex sm:flex-col sm:justify-between sm:fixed sm:top-[20vh] sm:right-[2vw] sm:h-[70vh] sm:p-12 sm:w-[calc(300px+10vw)] sm:rounded-lg sm:bg-black/[.03] max-sm:w-[80%] max-sm:mx-auto max-sm:max-h-[300px] max-sm:mb-[100px]`}
     >
       <span className="mb-6">
         <p className="text-center mb-6 font-bold secondary-font whitespace-nowrap">
@@ -30,7 +30,7 @@ const IngredientsSelectedForValidation = ({
           setIngredientsSelected={setIngredientsSelected}
         />
       </span>
-      <div className="sm:w-full sm:h-[calc(100%-200px)] max-sm:max-h-[200px] max-sm:flex max-sm:flex-row max-sm:flex-wrap max-sm:justify-center max-sm:mt-8 overflow-y-auto scroller-thumb scroller">
+      <div className="sm:w-full sm:h-[calc(100%-200px)] max-sm:h-[160px] max-sm:flex max-sm:flex-row max-sm:flex-wrap max-sm:justify-center max-sm:mt-8 overflow-y-auto scroller-thumb scroller">
         {ingredientsSelected.map((element, index) => (
           <button
             key={index}
@@ -56,7 +56,7 @@ const IngredientsSelectedForValidation = ({
       </button>
       {/* boutton pour le design mobile*/}
       <button
-        className={`sm:hidden w-full py-[15px] secondary-font rounded-t-full bg-${pageTheme}-primary fixed bottom-0 border-t-4 border-black/[.1]`}
+        className={`sm:hidden w-full py-[15px] secondary-font rounded-t-full bg-${pageTheme}-primary fixed left-0 bottom-0 border-t-4 border-black/[.1]`}
         onClick={() => {
           submitIngredientsSelected()
         }}

@@ -142,7 +142,7 @@ const HomePage = () => {
           >
             Génère ton plat
           </button>
-          <Link href="/recipes">
+          <Link href="recipes?food">
             <a className={buttonStyle}>Nos plats</a>
           </Link>
         </div>
@@ -166,7 +166,7 @@ const HomePage = () => {
           >
             Génère ton cocktail
           </button>
-          <Link href="/drinks">
+          <Link href="/recipes?drink">
             <a className={buttonStyle}>Nos cocktails</a>
           </Link>
         </div>
