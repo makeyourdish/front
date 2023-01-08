@@ -64,15 +64,26 @@ const ListRecipes = () => {
       )
     }
 
+    const isContainsAtLeastOneSelectedIngredient = (recipeIngredients) => {
+      for (let i = 0; i < recipeIngredients.length; i++) {
+        console.log(recipeIngredients[i])
+        if (
+          localStorage.getItem("ingredients").includes(recipeIngredients[i])
+        ) {
+          return true
+        }
+      }
+      return false
+    }
+
     return recipes.map((recipe, key) => {
       const recipeIngredients = []
       recipe.ingredients.forEach((ingredient) => {
         recipeIngredients.push(ingredient.ingredient.name)
       })
 
-      const isContainsIngredientsSelected = recipeIngredients.includes(
-        localStorage.getItem("ingredients")
-      )
+      const isContainsIngredientsSelected =
+        isContainsAtLeastOneSelectedIngredient(recipeIngredients)
 
       return (
         (isContainsIngredientsSelected ||
