@@ -54,7 +54,7 @@ const AutoCompleteComponent = ({
         },
       })
     }
-  }, [categoriesIngredients, ingredientsSelected, setIngredientsSelected])
+  }, [categoriesIngredients])
 
   return (
     <div className="autoComplete_wrapper tertiary-font font-light w-full">
