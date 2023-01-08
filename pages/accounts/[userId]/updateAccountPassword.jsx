@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useCallback, useContext, useEffect, useState } from "react"
+import { FiAlertTriangle } from "react-icons/fi"
 import { ImSad2 } from "react-icons/im"
 import * as Yup from "yup"
 import AppContext from "../../../src/components/AppContext"
@@ -66,8 +67,7 @@ const UpdateAccountPassword = () => {
     query: { userId },
   } = useRouter()
 
-  const router = useRouter()
-  const { session } = useContext(AppContext)
+  const { session, signOut } = useContext(AppContext)
   const [tokenInfos, setTokenInfos] = useState(null)
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -97,6 +97,7 @@ const UpdateAccountPassword = () => {
   const handleFormSubmit = useCallback(
     async ({ oldPassword, password }) => {
       const userEmail = tokenInfos.userEmail
+
       await api
         .put(`/user/${user.id}/updatePassword`, {
           email: userEmail,
@@ -104,14 +105,13 @@ const UpdateAccountPassword = () => {
           password,
         })
         .then(() => {
-          localStorage.removeItem("jwt")
-          router.push(`/signin`)
+          signOut()
         })
         .catch((err) =>
           setResponseError(err.response ? err.response.data : err.message)
         )
     },
-    [user]
+    [signOut, tokenInfos?.userEmail, user?.id]
   )
 
   useEffect(() => {
@@ -224,6 +224,11 @@ const UpdateAccountPassword = () => {
                 >
                   Modifier mon mot de passe
                 </button>
+
+                <p className="text-lg tertiary-font mt-5 flex items-center justify-center bg-yellow-200 text-yellow-600 px-3 py-2 rounded-lg shadow-md">
+                  <FiAlertTriangle className="text-3xl mr-2" /> Après la
+                  modification, vous devrez vous reconnecter
+                </p>
               </Form>
             )}
           </Formik>
