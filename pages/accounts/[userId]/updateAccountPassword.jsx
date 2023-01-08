@@ -219,7 +219,7 @@ const UpdateAccountPassword = () => {
             <Form className="z-10 flex flex-col justify-center items-center w-5/6 md:w-1/2 mb-10">
               <div className="mb-6 w-full">
                 <Field
-                  className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-yellow-500"
+                  className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-red-500"
                   name="oldPassword"
                   type="password"
                   placeholder="🔒 Entrer votre ancien mot de passe"
@@ -232,7 +232,7 @@ const UpdateAccountPassword = () => {
               </div>
               <div className="mb-6 w-full">
                 <Field
-                  className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-yellow-500"
+                  className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-red-500"
                   name="password"
                   type="password"
                   placeholder="🔒 Entrer votre nouveau mot de passe"
@@ -245,7 +245,7 @@ const UpdateAccountPassword = () => {
               </div>
               <div className="mb-6 w-full">
                 <Field
-                  className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-yellow-500"
+                  className="text-center py-3 w-full rounded-full border-food-primary border-4 text-xl tertiary-font transition-all focus:outline focus:outline-3 focus:outline-red-500"
                   name="passwordConfirm"
                   type="password"
                   placeholder="🔒 Confirmer le nouveau mot de passe"
