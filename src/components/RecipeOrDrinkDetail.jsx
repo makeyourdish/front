@@ -49,6 +49,7 @@ const IngredientsRender = ({ ingredients }) => {
           {ingredient.ingredient.imageUrl ? (
             <img
               src={ingredient.ingredient.imageUrl}
+              alt="Image de l'ingrédient"
               className="w-20 h-20 rounded-full shadow-md"
             />
           ) : (

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react"
 import Layout from "./Layout"
 import api from "./services/api"
@@ -14,19 +15,15 @@ const ListRecipes = () => {
     } else if (path.includes("drink")) {
       getRecipesWithApi("CocktailRecipe")
     }
-  }, [])
+  }, [path])
 
   const getRecipesWithApi = (endpoint) => {
-    api
-      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}${endpoint}`)
-      .then((response) => {
-        setRecipes(response.data)
-      })
+    api.get(`/${endpoint}`).then((response) => {
+      setRecipes(response.data)
+    })
   }
 
   const DisplayRecipes = () => {
-    
-      let cpt = 0
     return recipes.map((recipe, key) => {
       const recipeIngredients = []
       recipe.ingredients.forEach((ingredient) => {
@@ -36,7 +33,6 @@ const ListRecipes = () => {
       const isContainsIngredientsSelected = recipeIngredients.includes(
         localStorage.getItem("ingredients")
       )
-
 
       return (
         (isContainsIngredientsSelected ||
@@ -63,6 +59,7 @@ const ListRecipes = () => {
               <div className="flex max-sm:flex-col sm:flex-row justify-between">
                 <img
                   src={recipe.imageUrl}
+                  alt="Image de la recette"
                   className="rounded-xl max-w-[200px] max-sm:m-auto max-sm:mb-5"
                 />
                 <div className="flex flex-col max-sm:text-center justify-between mx-[5vw]">
@@ -83,7 +80,6 @@ const ListRecipes = () => {
               </div>
             </button>
           </li>
-          {cpt++}
         )
       )
     })

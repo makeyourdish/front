@@ -9,22 +9,20 @@ const Generate = ({ pageTheme }) => {
   const [categoriesIngredients, setCategoriesIngredients] = useState([])
 
   useEffect(() => {
-    api
-      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}allCategoryIngredient`)
-      .then((response) => {
-        if (pageTheme === "drink") {
-          const categoriesIngredientsCocktail = []
-          response.data.forEach((categoryIngredient) => {
-            if (categoryIngredient.isCocktail) {
-              categoriesIngredientsCocktail.push(categoryIngredient)
-            }
-          })
-          setCategoriesIngredients(categoriesIngredientsCocktail)
-        } else {
-          setCategoriesIngredients(response.data)
-        }
-      })
-  }, [])
+    api.get(`/allCategoryIngredient`).then((response) => {
+      if (pageTheme === "drink") {
+        const categoriesIngredientsCocktail = []
+        response.data.forEach((categoryIngredient) => {
+          if (categoryIngredient.isCocktail) {
+            categoriesIngredientsCocktail.push(categoryIngredient)
+          }
+        })
+        setCategoriesIngredients(categoriesIngredientsCocktail)
+      } else {
+        setCategoriesIngredients(response.data)
+      }
+    })
+  }, [pageTheme])
 
   return (
     <Layout page="Recipes" pagetheme={pageTheme} screensize={+true}>
