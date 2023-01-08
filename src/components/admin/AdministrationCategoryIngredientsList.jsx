@@ -65,7 +65,9 @@ const AdministrationingredientList = ({
   }
 
   if (!categoryIngredients.length) {
-    return <AdminResponseNotFound message="Aucun ingrédient trouvé" />
+    return (
+      <AdminResponseNotFound message="Aucune catégorie d'ingrédient n'a été trouvée" />
+    )
   }
 
   return (
@@ -83,7 +85,7 @@ const AdministrationingredientList = ({
             <tr key={category.id} className={index % 2 && "bg-slate-200"}>
               <td className="border w-1/2 px-8">{category.name}</td>
               <td className="border w-1/2 px-8">
-                {category.isCocktail ? "Cocktails et plats" : "Juste plats"}
+                {category.isCocktail ? "Cocktails et plats" : "Plats"}
               </td>
               <td className="border w-min">
                 <Link

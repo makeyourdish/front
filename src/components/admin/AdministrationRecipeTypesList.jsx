@@ -59,7 +59,9 @@ const AdministrationtypeList = ({
   }
 
   if (!recipeTypes.length) {
-    return <AdminResponseNotFound message="Aucun ingrédient trouvé" />
+    return (
+      <AdminResponseNotFound message="Aucun type de recette n'a été trouvé" />
+    )
   }
 
   return (
