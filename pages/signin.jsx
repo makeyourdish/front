@@ -1,6 +1,6 @@
+import { Field, Form, Formik } from "formik"
 import Image from "next/image"
 import Link from "next/link"
-import { Field, Form, Formik } from "formik"
 import { useCallback, useContext } from "react"
 import * as Yup from "yup"
 import AppContext from "../src/components/AppContext"
@@ -72,8 +72,8 @@ const Signin = () => {
 
         <Formik
           initialValues={{
-            email: "",
-            password: "",
+            email: "user@gmail.com",
+            password: "user",
           }}
           validationSchema={displayErrorSchema}
           onSubmit={handleFormSubmit}
